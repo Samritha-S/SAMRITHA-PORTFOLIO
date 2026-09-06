@@ -87,7 +87,7 @@ export function UnfilteredJourneyTimeline({
 
                 {/* Glowing Gold Timeline Node */}
                 <div className="absolute -left-[30px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[var(--bg-base)] border-2 border-[var(--accent-gold)] shadow-[0_0_10px_var(--gold-glow)] group-hover:bg-[var(--accent-gold)] group-hover:shadow-[0_0_16px_var(--accent-gold)] transition-all duration-300 flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[#2C3436]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
                 </div>
 
                 {/* Narrative Entry: Alternates Dusk Blue-tinted and Mystic Amethyst panel */}

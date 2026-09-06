@@ -97,7 +97,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 12 }, (_, i) => ({
         id: generateUniqueId("primary"),
         d: generateAestheticPath(i, position, "primary"),
-        opacity: 0.09 + i * 0.012, // was 0.15 + i * 0.02 — more transparent, less clash with text
+        opacity: 0.11 + i * 0.015,
         width: 4 + i * 0.3,
         duration: 25,
         delay: 0,
@@ -110,7 +110,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 15 }, (_, i) => ({
         id: generateUniqueId("secondary"),
         d: generateAestheticPath(i, position, "secondary"),
-        opacity: 0.07 + i * 0.009, // was 0.12 + i * 0.015
+        opacity: 0.085 + i * 0.011,
         width: 3 + i * 0.25,
         duration: 20,
         delay: 0,
@@ -123,10 +123,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 10 }, (_, i) => ({
         id: generateUniqueId("accent"),
         d: generateAestheticPath(i, position, "accent"),
-        // NOTE: fixed from the stock component's `0.08 + i * 0.12`, which pushed
-        // late accent strands to opacity > 1. Kept restrained here on purpose —
-        // accents should stay the faintest layer, not the brightest.
-        opacity: 0.045 + i * 0.011, // was 0.08 + i * 0.02 — even fainter than primary/secondary
+        opacity: 0.06 + i * 0.01,
         width: 2 + i * 0.2,
         duration: 15,
         delay: 0,
@@ -153,15 +150,12 @@ const FloatingPaths = memo(function FloatingPaths({
       >
         <title>Background Paths</title>
         <defs>
-          {/* Recolored from stock violet/pink/blue to the portfolio's own
-              Mystic Amethyst → Sand & Shell(-tinted gold) → Dusk Blue range,
-              so the strands read as "your palette drifting," not a generic demo.
-              Alpha values lowered from the first pass — they were sitting too
-              solid against the hero text. */}
+          {/* Water Lily Pond Palette:
+              Rosy brown (#D3968C) → Moss green (#839958) → Midnight green (#105666) */}
           <linearGradient id="portfolioGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(75, 60, 88, 0.3)" />    {/* Mystic Amethyst #4B3C58 */}
-            <stop offset="50%" stopColor="rgba(201, 162, 75, 0.22)" /> {/* antique gold accent */}
-            <stop offset="100%" stopColor="rgba(96, 119, 133, 0.28)" /> {/* Dusk Blue #607785 */}
+            <stop offset="0%" stopColor="rgba(211, 150, 140, 0.42)" />   {/* Rosy brown #D3968C */}
+            <stop offset="50%" stopColor="rgba(131, 153, 88, 0.38)" />   {/* Moss green #839958 */}
+            <stop offset="100%" stopColor="rgba(16, 86, 102, 0.45)" />   {/* Midnight green #105666 */}
           </linearGradient>
         </defs>
 
@@ -267,7 +261,7 @@ export default memo(function BackgroundPaths({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#2C3436]",
+        "relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[var(--bg-base)]",
         className
       )}
     >

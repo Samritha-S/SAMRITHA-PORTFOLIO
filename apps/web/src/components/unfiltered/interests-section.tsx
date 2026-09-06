@@ -236,7 +236,7 @@ function MarvelCardFlipModule() {
         </div>
 
         {/* BACK FACE (180deg flipped) */}
-        <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-xl p-6 bg-[#231A2B] border-2 border-[var(--accent-gold)]/60 flex flex-col justify-between shadow-md">
+        <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-xl p-6 bg-[var(--surface-amethyst)] border-2 border-[var(--accent-gold)]/60 flex flex-col justify-between shadow-md">
           <div className="flex justify-between items-center text-[10px] font-mono text-[var(--accent-gold)]">
             <span>MEMORIZED LINE</span>
             <span>{quoteIndex + 1}/{quotes.length}</span>
@@ -473,7 +473,7 @@ function TravellingCardStackModule() {
             onClick={shuffleDeck}
             whileHover={{ y: -8, scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className={`p-6 rounded-lg border cursor-pointer transition-all duration-300 relative shadow-md bg-[#241D2B] border-[var(--border-subtle)] hover:border-[var(--accent-gold)] ${
+            className={`p-6 rounded-lg border cursor-pointer transition-all duration-300 relative shadow-md bg-[var(--surface-dusk)] border-[var(--border-subtle)] hover:border-[var(--accent-gold)] ${
               i === 0 ? "border-[var(--accent-gold)] shadow-[0_4px_20px_var(--gold-glow)]" : ""
             }`}
           >

@@ -26,7 +26,7 @@ export function FilterToggle() {
           aria-pressed={!isFiltered}
           className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer ${
             !isFiltered
-              ? "text-[#2C3436] font-semibold"
+              ? "text-[#0A3323] font-semibold"
               : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
           }`}
         >

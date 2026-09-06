@@ -3,19 +3,19 @@
 @layer base {
   :root,
   [data-view="unfiltered"] {
-    --bg-base: #2C3436;
-    --bg-elevated: #3B2F44;
-    --surface-amethyst: #3B2F44;
-    --surface-dusk: #34434B;
-    --surface-sage: #333C37;
-    --accent-primary: #91967A;
-    --accent-secondary: #607785;
-    --text-primary: #E3DDC7;
-    --accent-gold: #C9A24B;
-    --gold-glow: rgba(201, 162, 75, 0.35);
-    --border-subtle: rgba(96, 119, 133, 0.28);
-    --card-surface: rgba(59, 47, 68, 0.65);
-    --card-hover: rgba(59, 47, 68, 0.85);
+    --bg-base: #0A3323;
+    --bg-elevated: #114230;
+    --surface-amethyst: #2E1F24;
+    --surface-dusk: #0F4450;
+    --surface-sage: #163C26;
+    --accent-primary: #D3968C;
+    --accent-secondary: #839958;
+    --text-primary: #F7F4D5;
+    --accent-gold: #F0CB73;
+    --gold-glow: rgba(240, 203, 115, 0.4);
+    --border-subtle: rgba(131, 153, 88, 0.28);
+    --card-surface: rgba(16, 62, 45, 0.7);
+    --card-hover: rgba(20, 77, 56, 0.85);
   }
 
   [data-view="filtered"] {
