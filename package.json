@@ -1,0 +1,12 @@
+{
+  "name": "samritha-portfolio-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "dev:studio": "pnpm --filter studio dev",
+    "build": "pnpm --filter web build && pnpm --filter studio build",
+    "build:web": "pnpm --filter web build",
+    "build:studio": "pnpm --filter studio build"
+  }
+}
