@@ -66,6 +66,30 @@ const unfilteredGallery: GalleryItem[] = [
     gradient: "from-[#483B52] via-[#362C3E] to-[#1E1724]",
     icon: "📖",
   },
+  {
+    id: "ug5",
+    title: "Film Grain on Evening Skyline",
+    caption: "Dusk turning from amber gold to indigo across city rooftops.",
+    story:
+      "Watching the streetlights flicker alive one by one as the horizon softens into dusk. A snapshot captured on 35mm film with warm natural grain.",
+    date: "August 2024",
+    aspect: "aspect-[3/4]",
+    tag: "Film Grain",
+    gradient: "from-[#4B3B48] via-[#2F2633] to-[#1A151D]",
+    icon: "🎞️",
+  },
+  {
+    id: "ug6",
+    title: "Quiet Train Window Reflections",
+    caption: "Miles slipping past green fields on an unhurried journey.",
+    story:
+      "Looking out of a train window with headphones on, watching shadows race across fields while the world blurs into abstract brushstrokes.",
+    date: "April 2024",
+    aspect: "aspect-square",
+    tag: "Journeys",
+    gradient: "from-[#354844] via-[#243330] to-[#15201E]",
+    icon: "🚂",
+  },
 ];
 
 const filteredGallery: GalleryItem[] = [
@@ -117,6 +141,30 @@ const filteredGallery: GalleryItem[] = [
     gradient: "from-[#2A2B42] via-[#1C1D2D] to-[#10101A]",
     icon: "💻",
   },
+  {
+    id: "fg5",
+    title: "Edge Compute Cluster Benchmarks",
+    caption: "Stress-testing container clusters under distributed burst traffic.",
+    story:
+      "Deploying microservice pods across edge nodes to analyze tail latencies and failover recovery windows during sustained benchmark saturation.",
+    date: "Infra Lab",
+    aspect: "aspect-[3/4]",
+    tag: "Infrastructure",
+    gradient: "from-[#1A2E3B] via-[#12212B] to-[#0B151C]",
+    icon: "⚙️",
+  },
+  {
+    id: "fg6",
+    title: "AI Model Evaluation Matrix",
+    caption: "Validating multi-modal embedding distances against custom benchmark datasets.",
+    story:
+      "Comparing embedding cluster separations across high-dimensional vector spaces to verify classifier robustness under real-world noisy sensor inputs.",
+    date: "Research",
+    aspect: "aspect-square",
+    tag: "Machine Learning",
+    gradient: "from-[#2C2138] via-[#1E1727] to-[#120D18]",
+    icon: "🧠",
+  },
 ];
 
 export function PhotoGallery() {
@@ -126,9 +174,10 @@ export function PhotoGallery() {
   const items = isFiltered ? filteredGallery : unfilteredGallery;
 
   return (
-    <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+    <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        {/* Section Header */}
+        <div className="text-center mb-14">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
             Visual Archive
           </span>
@@ -136,56 +185,32 @@ export function PhotoGallery() {
             {isFiltered ? "Builds, Sprints & Milestones" : "Moments & Film Grain"}
           </h2>
           <div className="gold-hairline w-24 mx-auto mt-4" />
-          <p className="text-sm text-[var(--text-primary)]/80 max-w-xl mx-auto mt-4 leading-relaxed">
+          <p className="text-sm text-[var(--text-primary)]/75 max-w-lg mx-auto mt-4 leading-relaxed">
             {isFiltered
-              ? "Behind the scenes at hackathons, design sprints, and system architectures."
-              : "Snapshots of quiet places, ordinary wonder, and fleeting perspectives."}
+              ? "Behind the scenes at hackathons, hardware prototypes, and system sprints."
+              : "Snapshots of quiet places, ordinary afternoons, and fleeting perspectives."}
           </p>
         </div>
 
-        {/* Clean Modern Masonry / Responsive Grid (No rotation, no tape) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Pure Photo Grid: Images Only — No card wrappers, No text under photos, No tags on grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           {items.map((item) => (
             <motion.div
               key={item.id}
-              whileHover={{ y: -6 }}
+              whileHover={{ scale: 1.025, y: -4 }}
               onClick={() => setSelectedItem(item)}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="group cursor-pointer rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/80 hover:shadow-[0_8px_30px_var(--gold-glow)] transition-all duration-300 overflow-hidden flex flex-col justify-between"
+              className={`${item.aspect} w-full rounded-xl overflow-hidden relative cursor-pointer group shadow-md border border-[var(--border-subtle)]/70 hover:border-[var(--accent-gold)] hover:shadow-[0_8px_30px_var(--gold-glow)] transition-all duration-300 bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
             >
-              {/* Image Frame with Aspect Ratio */}
-              <div
-                className={`${item.aspect} w-full bg-gradient-to-br ${item.gradient} relative flex items-center justify-center overflow-hidden`}
-              >
-                <span className="text-4xl filter drop-shadow-md transform group-hover:scale-110 transition-transform duration-300 select-none">
-                  {item.icon}
-                </span>
+              {/* Image Subject */}
+              <span className="text-4xl sm:text-5xl filter drop-shadow-md transform group-hover:scale-110 transition-transform duration-300 select-none">
+                {item.icon}
+              </span>
 
-                {/* Subtle Hover Zoom Overlay */}
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-1.5 text-xs text-[var(--text-primary)] font-medium backdrop-blur-[2px]">
-                  <ZoomIn className="w-4 h-4 text-[var(--accent-gold)]" />
-                  <span>View Story</span>
-                </div>
-
-                {/* Category Tag pill */}
-                <span className="absolute top-3 left-3 text-[10px] font-mono px-2.5 py-0.5 rounded-md bg-[var(--bg-base)]/90 border border-[var(--border-subtle)] text-[var(--accent-secondary)]">
-                  {item.tag}
-                </span>
-              </div>
-
-              {/* Card Meta Content */}
-              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="font-serif text-lg font-medium text-[var(--text-primary)] mb-1 group-hover:text-[var(--accent-gold)] transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-[var(--text-primary)]/70 leading-relaxed line-clamp-2 font-sans">
-                    {item.caption}
-                  </p>
-                </div>
-                <div className="mt-3 pt-2.5 border-t border-[var(--border-subtle)] flex items-center justify-between text-[10px] text-[var(--text-primary)]/50">
-                  <span>{item.date}</span>
-                  <span className="text-[var(--accent-gold)] font-mono">Open Lightbox →</span>
+              {/* Minimal Hover Overlay with Zoom Glyph */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                <div className="w-10 h-10 rounded-full bg-black/60 border border-[var(--accent-gold)]/70 flex items-center justify-center text-[var(--accent-gold)] shadow-lg transform group-hover:scale-100 scale-75 transition-transform duration-300">
+                  <ZoomIn className="w-5 h-5" />
                 </div>
               </div>
             </motion.div>
@@ -193,7 +218,7 @@ export function PhotoGallery() {
         </div>
       </div>
 
-      {/* Lightbox Modal on Click */}
+      {/* Lightbox Modal on Click: Captions, story, tag, and date live exclusively here */}
       <AnimatePresence>
         {selectedItem && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
@@ -203,10 +228,10 @@ export function PhotoGallery() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedItem(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-pointer"
             />
 
-            {/* Modal Dialog */}
+            {/* Modal Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -218,30 +243,31 @@ export function PhotoGallery() {
               <button
                 onClick={() => setSelectedItem(null)}
                 aria-label="Close Lightbox"
-                className="absolute top-4 right-4 p-2 rounded-full bg-black/50 hover:bg-black/80 border border-white/20 text-white hover:text-[var(--accent-gold)] transition-colors z-20 cursor-pointer"
+                className="absolute top-4 right-4 p-2 rounded-full bg-black/60 hover:bg-black border border-white/20 text-white hover:text-[var(--accent-gold)] transition-colors z-20 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Large Image / Art Preview */}
+              {/* High-Resolution Image Frame */}
               <div
-                className={`h-56 sm:h-72 w-full bg-gradient-to-br ${selectedItem.gradient} relative flex items-center justify-center border-b border-[var(--border-subtle)]`}
+                className={`h-60 sm:h-76 w-full bg-gradient-to-br ${selectedItem.gradient} relative flex items-center justify-center border-b border-[var(--border-subtle)]`}
               >
                 <span className="text-6xl sm:text-7xl filter drop-shadow-xl select-none">
                   {selectedItem.icon}
                 </span>
 
+                {/* Metadata Pills Inside Lightbox */}
                 <div className="absolute bottom-3 left-4 flex items-center gap-2">
                   <span className="text-xs font-mono px-3 py-1 rounded-full bg-[var(--bg-base)]/90 border border-[var(--accent-gold)]/50 text-[var(--accent-gold)]">
                     {selectedItem.tag}
                   </span>
-                  <span className="text-xs font-mono text-white/80 bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-sm">
+                  <span className="text-xs font-mono text-white/80 bg-black/50 px-2.5 py-1 rounded-full backdrop-blur-sm">
                     {selectedItem.date}
                   </span>
                 </div>
               </div>
 
-              {/* Modal Body & Narrative Story */}
+              {/* Lightbox Story Body */}
               <div className="p-6 sm:p-8 overflow-y-auto space-y-4">
                 <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[var(--text-primary)]">
                   {selectedItem.title}
@@ -263,7 +289,7 @@ export function PhotoGallery() {
                     onClick={() => setSelectedItem(null)}
                     className="text-[var(--accent-gold)] hover:underline cursor-pointer"
                   >
-                    Press ESC or Click Outside to Close
+                    Click Outside or Press ESC to Close
                   </button>
                 </div>
               </div>

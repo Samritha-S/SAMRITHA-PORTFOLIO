@@ -90,8 +90,14 @@ export function FilteredJourneyTimeline({
                   <span className="w-1.5 h-1.5 rounded-sm bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
                 </div>
 
-                {/* Content Card on Elevated Surface */}
-                <div className="p-6 sm:p-7 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm">
+                {/* Content Card on Alternating Slate / Rosewood Surface */}
+                <div
+                  className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm ${
+                    index % 2 === 0
+                      ? "bg-[var(--surface-dusk)]"
+                      : "bg-[var(--surface-amethyst)]"
+                  }`}
+                >
                   <div className="sm:hidden text-xs font-mono font-bold text-[var(--accent-primary)] mb-1.5">
                     {item.year}
                   </div>

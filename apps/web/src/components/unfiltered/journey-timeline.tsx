@@ -90,8 +90,14 @@ export function UnfilteredJourneyTimeline({
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[#2C3436]" />
                 </div>
 
-                {/* Narrative Entry (Elevated ledger-style chronicle) */}
-                <div className="p-6 sm:p-7 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm relative">
+                {/* Narrative Entry: Alternates Dusk Blue-tinted and Mystic Amethyst panel */}
+                <div
+                  className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm relative ${
+                    index % 2 === 0
+                      ? "bg-[var(--surface-dusk)]"
+                      : "bg-[var(--surface-amethyst)]"
+                  }`}
+                >
                   <div className="sm:hidden text-xs font-serif font-bold text-[var(--accent-primary)] mb-1.5">
                     {item.year}
                   </div>

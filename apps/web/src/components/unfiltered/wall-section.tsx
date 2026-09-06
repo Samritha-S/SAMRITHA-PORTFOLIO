@@ -90,8 +90,8 @@ export function WallSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Form Column */}
-          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[var(--bg-elevated)] border border-[var(--border-subtle)] shadow-md relative">
+          {/* Form Column: Inset in Dusk Blue-tinted panel */}
+          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md relative">
             <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] flex items-center gap-2 mb-4">
               <MessageSquareHeart className="w-5 h-5 text-[var(--accent-gold)]" />
               Pin a Note

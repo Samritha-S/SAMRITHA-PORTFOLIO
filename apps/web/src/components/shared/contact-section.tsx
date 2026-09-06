@@ -5,7 +5,6 @@ import { useView } from "@/context/view-context";
 import { Mail, Send, CheckCircle2 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from "@/components/shared/icons";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
-import { KokonutCard } from "@/components/kokonutui/card";
 
 export function ContactSection() {
   const { isFiltered } = useView();
@@ -48,7 +47,7 @@ export function ContactSection() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Contact Info / Social Handles */}
         <div className="md:col-span-5 space-y-6">
-          <KokonutCard glow className="p-6">
+          <div className="p-6 rounded-2xl bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md">
             <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-4">
               Direct Channels
             </h3>
@@ -121,12 +120,12 @@ export function ContactSection() {
                 </>
               )}
             </div>
-          </KokonutCard>
+          </div>
         </div>
 
-        {/* Message Form */}
+        {/* Message Form: Inset in Dusk Blue-tinted panel */}
         <div className="md:col-span-7">
-          <KokonutCard glow className="p-6 sm:p-8">
+          <div className="p-6 sm:p-8 rounded-2xl bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md">
             <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-4">
               Send a Direct Message
             </h3>
@@ -205,7 +204,7 @@ export function ContactSection() {
                 </ParticleButton>
               </form>
             )}
-          </KokonutCard>
+          </div>
         </div>
       </div>
       </div>

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useView } from "@/context/view-context";
 import { Calendar, ArrowRight, X } from "lucide-react";
-import { KokonutCard } from "@/components/kokonutui/card";
 
 interface BlogPostItem {
   id: string;
@@ -112,12 +111,15 @@ export function BlogSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <KokonutCard
+        {posts.map((post, index) => (
+          <div
             key={post.id}
-            glow
-            className="flex flex-col justify-between cursor-pointer"
             onClick={() => setSelectedPost(post)}
+            className={`flex flex-col justify-between cursor-pointer p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/70 hover:shadow-[0_4px_20px_var(--gold-glow)] transition-all duration-300 group ${
+              index % 2 === 0
+                ? "bg-[var(--surface-dusk)]"
+                : "bg-[var(--surface-amethyst)]"
+            }`}
           >
             <div>
               <div className="flex justify-between items-center text-xs mb-3">
@@ -144,7 +146,7 @@ export function BlogSection() {
                 Read Story <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
-          </KokonutCard>
+          </div>
         ))}
       </div>
 

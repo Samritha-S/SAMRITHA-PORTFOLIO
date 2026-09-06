@@ -4,28 +4,34 @@
   :root,
   [data-view="unfiltered"] {
     --bg-base: #2C3436;
-    --bg-elevated: #4B3C58;
+    --bg-elevated: #3B2F44;
+    --surface-amethyst: #3B2F44;
+    --surface-dusk: #34434B;
+    --surface-sage: #333C37;
     --accent-primary: #91967A;
     --accent-secondary: #607785;
     --text-primary: #E3DDC7;
     --accent-gold: #C9A24B;
     --gold-glow: rgba(201, 162, 75, 0.35);
     --border-subtle: rgba(96, 119, 133, 0.28);
-    --card-surface: rgba(75, 60, 88, 0.65);
-    --card-hover: rgba(75, 60, 88, 0.85);
+    --card-surface: rgba(59, 47, 68, 0.65);
+    --card-hover: rgba(59, 47, 68, 0.85);
   }
 
   [data-view="filtered"] {
     --bg-base: #011627;
-    --bg-elevated: #303D3B;
+    --bg-elevated: #1F2F32;
+    --surface-amethyst: #362831;
+    --surface-dusk: #182730;
+    --surface-sage: #1E2E2B;
     --accent-primary: #795663;
     --accent-secondary: #8A9688;
     --text-primary: #D9BCAF;
     --accent-gold: #C9A24B;
     --gold-glow: rgba(201, 162, 75, 0.35);
     --border-subtle: rgba(138, 150, 136, 0.28);
-    --card-surface: rgba(48, 61, 59, 0.65);
-    --card-hover: rgba(48, 61, 59, 0.85);
+    --card-surface: rgba(31, 47, 50, 0.65);
+    --card-hover: rgba(31, 47, 50, 0.85);
   }
 
   * {
@@ -76,8 +82,24 @@
   background-color: var(--bg-elevated);
 }
 
+.section-sage {
+  background-color: var(--surface-sage);
+}
+
+.surface-dusk {
+  background-color: var(--surface-dusk);
+}
+
+.surface-amethyst {
+  background-color: var(--surface-amethyst);
+}
+
+.surface-sage {
+  background-color: var(--surface-sage);
+}
+
 .panel-inset {
-  background-color: rgba(0, 0, 0, 0.22);
+  background-color: rgba(0, 0, 0, 0.28);
   border: 1px solid var(--border-subtle);
 }
 

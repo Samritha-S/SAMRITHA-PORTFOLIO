@@ -63,8 +63,8 @@ export function UnfilteredHeroAbout() {
         </div>
       </section>
 
-      {/* 2. About Section: Switched to full-width bg-elevated (#4B3C58) */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+      {/* 2. About Section: On Weathered Pewter (section-base) */}
+      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
@@ -98,8 +98,8 @@ export function UnfilteredHeroAbout() {
               So this page is a small snapshot of me right now — not a finished version, just a work in progress.
             </p>
 
-            {/* Pull-quote: Darker inset panel with antique gold quote-mark glyph */}
-            <div className="panel-inset rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden">
+            {/* Pull-quote: Inset panel in desaturated Mystic Amethyst */}
+            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[var(--border-subtle)] shadow-md">
               <span className="font-serif text-5xl text-[var(--accent-gold)] leading-none select-none block mb-2 opacity-80">
                 &ldquo;
               </span>

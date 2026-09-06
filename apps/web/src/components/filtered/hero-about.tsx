@@ -60,8 +60,8 @@ export function FilteredHeroAbout() {
         </div>
       </section>
 
-      {/* 2. About Section: Switched to full-width bg-elevated (#303D3B) */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+      {/* 2. About Section: On Blue Noir (section-base) */}
+      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
@@ -91,7 +91,7 @@ export function FilteredHeroAbout() {
               I&apos;m particularly interested in the intersection of software engineering, AI, and real-world problem solving.
             </p>
 
-            <div className="panel-inset rounded-xl p-6 sm:p-8 font-mono text-xs sm:text-sm text-[var(--accent-gold)] border border-[var(--accent-gold)]/40 relative overflow-hidden">
+            <div className="rounded-xl p-6 sm:p-8 font-mono text-xs sm:text-sm text-[var(--accent-gold)] bg-[var(--surface-amethyst)] border border-[var(--border-subtle)] relative overflow-hidden shadow-md">
               <span className="font-serif text-4xl text-[var(--accent-gold)] leading-none select-none block mb-2 opacity-70">
                 &ldquo;
               </span>

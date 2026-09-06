@@ -16,7 +16,7 @@ import {
 
 export function InterestsSection() {
   return (
-    <section id="interests" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+    <section id="interests" className="py-24 px-4 sm:px-6 lg:px-8 section-sage relative border-y border-[var(--border-subtle)]/40">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
