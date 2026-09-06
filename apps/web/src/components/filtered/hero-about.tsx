@@ -4,6 +4,7 @@ import React from "react";
 import { Terminal, Code2, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import FlowField from "@/components/kokonutui/flow-field";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 export function FilteredHeroAbout() {
   return (
@@ -64,8 +65,15 @@ export function FilteredHeroAbout() {
       </FlowField>
 
       {/* 2. About Section: On Blue Noir (section-base) */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">
-        <div className="max-w-3xl mx-auto">
+      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40 overflow-hidden">
+        <ConstellationField
+          className="absolute inset-0 pointer-events-none"
+          backgroundColor="transparent"
+          density={10000}
+          connectionDistance={130}
+          speed={0.12}
+        />
+        <div className="max-w-3xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
               Engineering Background

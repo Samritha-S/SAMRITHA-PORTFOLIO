@@ -4,6 +4,7 @@ import React from "react";
 import { GithubIcon } from "@/components/shared/icons";
 import { BklitAreaChart } from "@/components/bklit/area-chart";
 import { BklitCommitGraph } from "@/components/bklit/commit-graph";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 const telemetryData = [
   { label: "W1", value: 18 },
@@ -22,8 +23,15 @@ const telemetryData = [
 
 export function GitHubSection() {
   return (
-    <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
-      <div className="max-w-6xl mx-auto">
+    <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
+      <ConstellationField
+        className="absolute inset-0 pointer-events-none"
+        backgroundColor="transparent"
+        density={12000}
+        connectionDistance={135}
+        speed={0.10}
+      />
+      <div className="max-w-6xl mx-auto relative z-10">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono flex items-center justify-center gap-1.5">
           <GithubIcon className="w-3.5 h-3.5" />

@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { useView } from "@/context/view-context";
-import { X, ZoomIn } from "lucide-react";
+import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { Carousel_003 } from "@/components/ui/skiper-ui/skiper49";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 interface GalleryItem {
   id: string;
@@ -174,10 +176,19 @@ export function PhotoGallery() {
   const items = isFiltered ? filteredGallery : unfilteredGallery;
 
   return (
-    <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
-      <div className="max-w-6xl mx-auto">
+    <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
+      {isFiltered && (
+        <ConstellationField
+          className="absolute inset-0 pointer-events-none"
+          backgroundColor="transparent"
+          density={12000}
+          connectionDistance={135}
+          speed={0.10}
+        />
+      )}
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-10">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
             Visual Archive
           </span>
@@ -192,30 +203,14 @@ export function PhotoGallery() {
           </p>
         </div>
 
-        {/* Pure Photo Grid: Images Only — No card wrappers, No text under photos, No tags on grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-          {items.map((item) => (
-            <motion.div
-              key={item.id}
-              whileHover={{ scale: 1.025, y: -4 }}
-              onClick={() => setSelectedItem(item)}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className={`${item.aspect} w-full rounded-xl overflow-hidden relative cursor-pointer group shadow-md border border-[var(--border-subtle)]/70 hover:border-[var(--accent-gold)] hover:shadow-[0_8px_30px_var(--gold-glow)] transition-all duration-300 bg-gradient-to-br ${item.gradient} flex items-center justify-center`}
-            >
-              {/* Image Subject */}
-              <span className="text-4xl sm:text-5xl filter drop-shadow-md transform group-hover:scale-110 transition-transform duration-300 select-none">
-                {item.icon}
-              </span>
-
-              {/* Minimal Hover Overlay with Zoom Glyph */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                <div className="w-10 h-10 rounded-full bg-black/60 border border-[var(--accent-gold)]/70 flex items-center justify-center text-[var(--accent-gold)] shadow-lg transform group-hover:scale-100 scale-75 transition-transform duration-300">
-                  <ZoomIn className="w-5 h-5" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Skiper 49 3D Coverflow Carousel */}
+        <Carousel_003
+          items={items}
+          onItemClick={(item) => setSelectedItem(item as GalleryItem)}
+          showNavigation
+          showPagination
+          loop
+        />
       </div>
 
       {/* Lightbox Modal on Click: Captions, story, tag, and date live exclusively here */}

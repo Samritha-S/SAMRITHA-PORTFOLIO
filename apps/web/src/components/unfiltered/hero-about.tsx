@@ -1,11 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { Sparkles, Heart, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import BackgroundPaths from "@/components/kokonutui/background-paths";
+import { LinePath } from "@/components/ui/skiper-ui/skiper19";
+import { useScroll } from "framer-motion";
 
 export function UnfilteredHeroAbout() {
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: aboutRef,
+    offset: ["start end", "end start"],
+  });
+
   return (
     <>
       {/* 1. Hero Section: BackgroundPaths on Weathered Pewter */}
@@ -58,9 +66,23 @@ export function UnfilteredHeroAbout() {
         </div>
       </BackgroundPaths>
 
-      {/* 2. About Section: On Deep Plum (section-base) */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">
-        <div className="max-w-3xl mx-auto">
+      {/* 2. About Section: On Deep Plum (section-base) with Skiper 19 scroll stroke */}
+      <section
+        id="about"
+        ref={aboutRef}
+        className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40 overflow-hidden"
+      >
+        {/* Skiper 19: Thin string starting from About section, drawing with scroll progress */}
+        <div className="pointer-events-none absolute -top-16 -right-32 sm:-right-16 lg:right-4 w-[600px] sm:w-[850px] lg:w-[1100px] h-auto z-0 opacity-45">
+          <LinePath
+            scrollYProgress={scrollYProgress}
+            stroke="#D4AF7A"
+            strokeWidth={1.75}
+            range={[0, 1]}
+          />
+        </div>
+
+        <div className="max-w-3xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-[#D4AF7A] font-medium">
               A Quiet Introduction
