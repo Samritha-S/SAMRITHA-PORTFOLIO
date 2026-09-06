@@ -21,11 +21,7 @@ export function UnfilteredHeroAbout() {
 
           {/* Locked Copy §5.1 */}
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.15] mb-6">
-            Hi, I&apos;m Samritha.{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">🌿</span>
-              <span className="absolute inset-0 bg-[var(--accent-gold)]/25 rounded-full blur-md -z-10 scale-125" />
-            </span>
+            Hi, I&apos;m Samritha.
           </h1>
 
           {/* Subtle gold hairline under headline */}

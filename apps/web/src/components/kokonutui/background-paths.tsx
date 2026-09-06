@@ -97,7 +97,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 12 }, (_, i) => ({
         id: generateUniqueId("primary"),
         d: generateAestheticPath(i, position, "primary"),
-        opacity: 0.15 + i * 0.02,
+        opacity: 0.09 + i * 0.012, // was 0.15 + i * 0.02 — more transparent, less clash with text
         width: 4 + i * 0.3,
         duration: 25,
         delay: 0,
@@ -110,7 +110,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 15 }, (_, i) => ({
         id: generateUniqueId("secondary"),
         d: generateAestheticPath(i, position, "secondary"),
-        opacity: 0.12 + i * 0.015,
+        opacity: 0.07 + i * 0.009, // was 0.12 + i * 0.015
         width: 3 + i * 0.25,
         duration: 20,
         delay: 0,
@@ -126,7 +126,7 @@ const FloatingPaths = memo(function FloatingPaths({
         // NOTE: fixed from the stock component's `0.08 + i * 0.12`, which pushed
         // late accent strands to opacity > 1. Kept restrained here on purpose —
         // accents should stay the faintest layer, not the brightest.
-        opacity: 0.08 + i * 0.02,
+        opacity: 0.045 + i * 0.011, // was 0.08 + i * 0.02 — even fainter than primary/secondary
         width: 2 + i * 0.2,
         duration: 15,
         delay: 0,
@@ -155,11 +155,13 @@ const FloatingPaths = memo(function FloatingPaths({
         <defs>
           {/* Recolored from stock violet/pink/blue to the portfolio's own
               Mystic Amethyst → Sand & Shell(-tinted gold) → Dusk Blue range,
-              so the strands read as "your palette drifting," not a generic demo. */}
+              so the strands read as "your palette drifting," not a generic demo.
+              Alpha values lowered from the first pass — they were sitting too
+              solid against the hero text. */}
           <linearGradient id="portfolioGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(75, 60, 88, 0.55)" />   {/* Mystic Amethyst #4B3C58 */}
-            <stop offset="50%" stopColor="rgba(201, 162, 75, 0.45)" /> {/* antique gold accent */}
-            <stop offset="100%" stopColor="rgba(96, 119, 133, 0.5)" /> {/* Dusk Blue #607785 */}
+            <stop offset="0%" stopColor="rgba(75, 60, 88, 0.3)" />    {/* Mystic Amethyst #4B3C58 */}
+            <stop offset="50%" stopColor="rgba(201, 162, 75, 0.22)" /> {/* antique gold accent */}
+            <stop offset="100%" stopColor="rgba(96, 119, 133, 0.28)" /> {/* Dusk Blue #607785 */}
           </linearGradient>
         </defs>
 
@@ -190,7 +192,7 @@ const FloatingPaths = memo(function FloatingPaths({
           ))}
         </g>
 
-        <g className="secondary-waves" style={{ opacity: 0.8 }}>
+        <g className="secondary-waves" style={{ opacity: 0.65 }}>
           {secondaryPaths.map((path) => (
             <motion.path
               animate={{
@@ -217,7 +219,7 @@ const FloatingPaths = memo(function FloatingPaths({
           ))}
         </g>
 
-        <g className="accent-waves" style={{ opacity: 0.6 }}>
+        <g className="accent-waves" style={{ opacity: 0.45 }}>
           {accentPaths.map((path) => (
             <motion.path
               animate={{
