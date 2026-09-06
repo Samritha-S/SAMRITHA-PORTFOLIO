@@ -97,8 +97,8 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 12 }, (_, i) => ({
         id: generateUniqueId("primary"),
         d: generateAestheticPath(i, position, "primary"),
-        opacity: 0.18 + i * 0.02,
-        width: 4 + i * 0.3,
+        opacity: 0.08 + i * 0.01,
+        width: 3.5 + i * 0.25,
         duration: 25,
         delay: 0,
       })),
@@ -110,8 +110,8 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 15 }, (_, i) => ({
         id: generateUniqueId("secondary"),
         d: generateAestheticPath(i, position, "secondary"),
-        opacity: 0.14 + i * 0.015,
-        width: 3 + i * 0.25,
+        opacity: 0.06 + i * 0.008,
+        width: 2.5 + i * 0.2,
         duration: 20,
         delay: 0,
       })),
@@ -123,8 +123,8 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 10 }, (_, i) => ({
         id: generateUniqueId("accent"),
         d: generateAestheticPath(i, position, "accent"),
-        opacity: 0.1 + i * 0.012,
-        width: 2 + i * 0.2,
+        opacity: 0.04 + i * 0.006,
+        width: 1.8 + i * 0.15,
         duration: 15,
         delay: 0,
       })),
@@ -153,9 +153,9 @@ const FloatingPaths = memo(function FloatingPaths({
           {/* Mystic Amethyst Refined Waves on Deep Plum:
               Amethyst / Orchid (#8B5FBF) → Champagne Gold (#D4AF7A) → Dusty Rose (#C98FA0) */}
           <linearGradient id="portfolioGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(139, 95, 191, 0.45)" />     {/* Amethyst #8B5FBF */}
-            <stop offset="50%" stopColor="rgba(212, 175, 122, 0.45)" />   {/* Champagne Gold #D4AF7A */}
-            <stop offset="100%" stopColor="rgba(201, 143, 160, 0.4)" />   {/* Dusty Rose #C98FA0 */}
+            <stop offset="0%" stopColor="rgba(139, 95, 191, 0.35)" />     {/* Amethyst #8B5FBF */}
+            <stop offset="50%" stopColor="rgba(212, 175, 122, 0.35)" />   {/* Champagne Gold #D4AF7A */}
+            <stop offset="100%" stopColor="rgba(201, 143, 160, 0.3)" />   {/* Dusty Rose #C98FA0 */}
           </linearGradient>
         </defs>
 
@@ -186,7 +186,7 @@ const FloatingPaths = memo(function FloatingPaths({
           ))}
         </g>
 
-        <g className="secondary-waves" style={{ opacity: 0.65 }}>
+        <g className="secondary-waves" style={{ opacity: 0.45 }}>
           {secondaryPaths.map((path) => (
             <motion.path
               animate={{
@@ -213,7 +213,7 @@ const FloatingPaths = memo(function FloatingPaths({
           ))}
         </g>
 
-        <g className="accent-waves" style={{ opacity: 0.45 }}>
+        <g className="accent-waves" style={{ opacity: 0.3 }}>
           {accentPaths.map((path) => (
             <motion.path
               animate={{
