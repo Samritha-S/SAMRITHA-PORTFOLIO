@@ -3,21 +3,21 @@
 @layer base {
   :root,
   [data-view="unfiltered"] {
-    --bg-base: #F7F4D5;
-    --bg-elevated: #EDE9C5;
-    --surface-amethyst: #7E6B8F;
-    --surface-dusk: #607785;
-    --surface-sage: #9683A7;
-    --accent-primary: #D3968C;
-    --accent-secondary: #607785;
-    --text-primary: #554466;
-    --text-light: #F7F4D5;
-    --text-dark: #3F324C;
-    --accent-gold: #7E6B8F;
-    --gold-glow: rgba(126, 107, 143, 0.35);
-    --border-subtle: rgba(96, 119, 133, 0.22);
-    --card-surface: #EDE9C5;
-    --card-hover: #E3DEAF;
+    --bg-base: #2E1F3D;
+    --bg-elevated: #3D2B52;
+    --surface-amethyst: #3D2B52;
+    --surface-dusk: #3D2B52;
+    --surface-sage: #352447;
+    --accent-primary: #8B5FBF;
+    --accent-secondary: #C98FA0;
+    --text-primary: #F5EFE8;
+    --text-light: #F5EFE8;
+    --text-dark: #2E1F3D;
+    --accent-gold: #D4AF7A;
+    --gold-glow: rgba(212, 175, 122, 0.4);
+    --border-subtle: rgba(139, 95, 191, 0.22);
+    --card-surface: #3D2B52;
+    --card-hover: #483360;
   }
 
   [data-view="filtered"] {

@@ -90,22 +90,22 @@ export function UnfilteredJourneyTimeline({
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
                 </div>
 
-                {/* Narrative Entry: Alternates Pastel Blue and Lavender with Beige text */}
+                {/* Narrative Entry: Lighter plum card with subtle orchid border and champagne accents */}
                 <div
-                  className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-all duration-300 shadow-md relative ${
+                  className={`p-6 sm:p-7 rounded-xl border border-[#8B5FBF]/30 hover:border-[#D4AF7A] transition-all duration-300 shadow-md relative ${
                     index % 2 === 0
-                      ? "bg-[#607785] text-[#F7F4D5]"
-                      : "bg-[#7E6B8F] text-[#F7F4D5]"
+                      ? "bg-[#3D2B52] text-[#F5EFE8]"
+                      : "bg-[#352447] text-[#F5EFE8]"
                   }`}
                 >
-                  <div className="sm:hidden text-xs font-serif font-bold text-[#D3968C] mb-1.5">
+                  <div className="sm:hidden text-xs font-serif font-bold text-[#C98FA0] mb-1.5">
                     {item.year}
                   </div>
-                  <h3 className="font-serif text-xl font-medium text-[#F7F4D5] mb-2.5 flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-medium text-[#F5EFE8] mb-2.5 flex items-center justify-between">
                     <span>{item.title}</span>
-                    <Sparkles className="w-4 h-4 text-[#D3968C] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Sparkles className="w-4 h-4 text-[#D4AF7A] opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
-                  <p className="text-sm text-[#F7F4D5]/90 leading-relaxed font-sans">
+                  <p className="text-sm text-[#F5EFE8]/85 leading-relaxed font-sans">
                     {item.story}
                   </p>
                 </div>

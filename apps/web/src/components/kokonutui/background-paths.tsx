@@ -150,11 +150,12 @@ const FloatingPaths = memo(function FloatingPaths({
       >
         <title>Background Paths</title>
         <defs>
-          {/* Lavender (#7E6B8F) & Pastel Dusk Blue (#607785) Accent Waves on Cream: */}
+          {/* Mystic Amethyst Refined Waves on Deep Plum:
+              Amethyst / Orchid (#8B5FBF) → Champagne Gold (#D4AF7A) → Dusty Rose (#C98FA0) */}
           <linearGradient id="portfolioGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(126, 107, 143, 0.45)" />     {/* Lavender #7E6B8F */}
-            <stop offset="50%" stopColor="rgba(96, 119, 133, 0.55)" />     {/* Pastel Blue #607785 */}
-            <stop offset="100%" stopColor="rgba(126, 107, 143, 0.4)" />    {/* Lavender #7E6B8F */}
+            <stop offset="0%" stopColor="rgba(139, 95, 191, 0.45)" />     {/* Amethyst #8B5FBF */}
+            <stop offset="50%" stopColor="rgba(212, 175, 122, 0.45)" />   {/* Champagne Gold #D4AF7A */}
+            <stop offset="100%" stopColor="rgba(201, 143, 160, 0.4)" />   {/* Dusty Rose #C98FA0 */}
           </linearGradient>
         </defs>
 

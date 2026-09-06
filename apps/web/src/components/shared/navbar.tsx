@@ -74,7 +74,7 @@ export function Navbar() {
           <div className={`w-8 h-8 rounded-md border flex items-center justify-center transition-transform duration-300 group-hover:scale-105 ${
             isFiltered
               ? "border-[var(--accent-gold)]/60 bg-[var(--bg-elevated)] text-[var(--accent-gold)]"
-              : "border-[#607785] bg-[#607785] text-[#F7F4D5]"
+              : "border-[#8B5FBF]/50 bg-[#3D2B52] text-[#D4AF7A]"
           }`}>
             {isFiltered ? (
               <Terminal className="w-4 h-4" />
@@ -87,7 +87,7 @@ export function Navbar() {
               Samritha S
             </span>
             <span className={`hidden sm:block text-[9px] uppercase tracking-widest font-mono ${
-              isFiltered ? "text-[var(--accent-gold)]" : "text-[#607785] font-bold"
+              isFiltered ? "text-[var(--accent-gold)]" : "text-[#D4AF7A] font-semibold"
             }`}>
               {isFiltered ? "Engineering & Systems" : "Personal Archive"}
             </span>
@@ -107,8 +107,8 @@ export function Navbar() {
                 onClick={() => setActiveSection(link.href)}
                 className={`relative px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 rounded-full ${
                   isActive
-                    ? isFiltered ? "text-[var(--text-primary)] font-semibold" : "text-[#F7F4D5] font-semibold"
-                    : isFiltered ? "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]" : "text-[#554466]/80 hover:text-[#554466] font-medium"
+                    ? isFiltered ? "text-[var(--text-primary)] font-semibold" : "text-[#F5EFE8] font-semibold"
+                    : isFiltered ? "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]" : "text-[#F5EFE8]/75 hover:text-[#F5EFE8] font-medium"
                 }`}
               >
                 {/* Morphic Pill on Active */}
@@ -117,12 +117,12 @@ export function Navbar() {
                     layoutId="morphic-nav-pill"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     className={`absolute inset-0 rounded-full border -z-10 shadow-sm ${
-                      isFiltered ? "bg-[var(--bg-elevated)] border-[var(--border-subtle)]" : "bg-[#607785] border-[#607785]"
+                      isFiltered ? "bg-[var(--bg-elevated)] border-[var(--border-subtle)]" : "bg-[#8B5FBF] border-[#8B5FBF]"
                     }`}
                   >
                     {/* Underline on active item */}
                     <span className={`absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full ${
-                      isFiltered ? "bg-[var(--accent-gold)]" : "bg-[#D8A7A0]"
+                      isFiltered ? "bg-[var(--accent-gold)]" : "bg-[#D4AF7A]"
                     }`} />
                   </motion.div>
                 )}

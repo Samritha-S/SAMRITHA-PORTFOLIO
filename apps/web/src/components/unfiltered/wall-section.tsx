@@ -90,25 +90,25 @@ export function WallSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Form Column: Inset in Pastel Blue panel */}
-          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[#607785] border border-[#D3968C]/30 shadow-lg relative">
-            <h3 className="font-serif text-xl font-medium text-[#F7F4D5] flex items-center gap-2 mb-4">
-              <MessageSquareHeart className="w-5 h-5 text-[#D3968C]" />
+          {/* Form Column: Inset in Lighter Plum panel (#3D2B52) */}
+          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[#3D2B52] border border-[#8B5FBF]/30 shadow-lg relative">
+            <h3 className="font-serif text-xl font-medium text-[#F5EFE8] flex items-center gap-2 mb-4">
+              <MessageSquareHeart className="w-5 h-5 text-[#D4AF7A]" />
               Pin a Note
             </h3>
 
             {submitted ? (
-              <div className="p-6 rounded-xl bg-[#7E6B8F] border border-[#D3968C]/40 text-center">
-                <CheckCircle2 className="w-8 h-8 text-[#D3968C] mx-auto mb-2" />
-                <h4 className="font-serif text-lg font-medium text-[#F7F4D5]">
+              <div className="p-6 rounded-xl bg-[#2E1F3D] border border-[#D4AF7A]/40 text-center">
+                <CheckCircle2 className="w-8 h-8 text-[#D4AF7A] mx-auto mb-2" />
+                <h4 className="font-serif text-lg font-medium text-[#F5EFE8]">
                   Note Received!
                 </h4>
-                <p className="text-xs text-[#F7F4D5]/80 mt-1 leading-relaxed">
+                <p className="text-xs text-[#F5EFE8]/80 mt-1 leading-relaxed">
                   Your message has been placed in Samritha&apos;s mailbox. Once approved by moderation, it will appear on the wall. ✨
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 text-xs text-[#D3968C] underline cursor-pointer"
+                  className="mt-4 text-xs text-[#D4AF7A] underline cursor-pointer"
                 >
                   Send another note
                 </button>
@@ -126,20 +126,20 @@ export function WallSection() {
                 />
 
                 {/* Anonymous toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 text-xs">
-                  <span className="text-[#F7F4D5]/80">Post identity:</span>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#2E1F3D] border border-[#8B5FBF]/30 text-xs">
+                  <span className="text-[#F5EFE8]/80">Post identity:</span>
                   <button
                     type="button"
                     onClick={() => setIsAnonymous(!isAnonymous)}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D3968C]/40 text-xs text-[#F7F4D5] hover:border-[#D3968C] cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D4AF7A]/40 text-xs text-[#F5EFE8] hover:border-[#D4AF7A] cursor-pointer transition-colors"
                   >
                     {isAnonymous ? (
                       <>
-                        <EyeOff className="w-3.5 h-3.5" /> Anonymous
+                        <EyeOff className="w-3.5 h-3.5 text-[#D4AF7A]" /> Anonymous
                       </>
                     ) : (
                       <>
-                        <User className="w-3.5 h-3.5" /> With Name
+                        <User className="w-3.5 h-3.5 text-[#D4AF7A]" /> With Name
                       </>
                     )}
                   </button>
@@ -147,7 +147,7 @@ export function WallSection() {
 
                 {!isAnonymous && (
                   <div>
-                    <label className="block text-xs font-medium text-[#F7F4D5]/90 mb-1">
+                    <label className="block text-xs font-medium text-[#F5EFE8]/90 mb-1">
                       Your Name
                     </label>
                     <input
@@ -155,13 +155,13 @@ export function WallSection() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sam or Fellow Reader"
-                      className="w-full px-4 py-2 text-sm rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:outline-none focus:border-[#D3968C] transition-colors"
+                      className="w-full px-4 py-2 text-sm rounded-xl bg-[#2E1F3D] border border-[#8B5FBF]/30 text-[#F5EFE8] placeholder-[#F5EFE8]/40 focus:outline-none focus:border-[#D4AF7A] transition-colors"
                     />
                   </div>
                 )}
 
                 <div>
-                  <label className="block text-xs font-medium text-[#F7F4D5]/90 mb-1">
+                  <label className="block text-xs font-medium text-[#F5EFE8]/90 mb-1">
                     Your Note *
                   </label>
                   <textarea
@@ -170,14 +170,14 @@ export function WallSection() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Share a thought, book recommendation, or kind word..."
-                    className="w-full px-4 py-2 text-sm rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:outline-none focus:border-[#D3968C] transition-colors resize-none"
+                    className="w-full px-4 py-2 text-sm rounded-xl bg-[#2E1F3D] border border-[#8B5FBF]/30 text-[#F5EFE8] placeholder-[#F5EFE8]/40 focus:outline-none focus:border-[#D4AF7A] transition-colors resize-none"
                   />
                 </div>
 
                 <ParticleButton
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#D3968C] text-[#F7F4D5] border-none hover:brightness-105"
+                  className="w-full bg-[#C98FA0] text-[#2E1F3D] font-semibold border-none hover:brightness-105"
                 >
                   <Send className="w-4 h-4" />
                   <span>{isSubmitting ? "Sending..." : "Leave Note on Wall"}</span>
@@ -186,27 +186,27 @@ export function WallSection() {
             )}
           </div>
 
-          {/* Organic Pinboard Staggered Notes Column: Warm Parchment Notes */}
+          {/* Organic Pinboard Staggered Notes Column: Warm Ivory Parchment Notes */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
             {notes.map((note) => (
               <motion.div
                 key={note.id}
                 whileHover={{ scale: 1.03, rotate: 0, zIndex: 20 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`p-6 rounded-xl bg-[#FFFEEA] border border-[#607785]/25 shadow-md hover:border-[#D3968C] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
+                className={`p-6 rounded-xl bg-[#3D2B52] border border-[#8B5FBF]/35 shadow-md hover:border-[#D4AF7A] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
               >
-                {/* Rosy Pushpin Header Dot */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D8A7A0] shadow-md border-2 border-[#607785]" />
+                {/* Champagne Gold Pushpin Header Dot */}
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D4AF7A] shadow-md border-2 border-[#2E1F3D]" />
 
                 <div className="flex justify-between items-center mb-3 pt-1">
-                  <span className="text-xs font-semibold text-[#607785] font-mono">
+                  <span className="text-xs font-semibold text-[#D4AF7A] font-mono">
                     {note.name ? note.name : "Anonymous Wanderer"}
                   </span>
-                  <span className="text-[10px] text-[#554466]/70 font-medium">
+                  <span className="text-[10px] text-[#F5EFE8]/60 font-medium">
                     {note.createdAt}
                   </span>
                 </div>
-                <p className="font-serif text-sm sm:text-base text-[#554466] leading-relaxed italic">
+                <p className="font-serif text-sm sm:text-base text-[#F5EFE8] leading-relaxed italic">
                   &ldquo;{note.message}&rdquo;
                 </p>
               </motion.div>

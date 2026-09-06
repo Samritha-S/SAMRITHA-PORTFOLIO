@@ -121,8 +121,8 @@ export function BlogSection() {
                   ? "bg-[var(--surface-dusk)]"
                   : "bg-[var(--surface-amethyst)]"
                 : index % 2 === 0
-                  ? "bg-[#607785] text-[#F7F4D5]"
-                  : "bg-[#7E6B8F] text-[#F7F4D5]"
+                  ? "bg-[#3D2B52] text-[#F5EFE8]"
+                  : "bg-[#352447] text-[#F5EFE8]"
             }`}
           >
             <div>
@@ -130,18 +130,18 @@ export function BlogSection() {
                 <span className={`text-[10px] font-mono uppercase px-2.5 py-0.5 rounded border ${
                   isFiltered
                     ? "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--accent-gold)]"
-                    : "bg-[#F7F4D5] border-[#F7F4D5] text-[#554466] font-semibold"
+                    : "bg-[#2E1F3D] border-[#8B5FBF]/40 text-[#D4AF7A] font-semibold"
                 }`}>
                   {post.tag}
                 </span>
-                <span className={`${isFiltered ? "text-[var(--text-primary)]/60" : "text-[#F7F4D5]/70"} flex items-center gap-1`}>
+                <span className={`${isFiltered ? "text-[var(--text-primary)]/60" : "text-[#F5EFE8]/70"} flex items-center gap-1`}>
                   <Calendar className="w-3 h-3 text-[var(--accent-gold)]" />
                   {post.date}
                 </span>
               </div>
 
               <h3 className={`font-serif text-xl font-medium mb-3 transition-colors ${
-                isFiltered ? "text-[var(--text-primary)] group-hover:text-[var(--accent-gold)]" : "text-[#F7F4D5] group-hover:text-[#D3968C]"
+                isFiltered ? "text-[var(--text-primary)] group-hover:text-[var(--accent-gold)]" : "text-[#F5EFE8] group-hover:text-[#D4AF7A]"
               }`}>
                 {post.title}
               </h3>

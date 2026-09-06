@@ -26,11 +26,11 @@ export function FilterToggle() {
           aria-pressed={!isFiltered}
           className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer ${
             !isFiltered
-              ? "text-[#554466] font-semibold"
+              ? "text-[#F5EFE8] font-semibold"
               : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
           }`}
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <Sparkles className="w-3.5 h-3.5 text-[#D4AF7A]" />
           <span>Unfiltered</span>
           <span className="text-[10px] opacity-70 hidden sm:inline">(Raw)</span>
 
@@ -38,7 +38,7 @@ export function FilterToggle() {
             <motion.div
               layoutId="filter-active-capsule"
               transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              className="absolute inset-0 bg-[#D8A7A0] rounded-full shadow-sm -z-10"
+              className="absolute inset-0 bg-[#8B5FBF] rounded-full shadow-sm border border-[#D4AF7A]/40 -z-10"
             />
           )}
         </button>
@@ -53,7 +53,7 @@ export function FilterToggle() {
           aria-pressed={isFiltered}
           className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer ${
             isFiltered
-              ? "text-[#F7F4D5] font-semibold"
+              ? "text-[#F5EFE8] font-semibold"
               : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
           }`}
         >
@@ -65,7 +65,7 @@ export function FilterToggle() {
             <motion.div
               layoutId="filter-active-capsule"
               transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              className="absolute inset-0 bg-[#607785] rounded-full shadow-sm border border-[#607785]/50 -z-10"
+              className="absolute inset-0 bg-[#3D2B52] rounded-full shadow-sm border border-[#8B5FBF]/50 -z-10"
             />
           )}
         </button>
