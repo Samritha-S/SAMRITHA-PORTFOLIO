@@ -3,16 +3,17 @@
 import React from "react";
 import { Sparkles, Heart, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
-import { BeamsBackground } from "@/components/kokonutui/beams-background";
+import FlowField from "@/components/kokonutui/flow-field";
 
 export function UnfilteredHeroAbout() {
   return (
     <>
-      {/* 1. Hero Section: on bg-base */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden section-base">
-        {/* Subtle Ambient Beams Background */}
-        <BeamsBackground />
-
+      {/* 1. Hero Section: FlowField dust motes on Weathered Pewter */}
+      <FlowField
+        theme="dust"
+        density="whisper"
+        className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base"
+      >
         <div className="max-w-3xl mx-auto text-center relative z-10">
           {/* Gentle Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)]/80 border border-[var(--accent-gold)]/40 text-xs text-[var(--accent-gold)] mb-8 shadow-sm backdrop-blur-sm">
@@ -61,7 +62,7 @@ export function UnfilteredHeroAbout() {
             </a>
           </div>
         </div>
-      </section>
+      </FlowField>
 
       {/* 2. About Section: On Weathered Pewter (section-base) */}
       <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">
