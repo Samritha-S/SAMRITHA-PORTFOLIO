@@ -95,8 +95,8 @@ export function Navbar() {
         </a>
 
         {/* Desktop Morphic Navigation Links */}
-        <nav className={`hidden lg:flex items-center gap-1 p-1 rounded-lg border ${
-          isFiltered ? "bg-[var(--bg-base)]/60 border-[var(--border-subtle)]" : "bg-[#839958]/80 border-[#0A3323]/25"
+        <nav className={`hidden lg:flex items-center gap-1 p-1 rounded-full ${
+          isFiltered ? "bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]" : "bg-transparent"
         }`}>
           {currentLinks.map((link) => {
             const isActive = activeSection === link.href;
@@ -105,10 +105,10 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setActiveSection(link.href)}
-                className={`relative px-3 py-1.5 text-xs font-medium transition-colors duration-200 rounded-md ${
+                className={`relative px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 rounded-full ${
                   isActive
                     ? isFiltered ? "text-[var(--text-primary)] font-semibold" : "text-[#F7F4D5] font-semibold"
-                    : isFiltered ? "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]" : "text-[#0A3323] hover:text-[#0A3323]/70 font-semibold"
+                    : isFiltered ? "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]" : "text-[#0A3323]/80 hover:text-[#0A3323] font-medium"
                 }`}
               >
                 {/* Morphic Pill on Active */}
@@ -116,12 +116,12 @@ export function Navbar() {
                   <motion.div
                     layoutId="morphic-nav-pill"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className={`absolute inset-0 rounded-md border -z-10 shadow-sm ${
-                      isFiltered ? "bg-[var(--bg-elevated)] border-[var(--border-subtle)]" : "bg-[#105666] border-[#D3968C]/40"
+                    className={`absolute inset-0 rounded-full border -z-10 shadow-sm ${
+                      isFiltered ? "bg-[var(--bg-elevated)] border-[var(--border-subtle)]" : "bg-[#105666] border-[#105666]"
                     }`}
                   >
                     {/* Underline on active item */}
-                    <span className={`absolute bottom-0 left-2 right-2 h-[2px] rounded-full ${
+                    <span className={`absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full ${
                       isFiltered ? "bg-[var(--accent-gold)]" : "bg-[#D3968C]"
                     }`} />
                   </motion.div>

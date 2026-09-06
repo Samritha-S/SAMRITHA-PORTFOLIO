@@ -193,10 +193,10 @@ export function WallSection() {
                 key={note.id}
                 whileHover={{ scale: 1.03, rotate: 0, zIndex: 20 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`p-6 rounded-xl bg-[#F7F4D5] border border-[#D3968C]/40 shadow-lg hover:border-[#D3968C] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
+                className={`p-6 rounded-xl bg-[#FFFEEA] border border-[#105666]/20 shadow-md hover:border-[#D3968C] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
               >
                 {/* Rosy Pushpin Header Dot */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D3968C] shadow-md border-2 border-[#839958]" />
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D8A7A0] shadow-md border-2 border-[#105666]" />
 
                 <div className="flex justify-between items-center mb-3 pt-1">
                   <span className="text-xs font-semibold text-[#105666] font-mono">

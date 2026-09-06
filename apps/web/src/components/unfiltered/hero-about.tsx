@@ -14,8 +14,8 @@ export function UnfilteredHeroAbout() {
       >
         <div className="max-w-3xl mx-auto text-center relative z-10">
           {/* Gentle Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[#F7F4D5] mb-8 shadow-sm backdrop-blur-sm">
-            <Sparkles className="w-3.5 h-3.5 text-[var(--accent-primary)]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#105666] border border-[#105666] text-xs text-[#F7F4D5] mb-8 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[#D8A7A0]" />
             <span>Unfiltered Personal Space</span>
           </div>
 
@@ -94,11 +94,11 @@ export function UnfilteredHeroAbout() {
             </p>
 
             {/* Pull-quote: Inset panel in Rosy brown */}
-            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[var(--accent-secondary)]/30 shadow-md">
-              <span className="font-serif text-5xl text-[#0A3323] leading-none select-none block mb-2 opacity-80">
+            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[#105666]/30 shadow-md">
+              <span className="font-serif text-5xl text-[#F7F4D5] leading-none select-none block mb-2 opacity-90">
                 &ldquo;
               </span>
-              <p className="italic font-serif text-lg sm:text-xl text-[#0A3323] font-semibold -mt-3">
+              <p className="italic font-serif text-lg sm:text-xl text-[#F7F4D5] font-semibold -mt-3">
                 And honestly, I think that&apos;s more interesting.
               </p>
             </div>
