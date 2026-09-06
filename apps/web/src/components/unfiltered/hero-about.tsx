@@ -3,15 +3,13 @@
 import React from "react";
 import { Sparkles, Heart, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
-import FlowField from "@/components/kokonutui/flow-field";
+import BackgroundPaths from "@/components/kokonutui/background-paths";
 
 export function UnfilteredHeroAbout() {
   return (
     <>
-      {/* 1. Hero Section: FlowField dust motes on Weathered Pewter */}
-      <FlowField
-        theme="dust"
-        density="whisper"
+      {/* 1. Hero Section: BackgroundPaths on Weathered Pewter */}
+      <BackgroundPaths
         className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base"
       >
         <div className="max-w-3xl mx-auto text-center relative z-10">
@@ -62,7 +60,7 @@ export function UnfilteredHeroAbout() {
             </a>
           </div>
         </div>
-      </FlowField>
+      </BackgroundPaths>
 
       {/* 2. About Section: On Weathered Pewter (section-base) */}
       <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">
