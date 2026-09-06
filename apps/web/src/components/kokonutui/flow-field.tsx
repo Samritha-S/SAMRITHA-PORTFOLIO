@@ -253,13 +253,35 @@ export default function FlowField({
       animId = requestAnimationFrame(render);
     };
 
+    let isVisible = true;
+    const safeRender = () => {
+      if (!isVisible) return;
+      render();
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasVisible = isVisible;
+        isVisible = entry?.isIntersecting ?? true;
+        if (isVisible && !wasVisible) {
+          cancelAnimationFrame(animId);
+          animId = requestAnimationFrame(render);
+        } else if (!isVisible && wasVisible) {
+          cancelAnimationFrame(animId);
+        }
+      },
+      { threshold: 0.05 }
+    );
+
     resize();
     window.addEventListener("resize", resize);
-    render();
+    if (canvas.parentElement) observer.observe(canvas.parentElement);
+    safeRender();
 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
+      observer.disconnect();
     };
   }, [theme, density]);
 

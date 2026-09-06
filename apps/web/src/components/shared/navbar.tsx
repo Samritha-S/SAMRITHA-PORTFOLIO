@@ -13,26 +13,35 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("#about");
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
 
-      // Simple active link spy
-      const sections = isFiltered
-        ? ["about", "journey-tech", "projects", "skills", "competitive", "github", "resume", "blog", "contact"]
-        : ["about", "journey", "interests", "wall", "blog", "gallery", "contact"];
+          // Simple active link spy
+          const sections = isFiltered
+            ? ["about", "journey-tech", "projects", "skills", "competitive", "github", "resume", "blog", "contact"]
+            : ["about", "journey", "interests", "wall", "blog", "gallery", "contact"];
 
-      for (const sectionId of [...sections].reverse()) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 200) {
-            setActiveSection(`#${sectionId}`);
-            break;
+          for (const sectionId of [...sections].reverse()) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= 200) {
+                setActiveSection(`#${sectionId}`);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isFiltered]);
 

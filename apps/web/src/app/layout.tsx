@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ViewProvider } from "@/context/view-context";
+import { SmoothScrollProvider } from "@/components/shared/smooth-scroll";
 
 const serifFont = Cormorant_Garamond({
   variable: "--font-serif",
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${serifFont.variable} ${sansFont.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
-        <ViewProvider>{children}</ViewProvider>
+        <SmoothScrollProvider>
+          <ViewProvider>{children}</ViewProvider>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

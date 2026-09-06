@@ -147,6 +147,7 @@ const FloatingPaths = memo(function FloatingPaths({
         fill="none"
         preserveAspectRatio="xMidYMid slice"
         viewBox="-2400 -800 4800 1600"
+        style={{ willChange: "transform", transform: "translateZ(0)" }}
       >
         <title>Background Paths</title>
         <defs>

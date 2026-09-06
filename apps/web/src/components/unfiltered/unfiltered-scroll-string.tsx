@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export function UnfilteredScrollStringWrapper({
   children,
@@ -14,7 +14,13 @@ export function UnfilteredScrollStringWrapper({
     offset: ["start 0.85", "end 0.95"],
   });
 
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 24,
+    restDelta: 0.001,
+  });
+
+  const pathLength = useTransform(smoothProgress, [0, 1], [0, 1]);
 
   return (
     <div ref={containerRef} className="relative w-full">

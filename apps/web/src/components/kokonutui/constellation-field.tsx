@@ -83,7 +83,11 @@ export default function ConstellationField({
       nodes = Array.from({ length: count }, spawnNode);
     };
 
+    let isVisible = true;
+
     const render = () => {
+      if (!isVisible) return;
+
       ctx.clearRect(0, 0, width, height);
 
       // Drift + wrap
@@ -132,12 +136,30 @@ export default function ConstellationField({
 
     resize();
     const resizeObserver = new ResizeObserver(resize);
-    if (canvas.parentElement) resizeObserver.observe(canvas.parentElement);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasVisible = isVisible;
+        isVisible = entry?.isIntersecting ?? true;
+        if (isVisible && !wasVisible) {
+          cancelAnimationFrame(animId);
+          animId = requestAnimationFrame(render);
+        } else if (!isVisible && wasVisible) {
+          cancelAnimationFrame(animId);
+        }
+      },
+      { threshold: 0.02 }
+    );
+
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+      observer.observe(canvas.parentElement);
+    }
     render();
 
     return () => {
       cancelAnimationFrame(animId);
       resizeObserver.disconnect();
+      observer.disconnect();
     };
   }, [nodeColor, density, connectionDistance, speed]);
 
