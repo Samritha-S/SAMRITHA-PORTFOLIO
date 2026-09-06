@@ -3,14 +3,17 @@
 import React from "react";
 import { Terminal, Code2, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
+import FlowField from "@/components/kokonutui/flow-field";
 
 export function FilteredHeroAbout() {
   return (
     <>
-      {/* 1. Hero Section: on bg-base */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden section-base">
-        {/* Subtle cool grid overlay */}
-        <div className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#C9A24B_1px,transparent_1px)] [background-size:24px_24px]" />
+      {/* 1. Hero Section: FlowField noir theme */}
+      <FlowField
+        theme="noir"
+        density="whisper"
+        className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base"
+      >
 
         <div className="max-w-3xl mx-auto text-center relative z-10">
           {/* Engineering Pill */}
@@ -58,7 +61,7 @@ export function FilteredHeroAbout() {
             </a>
           </div>
         </div>
-      </section>
+      </FlowField>
 
       {/* 2. About Section: On Blue Noir (section-base) */}
       <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40">

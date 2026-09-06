@@ -2,42 +2,40 @@
 
 /**
  * @name: FlowField
- * @description: Canvas particle flow field — organic noise-driven dust motes of glowing light.
- * @version: 2.0.0 (portfolio edition — "dust" theme samples actual design tokens)
- * @author: @dorian_baffier (original), extended for Samritha portfolio
+ * @description: Canvas particle flow field background — organic noise-driven streams of glowing light.
+ * @version: 1.2.0 (added "mystic" + "noir" themes, "whisper" density — Unfiltered/Filtered heroes)
+ * @author: @dorian_baffier
  * @license: MIT
+ * @website: https://kokonutui.com
+ * @github: https://github.com/kokonut-labs/kokonutui
  */
 
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type ColorTheme = "aurora" | "ember" | "ocean" | "mystic" | "dust";
+type ColorTheme = "aurora" | "ember" | "ocean" | "mystic" | "noir";
 type ParticleDensity = "whisper" | "sparse" | "medium" | "dense";
 
 interface Particle {
   x: number;
   y: number;
   speed: number;
-  // Instead of a single hue, we pick from a small palette of RGBA strings
-  colorIdx: number;
+  hue: number;
   life: number;
   maxLife: number;
 }
 
 interface ThemeConfig {
-  /** CSS rgb(...) string for canvas background — no alpha */
+  hueStart: number;
+  hueRange: number;
+  saturation: number;
+  lightness: number;
   bg: string;
-  /** How quickly the trail fades each frame — lower = longer, ghostlier trails */
   trailAlpha: number;
-  /** HSLA color stops to sample from (palette-sourced) */
-  colors: string[];
-  /** Pixel radius of each dust mote */
-  radius: number;
-  /** Base speed multiplier */
-  baseSpeed: number;
 }
 
 export interface FlowFieldProps {
@@ -50,84 +48,66 @@ export interface FlowFieldProps {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const PARTICLE_COUNTS: Record<ParticleDensity, number> = {
-  whisper: 160,
-  sparse: 500,
-  medium: 1100,
+  whisper: 180,
+  sparse: 600,
+  medium: 1200,
   dense: 2000,
 } as const;
 
 const THEMES: Record<ColorTheme, ThemeConfig> = {
   aurora: {
+    hueStart: 120,
+    hueRange: 200,
+    saturation: 90,
+    lightness: 62,
     bg: "5, 5, 8",
     trailAlpha: 0.06,
-    colors: [
-      "hsla(160, 80%, 62%, {a})",
-      "hsla(200, 75%, 60%, {a})",
-      "hsla(270, 70%, 68%, {a})",
-    ],
-    radius: 1.3,
-    baseSpeed: 1.0,
   },
   ember: {
+    hueStart: 0,
+    hueRange: 55,
+    saturation: 95,
+    lightness: 58,
     bg: "8, 4, 2",
     trailAlpha: 0.07,
-    colors: [
-      "hsla(10, 95%, 58%, {a})",
-      "hsla(30, 90%, 55%, {a})",
-      "hsla(50, 85%, 60%, {a})",
-    ],
-    radius: 1.3,
-    baseSpeed: 1.0,
   },
   ocean: {
+    hueStart: 180,
+    hueRange: 90,
+    saturation: 88,
+    lightness: 60,
     bg: "2, 6, 10",
     trailAlpha: 0.06,
-    colors: [
-      "hsla(190, 80%, 58%, {a})",
-      "hsla(210, 75%, 60%, {a})",
-      "hsla(230, 70%, 65%, {a})",
-    ],
-    radius: 1.3,
-    baseSpeed: 1.0,
   },
+  // Muted antique gold drift on Weathered Pewter — the Samritha portfolio hero theme.
+  // Narrow hueRange keeps every particle in the gold/amber family; nothing drifts
+  // into green, cyan, or magenta the way the wider stock themes do.
   mystic: {
-    bg: "44, 52, 54",
+    hueStart: 38,
+    hueRange: 14,
+    saturation: 55,
+    lightness: 52,
+    bg: "44, 52, 54", // Weathered Pewter (#2C3436)
     trailAlpha: 0.08,
-    colors: [
-      "hsla(42, 55%, 52%, {a})",
-      "hsla(48, 50%, 48%, {a})",
-      "hsla(38, 45%, 50%, {a})",
-    ],
-    radius: 1.3,
-    baseSpeed: 1.0,
   },
-  // ── "dust" ────────────────────────────────────────────────────────────────
-  // Palette-accurate soft motes: antique gold, sage, dusk blue.
-  // Deliberately thinned down: half speed, smaller radius, long ghostly trails,
-  // very low peak alpha — reads as candlelight dust, not a generative demo.
-  dust: {
-    bg: "44, 52, 54",          // Weathered Pewter #2C3436
-    trailAlpha: 0.045,          // slower fade → longer, hazier trails
-    colors: [
-      // Antique gold — #C9A96E  ~  hsl(38 53% 61%) — weighted 50 %
-      "hsla(38,  48%, 58%, {a})",
-      "hsla(42,  44%, 55%, {a})",
-      // Sage drift — #91967A  ~  hsl(70 12% 52%) — weighted 30 %
-      "hsla(72,  14%, 50%, {a})",
-      "hsla(68,  11%, 48%, {a})",
-      // Dusk blue  — #607785  ~  hsl(205 16% 45%) — weighted 20 %
-      "hsla(205, 18%, 44%, {a})",
-    ],
-    radius: 1.1,
-    baseSpeed: 0.48,            // noticeably slower than stock mystic
+  // Filtered/technical hero — cooler, more composed than "mystic." Narrow band
+  // around Royal Scepter's mauve-rose rather than gold, and lower saturation so
+  // it reads as quiet telemetry drift, not decoration, against the terminal-style copy.
+  noir: {
+    hueStart: 340,
+    hueRange: 18,
+    saturation: 38,
+    lightness: 48,
+    bg: "1, 22, 39", // Blue Noir (#011627)
+    trailAlpha: 0.07,
   },
 } as const;
 
 // ─── Noise / vector-field ─────────────────────────────────────────────────────
 
 /**
- * Multi-octave trigonometric noise — returns an angle (radians) for position + time.
- * The `dust` theme passes a slower time increment so the field evolves lazily.
+ * Smooth organic 2D noise via a multi-octave trigonometric series.
+ * Returns an angle in radians that evolves continuously with time `t`.
  */
 function fieldAngle(x: number, y: number, t: number): number {
   const s = 0.0025;
@@ -139,9 +119,35 @@ function fieldAngle(x: number, y: number, t: number): number {
   );
 }
 
-/** Resolve a color template, substituting `{a}` with the actual alpha value. */
-function resolveColor(template: string, alpha: number): string {
-  return template.replace("{a}", alpha.toFixed(3));
+// ─── Default hero content ─────────────────────────────────────────────────────
+
+function DefaultContent() {
+  return (
+    <div className="relative z-10 flex flex-col items-center justify-center gap-6 px-6 text-center">
+      <motion.h1
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-3xl font-bold text-5xl text-white leading-[1.08] tracking-tight sm:text-6xl md:text-7xl"
+        initial={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.9, delay: 0.38, ease: [0.22, 0.61, 0.36, 1] }}
+      >
+        Chaos finds its
+        <br />
+        <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-violet-300 bg-clip-text text-transparent">
+          own beauty
+        </span>
+      </motion.h1>
+
+      <motion.p
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-md text-base text-white/50 leading-relaxed"
+        initial={{ opacity: 0, y: 16 }}
+        transition={{ duration: 0.9, delay: 0.56, ease: "easeOut" }}
+      >
+        Thousands of particles drift through an organic noise field, painting
+        luminous trails that shift and spiral endlessly.
+      </motion.p>
+    </div>
+  );
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -165,9 +171,6 @@ export default function FlowField({
     const count = PARTICLE_COUNTS[density];
     const dpr = window.devicePixelRatio ?? 1;
 
-    // Dust theme ticks time at a fraction of normal speed → lazier field drift
-    const timeScale = theme === "dust" ? 0.45 : 1.0;
-
     let width = 0;
     let height = 0;
     let animId = 0;
@@ -175,12 +178,12 @@ export default function FlowField({
     let particles: Particle[] = [];
 
     const spawnParticle = (): Particle => {
-      const maxLife = 280 + Math.floor(Math.random() * 420);
+      const maxLife = 200 + Math.floor(Math.random() * 300);
       return {
         x: Math.random() * width,
         y: Math.random() * height,
-        speed: cfg.baseSpeed * (0.7 + Math.random() * 0.9),
-        colorIdx: Math.floor(Math.random() * cfg.colors.length),
+        speed: 1.1 + Math.random() * 1.8,
+        hue: cfg.hueStart + Math.random() * cfg.hueRange,
         life: Math.floor(Math.random() * maxLife),
         maxLife,
       };
@@ -195,16 +198,18 @@ export default function FlowField({
       canvas.style.height = `${height}px`;
       ctx.scale(dpr, dpr);
 
+      // Fill dark base on resize
       ctx.fillStyle = `rgb(${cfg.bg})`;
       ctx.fillRect(0, 0, width, height);
 
+      // Re-seed particles spread across the canvas
       particles = Array.from({ length: count }, spawnParticle);
     };
 
     const render = () => {
-      time += timeScale;
+      time++;
 
-      // Fade trail — lower alpha = longer, more ethereal persistence
+      // Fade previous frame — each dot persists ~16 frames, creating soft trails
       ctx.fillStyle = `rgba(${cfg.bg}, ${cfg.trailAlpha})`;
       ctx.fillRect(0, 0, width, height);
 
@@ -215,11 +220,12 @@ export default function FlowField({
         p.y += Math.sin(angle) * p.speed;
         p.life++;
 
+        // Respawn aged-out particles at a random position
         if (p.life > p.maxLife) {
           p.x = Math.random() * width;
           p.y = Math.random() * height;
           p.life = 0;
-          p.colorIdx = Math.floor(Math.random() * cfg.colors.length);
+          p.hue = cfg.hueStart + Math.random() * cfg.hueRange;
           continue;
         }
 
@@ -229,16 +235,18 @@ export default function FlowField({
         if (p.y < 0) p.y += height;
         else if (p.y > height) p.y -= height;
 
-        // Fade in / out over lifetime — dust theme caps peak alpha much lower
+        // Fade in / out over particle lifetime
         const progress = p.life / p.maxLife;
-        const fadeIn  = Math.min(progress * 6, 1);
-        const fadeOut = Math.min((1 - progress) * 5, 1);
-        const peakAlpha = theme === "dust" ? 0.32 : 0.88;
-        const alpha = fadeIn * fadeOut * peakAlpha;
+        const fadeIn = Math.min(progress * 8, 1);
+        const fadeOut = Math.min((1 - progress) * 6, 1);
+        const alpha = fadeIn * fadeOut * 0.9;
+
+        // Hue shifts subtly with field direction for color variety
+        const hueMod = (p.hue + (angle / (Math.PI * 2)) * 70 + 360) % 360;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, cfg.radius, 0, Math.PI * 2);
-        ctx.fillStyle = resolveColor(cfg.colors[p.colorIdx], alpha);
+        ctx.arc(p.x, p.y, 1.3, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${hueMod}, ${cfg.saturation}%, ${cfg.lightness}%, ${alpha})`;
         ctx.fill();
       }
 
@@ -260,7 +268,7 @@ export default function FlowField({
   return (
     <div
       className={cn(
-        "relative flex w-full items-center justify-center overflow-hidden",
+        "relative flex min-h-screen w-full items-center justify-center overflow-hidden",
         className
       )}
       style={{ background: `rgb(${bgColor})` }}
@@ -271,28 +279,32 @@ export default function FlowField({
         ref={canvasRef}
       />
 
-      {/* Radial vignette — keeps the centre legible */}
+      {/* Radial vignette — focuses center, dims edges */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
-          background: `radial-gradient(ellipse 70% 60% at 50% 50%, transparent 25%, rgba(${bgColor}, 0.88) 100%)`,
+          background: `radial-gradient(ellipse 65% 60% at 50% 50%, transparent 20%, rgba(${bgColor}, 0.92) 100%)`,
         }}
       />
 
-      {/* Top / bottom fade into section colour */}
+      {/* Soft top / bottom fades */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-32"
-        style={{ background: `linear-gradient(to bottom, rgb(${bgColor}), transparent)` }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-40"
+        style={{
+          background: `linear-gradient(to bottom, rgb(${bgColor}), transparent)`,
+        }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
-        style={{ background: `linear-gradient(to top, rgb(${bgColor}), transparent)` }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+        style={{
+          background: `linear-gradient(to top, rgb(${bgColor}), transparent)`,
+        }}
       />
 
-      {children}
+      {children ?? <DefaultContent />}
     </div>
   );
 }
