@@ -10,7 +10,8 @@ import { PhotoGallery } from "@/components/shared/photo-gallery";
 import { ContactSection } from "@/components/shared/contact-section";
 
 // Unfiltered Components
-import { UnfilteredHeroAbout } from "@/components/unfiltered/hero-about";
+import { UnfilteredHero, UnfilteredAbout } from "@/components/unfiltered/hero-about";
+import { UnfilteredScrollStringWrapper } from "@/components/unfiltered/unfiltered-scroll-string";
 import { UnfilteredJourneyTimeline } from "@/components/unfiltered/journey-timeline";
 import { InterestsSection } from "@/components/unfiltered/interests-section";
 import { WallSection } from "@/components/unfiltered/wall-section";
@@ -43,26 +44,32 @@ export default function Home() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
             >
-              {/* 1. Hero (section-base) & 2. About Samritha (section-elevated) */}
-              <UnfilteredHeroAbout />
+              {/* 1. Hero (section-base) */}
+              <UnfilteredHero />
 
-              {/* 3. Journey (section-base with luminous gold spine) */}
-              <UnfilteredJourneyTimeline />
+              {/* Continuous String: starts from About and follows scroll till the end of the page */}
+              <UnfilteredScrollStringWrapper>
+                {/* 2. About Samritha */}
+                <UnfilteredAbout />
 
-              {/* 4. Interests & Hobbies (section-elevated with bespoke module containers) */}
-              <InterestsSection />
+                {/* 3. Journey (section-base with luminous gold spine) */}
+                <UnfilteredJourneyTimeline />
 
-              {/* 5. Wall / Post a Note (section-base with organic staggered pinboard) */}
-              <WallSection />
+                {/* 4. Interests & Hobbies (section-elevated with bespoke module containers) */}
+                <InterestsSection />
 
-              {/* 6. Photo Gallery (section-elevated with masonry grid & Lightbox modal) */}
-              <PhotoGallery />
+                {/* 5. Wall / Post a Note (section-base with organic staggered pinboard) */}
+                <WallSection />
 
-              {/* 7. Personal Stories / Blog (section-base) */}
-              <BlogSection />
+                {/* 6. Photo Gallery (section-elevated with Skiper 49 Coverflow) */}
+                <PhotoGallery />
 
-              {/* 8. Get in Touch (section-base) */}
-              <ContactSection />
+                {/* 7. Personal Stories / Blog (section-base) */}
+                <BlogSection />
+
+                {/* 8. Get in Touch (section-base) */}
+                <ContactSection />
+              </UnfilteredScrollStringWrapper>
             </motion.div>
           ) : (
             <motion.div
