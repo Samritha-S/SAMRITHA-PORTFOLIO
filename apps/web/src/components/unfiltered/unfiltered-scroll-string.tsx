@@ -10,45 +10,46 @@ export function UnfilteredScrollStringWrapper({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Tracks the user's active viewport position as they scroll through the sections
+  // Targets the scroll so the tip of the line is always at or below 3/4th (85%) of the visible screen
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.5", "end end"],
+    offset: ["start 0.85", "end 0.95"],
   });
 
-  // Fast, responsive spring tracking so the line tip moves at the user's exact scroll speed
+  // Fast-reacting spring with high stiffness so bends and drawing match the user's scroll speed instantly
   const pathLength = useSpring(scrollYProgress, {
-    stiffness: 280,
-    damping: 32,
-    restDelta: 0.001,
+    stiffness: 420,
+    damping: 36,
+    mass: 0.6,
+    restDelta: 0.0005,
   });
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* High-visibility, fast-responsive gold string that tracks the user on screen */}
+      {/* Expressive looping calligraphy ribbon that bends fast and stays below 3/4th of the viewer's screen */}
       <div className="pointer-events-none absolute inset-0 w-full h-full z-20 overflow-hidden">
         <svg
-          className="w-full h-full"
-          viewBox="0 0 1000 4000"
+          className="w-full h-full opacity-90"
+          viewBox="0 0 1200 4200"
           preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <filter id="stringGoldGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#D4AF7A" floodOpacity="0.85" />
-              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#D4AF7A" floodOpacity="0.4" />
+            <filter id="ribbonGoldGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#D4AF7A" floodOpacity="0.9" />
+              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#D4AF7A" floodOpacity="0.45" />
             </filter>
           </defs>
 
           <motion.path
-            d="M 880 0 C 880 83.5, 929 83.5, 929 167 C 929 250, 950 250, 950 333 C 950 416.5, 929 416.5, 929 500 C 929 583.5, 880 583.5, 880 667 C 880 750, 831 750, 831 833 C 831 916.5, 810 916.5, 810 1000 C 810 1083.5, 831 1083.5, 831 1167 C 831 1250, 880 1250, 880 1333 C 880 1416.5, 929 1416.5, 929 1500 C 929 1583.5, 950 1583.5, 950 1667 C 950 1750, 929 1750, 929 1833 C 929 1916.5, 880 1916.5, 880 2000 C 880 2083.5, 831 2083.5, 831 2167 C 831 2250, 810 2250, 810 2333 C 810 2416.5, 831 2416.5, 831 2500 C 831 2583.5, 880 2583.5, 880 2667 C 880 2750, 929 2750, 929 2833 C 929 2916.5, 950 2916.5, 950 3000 C 950 3083.5, 929 3083.5, 929 3167 C 929 3250, 880 3250, 880 3333 C 880 3416.5, 831 3416.5, 831 3500 C 831 3583.5, 810 3583.5, 810 3667 C 810 3750, 831 3750, 831 3833 C 831 3916.5, 880 3916.5, 880 4000"
+            d="M 920 0 C 960 120, 1060 220, 1020 340 C 980 440, 840 460, 780 380 C 720 300, 800 180, 900 240 C 980 300, 1040 480, 960 620 C 880 760, 700 840, 720 1000 C 740 1140, 1020 1180, 1000 1320 C 980 1420, 860 1460, 800 1380 C 740 1300, 820 1200, 920 1260 C 1000 1320, 1020 1480, 920 1620 C 820 1760, 680 1840, 720 2000 C 760 2160, 1040 2180, 1010 2320 C 980 2440, 850 2460, 790 2380 C 730 2300, 820 2180, 920 2240 C 1000 2300, 1020 2480, 900 2620 C 780 2760, 660 2860, 720 3020 C 780 3180, 1050 3220, 1010 3380 C 970 3500, 840 3520, 780 3440 C 720 3360, 810 3240, 920 3300 C 1000 3360, 1020 3540, 910 3700 C 800 3840, 700 3940, 780 4060 C 840 4160, 950 4180, 920 4200"
             stroke="#D4AF7A"
-            strokeWidth={2.25}
+            strokeWidth={2.5}
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
             strokeLinejoin="round"
-            filter="url(#stringGoldGlow)"
+            filter="url(#ribbonGoldGlow)"
             style={{ pathLength }}
           />
         </svg>
