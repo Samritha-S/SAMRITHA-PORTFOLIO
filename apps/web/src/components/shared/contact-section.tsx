@@ -47,11 +47,13 @@ export function ContactSection() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Contact Info / Social Handles */}
         <div className="md:col-span-5 space-y-6">
-          <div className="p-6 rounded-2xl bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md">
-            <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-4">
+          <div className={`p-6 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#105666] text-[#F7F4D5]"
+          }`}>
+            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F7F4D5]"}`}>
               Direct Channels
             </h3>
-            <p className="text-xs text-[var(--text-primary)]/75 leading-relaxed mb-6">
+            <p className={`text-xs leading-relaxed mb-6 ${isFiltered ? "text-[var(--text-primary)]/75" : "text-[#F7F4D5]/80"}`}>
               {isFiltered
                 ? "Available for software engineering roles, hackathon collaborations, and tech discussions."
                 : "You can reach out through socials or send a direct note right here."}
@@ -65,19 +67,19 @@ export function ContactSection() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[#0A3323] border border-[#839958]/30 hover:border-[#D3968C] transition-colors text-xs text-[#D3968C] group"
                   >
-                    <InstagramIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Instagram • @samritha.s</span>
+                    <InstagramIcon className="w-4 h-4 text-[#D3968C] group-hover:scale-110 transition-all" />
+                    <span className="text-[#F7F4D5] group-hover:text-[#D3968C] transition-colors">Instagram • @samritha.s</span>
                   </a>
                   <a
                     href="https://x.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[#0A3323] border border-[#839958]/30 hover:border-[#D3968C] transition-colors text-xs text-[#D3968C] group"
                   >
-                    <TwitterIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_s</span>
+                    <TwitterIcon className="w-4 h-4 text-[#D3968C] group-hover:scale-110 transition-all" />
+                    <span className="text-[#F7F4D5] group-hover:text-[#D3968C] transition-colors">X (Twitter) • @samritha_s</span>
                   </a>
                 </>
               ) : (
@@ -123,26 +125,30 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Message Form: Inset in Dusk Blue-tinted panel */}
+        {/* Message Form: Dark green panel on unfiltered */}
         <div className="md:col-span-7">
-          <div className="p-6 sm:p-8 rounded-2xl bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md">
-            <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-4">
+          <div className={`p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#0A3323] text-[#F7F4D5]"
+          }`}>
+            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F7F4D5]"}`}>
               Send a Direct Message
             </h3>
 
             {submitted ? (
-              <div className="p-6 rounded-xl bg-[var(--bg-base)] border border-[var(--accent-gold)]/50 text-center">
-                <CheckCircle2 className="w-8 h-8 text-[var(--accent-gold)] mx-auto mb-2" />
-                <h4 className="font-serif text-lg font-medium text-[var(--text-primary)]">
+              <div className={`p-6 rounded-xl text-center border ${
+                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[#105666] border-[#D3968C]/50 text-[#F7F4D5]"
+              }`}>
+                <CheckCircle2 className={`w-8 h-8 mx-auto mb-2 ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D3968C]"}`} />
+                <h4 className="font-serif text-lg font-medium">
                   Message Sent
                 </h4>
-                <p className="text-xs text-[var(--text-primary)]/80 mt-1">
+                <p className={`text-xs mt-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F7F4D5]/85"}`}>
                   Thank you for reaching out. I&apos;ll get back to you as soon as I can!
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   suppressHydrationWarning
-                  className="mt-4 text-xs text-[var(--accent-gold)] underline cursor-pointer"
+                  className={`mt-4 text-xs underline cursor-pointer ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D3968C]"}`}
                 >
                   Send another message
                 </button>
@@ -150,7 +156,7 @@ export function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-medium text-[var(--text-primary)]/80 mb-1">
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F7F4D5]/90"}`}>
                     Your Name *
                   </label>
                   <input
@@ -160,12 +166,16 @@ export function ContactSection() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
                     suppressHydrationWarning
-                    className="w-full px-4 py-2.5 text-sm rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors"
+                    className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
+                      isFiltered
+                        ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
+                        : "bg-[#105666] text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:border-[#D3968C]"
+                    }`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[var(--text-primary)]/80 mb-1">
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F7F4D5]/90"}`}>
                     Your Email *
                   </label>
                   <input
@@ -173,15 +183,19 @@ export function ContactSection() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@domain.com"
+                    placeholder="your.email@example.com"
                     suppressHydrationWarning
-                    className="w-full px-4 py-2.5 text-sm rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors"
+                    className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
+                      isFiltered
+                        ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
+                        : "bg-[#105666] text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:border-[#D3968C]"
+                    }`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[var(--text-primary)]/80 mb-1">
-                    Message *
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F7F4D5]/90"}`}>
+                    Your Message *
                   </label>
                   <textarea
                     rows={4}
@@ -190,14 +204,18 @@ export function ContactSection() {
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="What would you like to discuss?"
                     suppressHydrationWarning
-                    className="w-full px-4 py-2.5 text-sm rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none"
+                    className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors resize-none ${
+                      isFiltered
+                        ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
+                        : "bg-[#105666] text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:border-[#D3968C]"
+                    }`}
                   />
                 </div>
 
                 <ParticleButton
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full"
+                  className={`w-full ${isFiltered ? "" : "bg-[#D3968C] text-[#F7F4D5] border-none hover:brightness-105"}`}
                 >
                   <Send className="w-4 h-4" />
                   {isSubmitting ? "Transmitting..." : "Send Message"}

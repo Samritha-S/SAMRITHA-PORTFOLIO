@@ -71,7 +71,11 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
         {/* Brand / Logo */}
         <a href="#" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-md border border-[var(--accent-gold)]/60 bg-[var(--bg-elevated)] flex items-center justify-center text-[var(--accent-gold)] transition-transform duration-300 group-hover:scale-105">
+          <div className={`w-8 h-8 rounded-md border flex items-center justify-center transition-transform duration-300 group-hover:scale-105 ${
+            isFiltered
+              ? "border-[var(--accent-gold)]/60 bg-[var(--bg-elevated)] text-[var(--accent-gold)]"
+              : "border-[#D3968C] bg-[#105666] text-[#D3968C]"
+          }`}>
             {isFiltered ? (
               <Terminal className="w-4 h-4" />
             ) : (
@@ -82,14 +86,18 @@ export function Navbar() {
             <span className="font-serif text-lg sm:text-xl font-medium tracking-wide text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">
               Samritha S
             </span>
-            <span className="hidden sm:block text-[9px] uppercase tracking-widest text-[var(--accent-gold)] font-mono">
+            <span className={`hidden sm:block text-[9px] uppercase tracking-widest font-mono ${
+              isFiltered ? "text-[var(--accent-gold)]" : "text-[#105666] font-bold"
+            }`}>
               {isFiltered ? "Engineering & Systems" : "Personal Archive"}
             </span>
           </div>
         </a>
 
         {/* Desktop Morphic Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 p-1 rounded-lg bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]">
+        <nav className={`hidden lg:flex items-center gap-1 p-1 rounded-lg border ${
+          isFiltered ? "bg-[var(--bg-base)]/60 border-[var(--border-subtle)]" : "bg-[#839958]/80 border-[#0A3323]/25"
+        }`}>
           {currentLinks.map((link) => {
             const isActive = activeSection === link.href;
             return (
@@ -99,8 +107,8 @@ export function Navbar() {
                 onClick={() => setActiveSection(link.href)}
                 className={`relative px-3 py-1.5 text-xs font-medium transition-colors duration-200 rounded-md ${
                   isActive
-                    ? "text-[var(--text-primary)] font-semibold"
-                    : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
+                    ? isFiltered ? "text-[var(--text-primary)] font-semibold" : "text-[#F7F4D5] font-semibold"
+                    : isFiltered ? "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]" : "text-[#0A3323] hover:text-[#0A3323]/70 font-semibold"
                 }`}
               >
                 {/* Morphic Pill on Active */}
@@ -108,10 +116,14 @@ export function Navbar() {
                   <motion.div
                     layoutId="morphic-nav-pill"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className="absolute inset-0 bg-[var(--bg-elevated)] rounded-md border border-[var(--border-subtle)] -z-10 shadow-sm"
+                    className={`absolute inset-0 rounded-md border -z-10 shadow-sm ${
+                      isFiltered ? "bg-[var(--bg-elevated)] border-[var(--border-subtle)]" : "bg-[#105666] border-[#D3968C]/40"
+                    }`}
                   >
-                    {/* Gold underline on active item */}
-                    <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-[var(--accent-gold)] rounded-full" />
+                    {/* Underline on active item */}
+                    <span className={`absolute bottom-0 left-2 right-2 h-[2px] rounded-full ${
+                      isFiltered ? "bg-[var(--accent-gold)]" : "bg-[#D3968C]"
+                    }`} />
                   </motion.div>
                 )}
                 <span className="relative z-10">{link.label}</span>

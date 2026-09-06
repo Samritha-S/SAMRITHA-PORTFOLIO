@@ -27,7 +27,7 @@ const unfilteredGallery: GalleryItem[] = [
     date: "Autumn 2024",
     aspect: "aspect-[4/3]",
     tag: "Atmosphere",
-    gradient: "from-[#634832] via-[#4A3728] to-[#2B1F17]",
+    gradient: "from-[#105666] via-[#0A3323] to-[#839958]",
     icon: "☕",
   },
   {
@@ -39,7 +39,7 @@ const unfilteredGallery: GalleryItem[] = [
     date: "Monsoon 2024",
     aspect: "aspect-[3/4]",
     tag: "Wandering",
-    gradient: "from-[#2E3D48] via-[#202E38] to-[#141C24]",
+    gradient: "from-[#D3968C] via-[#839958] to-[#105666]",
     icon: "🌧️",
   },
   {
@@ -51,7 +51,7 @@ const unfilteredGallery: GalleryItem[] = [
     date: "July 2024",
     aspect: "aspect-square",
     tag: "Companions",
-    gradient: "from-[#594A38] via-[#3E3427] to-[#262018]",
+    gradient: "from-[#839958] via-[#105666] to-[#0A3323]",
     icon: "🐕",
   },
   {
@@ -63,7 +63,7 @@ const unfilteredGallery: GalleryItem[] = [
     date: "May 2024",
     aspect: "aspect-[4/3]",
     tag: "Reading",
-    gradient: "from-[#483B52] via-[#362C3E] to-[#1E1724]",
+    gradient: "from-[#D3968C] via-[#0A3323] to-[#105666]",
     icon: "📖",
   },
   {
@@ -75,7 +75,7 @@ const unfilteredGallery: GalleryItem[] = [
     date: "August 2024",
     aspect: "aspect-[3/4]",
     tag: "Film Grain",
-    gradient: "from-[#4B3B48] via-[#2F2633] to-[#1A151D]",
+    gradient: "from-[#105666] via-[#D3968C] to-[#839958]",
     icon: "🎞️",
   },
   {
@@ -87,7 +87,7 @@ const unfilteredGallery: GalleryItem[] = [
     date: "April 2024",
     aspect: "aspect-square",
     tag: "Journeys",
-    gradient: "from-[#354844] via-[#243330] to-[#15201E]",
+    gradient: "from-[#839958] via-[#D3968C] to-[#0A3323]",
     icon: "🚂",
   },
 ];

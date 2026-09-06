@@ -97,7 +97,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 12 }, (_, i) => ({
         id: generateUniqueId("primary"),
         d: generateAestheticPath(i, position, "primary"),
-        opacity: 0.11 + i * 0.015,
+        opacity: 0.18 + i * 0.02,
         width: 4 + i * 0.3,
         duration: 25,
         delay: 0,
@@ -110,7 +110,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 15 }, (_, i) => ({
         id: generateUniqueId("secondary"),
         d: generateAestheticPath(i, position, "secondary"),
-        opacity: 0.085 + i * 0.011,
+        opacity: 0.14 + i * 0.015,
         width: 3 + i * 0.25,
         duration: 20,
         delay: 0,
@@ -123,7 +123,7 @@ const FloatingPaths = memo(function FloatingPaths({
       Array.from({ length: 10 }, (_, i) => ({
         id: generateUniqueId("accent"),
         d: generateAestheticPath(i, position, "accent"),
-        opacity: 0.06 + i * 0.01,
+        opacity: 0.1 + i * 0.012,
         width: 2 + i * 0.2,
         duration: 15,
         delay: 0,
@@ -151,11 +151,11 @@ const FloatingPaths = memo(function FloatingPaths({
         <title>Background Paths</title>
         <defs>
           {/* Water Lily Pond Palette:
-              Rosy brown (#D3968C) → Moss green (#839958) → Midnight green (#105666) */}
+              Rosy brown (#D3968C) → Beige (#F7F4D5) → Midnight green (#105666) */}
           <linearGradient id="portfolioGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(211, 150, 140, 0.42)" />   {/* Rosy brown #D3968C */}
-            <stop offset="50%" stopColor="rgba(131, 153, 88, 0.38)" />   {/* Moss green #839958 */}
-            <stop offset="100%" stopColor="rgba(16, 86, 102, 0.45)" />   {/* Midnight green #105666 */}
+            <stop offset="0%" stopColor="rgba(211, 150, 140, 0.65)" />   {/* Rosy brown #D3968C */}
+            <stop offset="50%" stopColor="rgba(247, 244, 213, 0.75)" />   {/* Beige #F7F4D5 */}
+            <stop offset="100%" stopColor="rgba(16, 86, 102, 0.7)" />   {/* Midnight green #105666 */}
           </linearGradient>
         </defs>
 
@@ -279,7 +279,7 @@ export default memo(function BackgroundPaths({
           {children ?? (
             <motion.h1
               animate={{ opacity: 1, y: 0 }}
-              className="mb-8 bg-gradient-to-r from-[#E3DDC7] to-[#E3DDC7]/70 bg-clip-text font-bold text-3xl text-transparent tracking-tighter sm:text-5xl md:text-5xl"
+              className="mb-8 bg-gradient-to-r from-[var(--text-primary)] to-[var(--text-primary)]/70 bg-clip-text font-bold text-3xl text-transparent tracking-tighter sm:text-5xl md:text-5xl"
               initial={{ opacity: 0, y: 20 }}
               transition={{ duration: 1.2, ease: [0.2, 0.65, 0.3, 0.9] }}
             >

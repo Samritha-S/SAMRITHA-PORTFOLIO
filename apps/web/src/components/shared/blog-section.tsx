@@ -115,27 +115,39 @@ export function BlogSection() {
           <div
             key={post.id}
             onClick={() => setSelectedPost(post)}
-            className={`flex flex-col justify-between cursor-pointer p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/70 hover:shadow-[0_4px_20px_var(--gold-glow)] transition-all duration-300 group ${
-              index % 2 === 0
-                ? "bg-[var(--surface-dusk)]"
-                : "bg-[var(--surface-amethyst)]"
+            className={`flex flex-col justify-between cursor-pointer p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] hover:shadow-lg transition-all duration-300 group ${
+              isFiltered
+                ? index % 2 === 0
+                  ? "bg-[var(--surface-dusk)]"
+                  : "bg-[var(--surface-amethyst)]"
+                : index % 2 === 0
+                  ? "bg-[#105666] text-[#F7F4D5]"
+                  : "bg-[#0A3323] text-[#F7F4D5]"
             }`}
           >
             <div>
               <div className="flex justify-between items-center text-xs mb-3">
-                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--accent-gold)]">
+                <span className={`text-[10px] font-mono uppercase px-2.5 py-0.5 rounded border ${
+                  isFiltered
+                    ? "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--accent-gold)]"
+                    : "bg-[#839958] border-[#839958] text-[#0A3323] font-semibold"
+                }`}>
                   {post.tag}
                 </span>
-                <span className="text-[var(--text-primary)]/60 flex items-center gap-1">
+                <span className={`${isFiltered ? "text-[var(--text-primary)]/60" : "text-[#F7F4D5]/70"} flex items-center gap-1`}>
                   <Calendar className="w-3 h-3 text-[var(--accent-gold)]" />
                   {post.date}
                 </span>
               </div>
 
-              <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent-gold)] transition-colors">
+              <h3 className={`font-serif text-xl font-medium mb-3 transition-colors ${
+                isFiltered ? "text-[var(--text-primary)] group-hover:text-[var(--accent-gold)]" : "text-[#F7F4D5] group-hover:text-[#D3968C]"
+              }`}>
                 {post.title}
               </h3>
-              <p className="text-xs sm:text-sm text-[var(--text-primary)]/75 leading-relaxed mb-6">
+              <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
+                isFiltered ? "text-[var(--text-primary)]/75" : "text-[#F7F4D5]/80"
+              }`}>
                 {post.excerpt}
               </p>
             </div>

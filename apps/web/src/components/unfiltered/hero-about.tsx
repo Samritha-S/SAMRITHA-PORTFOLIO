@@ -14,8 +14,8 @@ export function UnfilteredHeroAbout() {
       >
         <div className="max-w-3xl mx-auto text-center relative z-10">
           {/* Gentle Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)]/80 border border-[var(--accent-gold)]/40 text-xs text-[var(--accent-gold)] mb-8 shadow-sm backdrop-blur-sm">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[#F7F4D5] mb-8 shadow-sm backdrop-blur-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[var(--accent-primary)]" />
             <span>Unfiltered Personal Space</span>
           </div>
 
@@ -24,35 +24,35 @@ export function UnfilteredHeroAbout() {
             Hi, I&apos;m Samritha.
           </h1>
 
-          {/* Subtle gold hairline under headline */}
+          {/* Subtle hairline under headline */}
           <div className="gold-hairline w-32 mx-auto mb-6" />
 
-          <p className="font-serif italic text-lg sm:text-2xl text-[var(--text-primary)]/90 mb-6">
+          <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-secondary)] font-medium mb-6">
             A little curious, a little chaotic, and always finding something new to love.
           </p>
 
-          <p className="text-sm sm:text-base text-[var(--text-primary)]/80 leading-relaxed max-w-2xl mx-auto mb-6">
+          <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed max-w-2xl mx-auto mb-6">
             Welcome to the part of the internet where I&apos;m not talking about projects, certifications, or deadlines.
           </p>
 
-          <p className="text-sm sm:text-base text-[var(--text-primary)]/80 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed max-w-2xl mx-auto mb-10">
             Here, you&apos;ll find the things that make me me — the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.
           </p>
 
           {/* Hero CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#about">
-              <ParticleButton>
+              <ParticleButton className="bg-[var(--accent-primary)] text-[#F7F4D5] border-none hover:brightness-105 shadow-md">
                 Come stay a while
-                <Heart className="w-3.5 h-3.5 fill-current" />
+                <Heart className="w-3.5 h-3.5 fill-current text-[#F7F4D5]" />
               </ParticleButton>
             </a>
             <a
               href="#interests"
-              className="px-6 py-2.5 rounded-full border border-[var(--accent-secondary)] hover:border-[var(--accent-gold)] text-xs sm:text-sm font-medium text-[var(--text-primary)] bg-[var(--bg-base)]/60 hover:bg-[var(--bg-elevated)] transition-all duration-300 flex items-center gap-2 shadow-sm"
+              className="px-6 py-2.5 rounded-full border border-[var(--accent-secondary)] bg-[var(--accent-secondary)] text-[#F7F4D5] hover:brightness-110 transition-all duration-300 flex items-center gap-2 shadow-md text-xs sm:text-sm font-medium"
             >
               Explore Little Things
-              <ArrowDown className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              <ArrowDown className="w-3.5 h-3.5 text-[#F7F4D5]" />
             </a>
           </div>
         </div>
@@ -93,12 +93,12 @@ export function UnfilteredHeroAbout() {
               So this page is a small snapshot of me right now — not a finished version, just a work in progress.
             </p>
 
-            {/* Pull-quote: Inset panel in desaturated Mystic Amethyst */}
-            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[var(--border-subtle)] shadow-md">
-              <span className="font-serif text-5xl text-[var(--accent-gold)] leading-none select-none block mb-2 opacity-80">
+            {/* Pull-quote: Inset panel in Rosy brown */}
+            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[var(--accent-secondary)]/30 shadow-md">
+              <span className="font-serif text-5xl text-[#0A3323] leading-none select-none block mb-2 opacity-80">
                 &ldquo;
               </span>
-              <p className="italic font-serif text-lg sm:text-xl text-[var(--accent-gold)] -mt-3">
+              <p className="italic font-serif text-lg sm:text-xl text-[#0A3323] font-semibold -mt-3">
                 And honestly, I think that&apos;s more interesting.
               </p>
             </div>

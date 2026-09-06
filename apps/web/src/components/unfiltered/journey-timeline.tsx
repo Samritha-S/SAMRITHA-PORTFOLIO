@@ -90,22 +90,22 @@ export function UnfilteredJourneyTimeline({
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
                 </div>
 
-                {/* Narrative Entry: Alternates Dusk Blue-tinted and Mystic Amethyst panel */}
+                {/* Narrative Entry: Alternates Midnight green and Dark green with Beige text */}
                 <div
-                  className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm relative ${
+                  className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-all duration-300 shadow-md relative ${
                     index % 2 === 0
-                      ? "bg-[var(--surface-dusk)]"
-                      : "bg-[var(--surface-amethyst)]"
+                      ? "bg-[#105666] text-[#F7F4D5]"
+                      : "bg-[#0A3323] text-[#F7F4D5]"
                   }`}
                 >
-                  <div className="sm:hidden text-xs font-serif font-bold text-[var(--accent-primary)] mb-1.5">
+                  <div className="sm:hidden text-xs font-serif font-bold text-[#D3968C] mb-1.5">
                     {item.year}
                   </div>
-                  <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-2.5 flex items-center justify-between">
+                  <h3 className="font-serif text-xl font-medium text-[#F7F4D5] mb-2.5 flex items-center justify-between">
                     <span>{item.title}</span>
-                    <Sparkles className="w-4 h-4 text-[var(--accent-gold)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Sparkles className="w-4 h-4 text-[#D3968C] opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
-                  <p className="text-sm text-[var(--text-primary)]/85 leading-relaxed font-sans">
+                  <p className="text-sm text-[#F7F4D5]/90 leading-relaxed font-sans">
                     {item.story}
                   </p>
                 </div>

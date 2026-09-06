@@ -31,7 +31,7 @@ const initialNotes: WallNote[] = [
   {
     id: "3",
     name: "Kavya",
-    message: "The Mystic Amethyst palette is so uniquely you. Loved reading your stories here.",
+    message: "The Water Lily Pond palette is so fresh and cheerful. Loved reading your stories here.",
     createdAt: "Last week",
     tilt: "-rotate-1",
   },
@@ -90,25 +90,25 @@ export function WallSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Form Column: Inset in Dusk Blue-tinted panel */}
-          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md relative">
-            <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] flex items-center gap-2 mb-4">
-              <MessageSquareHeart className="w-5 h-5 text-[var(--accent-gold)]" />
+          {/* Form Column: Inset in Midnight green panel */}
+          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[#105666] border border-[#D3968C]/30 shadow-lg relative">
+            <h3 className="font-serif text-xl font-medium text-[#F7F4D5] flex items-center gap-2 mb-4">
+              <MessageSquareHeart className="w-5 h-5 text-[#D3968C]" />
               Pin a Note
             </h3>
 
             {submitted ? (
-              <div className="p-6 rounded-xl bg-[var(--bg-base)] border border-[var(--accent-gold)]/40 text-center">
-                <CheckCircle2 className="w-8 h-8 text-[var(--accent-gold)] mx-auto mb-2" />
-                <h4 className="font-serif text-lg font-medium text-[var(--text-primary)]">
+              <div className="p-6 rounded-xl bg-[#0A3323] border border-[#D3968C]/40 text-center">
+                <CheckCircle2 className="w-8 h-8 text-[#D3968C] mx-auto mb-2" />
+                <h4 className="font-serif text-lg font-medium text-[#F7F4D5]">
                   Note Received!
                 </h4>
-                <p className="text-xs text-[var(--text-primary)]/80 mt-1 leading-relaxed">
+                <p className="text-xs text-[#F7F4D5]/80 mt-1 leading-relaxed">
                   Your message has been placed in Samritha&apos;s mailbox. Once approved by moderation, it will appear on the wall. ✨
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 text-xs text-[var(--accent-gold)] underline cursor-pointer"
+                  className="mt-4 text-xs text-[#D3968C] underline cursor-pointer"
                 >
                   Send another note
                 </button>
@@ -126,12 +126,12 @@ export function WallSection() {
                 />
 
                 {/* Anonymous toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-xs">
-                  <span className="text-[var(--text-primary)]/80">Post identity:</span>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0A3323] border border-[#839958]/30 text-xs">
+                  <span className="text-[#F7F4D5]/80">Post identity:</span>
                   <button
                     type="button"
                     onClick={() => setIsAnonymous(!isAnonymous)}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--border-subtle)] text-xs text-[var(--accent-gold)] hover:border-[var(--accent-gold)] cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D3968C]/40 text-xs text-[#D3968C] hover:border-[#D3968C] cursor-pointer transition-colors"
                   >
                     {isAnonymous ? (
                       <>
@@ -147,7 +147,7 @@ export function WallSection() {
 
                 {!isAnonymous && (
                   <div>
-                    <label className="block text-xs font-medium text-[var(--text-primary)]/80 mb-1">
+                    <label className="block text-xs font-medium text-[#F7F4D5]/90 mb-1">
                       Your Name
                     </label>
                     <input
@@ -155,13 +155,13 @@ export function WallSection() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sam or Fellow Reader"
-                      className="w-full px-4 py-2 text-sm rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors"
+                      className="w-full px-4 py-2 text-sm rounded-xl bg-[#0A3323] border border-[#839958]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:outline-none focus:border-[#D3968C] transition-colors"
                     />
                   </div>
                 )}
 
                 <div>
-                  <label className="block text-xs font-medium text-[var(--text-primary)]/80 mb-1">
+                  <label className="block text-xs font-medium text-[#F7F4D5]/90 mb-1">
                     Your Note *
                   </label>
                   <textarea
@@ -170,14 +170,14 @@ export function WallSection() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Share a thought, book recommendation, or kind word..."
-                    className="w-full px-4 py-2 text-sm rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none"
+                    className="w-full px-4 py-2 text-sm rounded-xl bg-[#0A3323] border border-[#839958]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:outline-none focus:border-[#D3968C] transition-colors resize-none"
                   />
                 </div>
 
                 <ParticleButton
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full"
+                  className="w-full bg-[#D3968C] text-[#F7F4D5] border-none hover:brightness-105"
                 >
                   <Send className="w-4 h-4" />
                   <span>{isSubmitting ? "Sending..." : "Leave Note on Wall"}</span>
@@ -186,27 +186,27 @@ export function WallSection() {
             )}
           </div>
 
-          {/* Organic Pinboard Staggered Notes Column */}
+          {/* Organic Pinboard Staggered Notes Column: Beige Parchment on Moss Wall */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
             {notes.map((note) => (
               <motion.div
                 key={note.id}
                 whileHover={{ scale: 1.03, rotate: 0, zIndex: 20 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`p-6 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] shadow-md hover:border-[var(--accent-gold)]/80 hover:shadow-[0_8px_30px_var(--gold-glow)] transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
+                className={`p-6 rounded-xl bg-[#F7F4D5] border border-[#D3968C]/40 shadow-lg hover:border-[#D3968C] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
               >
-                {/* Antique Pushpin Header Dot */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[var(--accent-gold)] shadow-sm border-2 border-[var(--bg-base)]" />
+                {/* Rosy Pushpin Header Dot */}
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D3968C] shadow-md border-2 border-[#839958]" />
 
                 <div className="flex justify-between items-center mb-3 pt-1">
-                  <span className="text-xs font-semibold text-[var(--accent-primary)] font-mono">
+                  <span className="text-xs font-semibold text-[#105666] font-mono">
                     {note.name ? note.name : "Anonymous Wanderer"}
                   </span>
-                  <span className="text-[10px] text-[var(--text-primary)]/50">
+                  <span className="text-[10px] text-[#0A3323]/60 font-medium">
                     {note.createdAt}
                   </span>
                 </div>
-                <p className="font-serif text-sm sm:text-base text-[var(--text-primary)] leading-relaxed italic">
+                <p className="font-serif text-sm sm:text-base text-[#0A3323] leading-relaxed italic">
                   &ldquo;{note.message}&rdquo;
                 </p>
               </motion.div>
