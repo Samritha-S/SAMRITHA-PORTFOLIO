@@ -10,23 +10,24 @@ export function UnfilteredScrollStringWrapper({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Targets the scroll so the tip of the line is always at or below 3/4th (85%) of the visible screen
+  // Target the container so that as soon as the top enters the lower viewport, drawing begins,
+  // and stays drawn ahead of the viewport down past the 3/4th (80%) mark
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.85", "end 0.95"],
+    offset: ["start 0.9", "end 0.8"],
   });
 
-  // Fast-reacting spring with high stiffness so bends and drawing match the user's scroll speed instantly
+  // Fast-reacting spring with tight responsiveness so curves flow briskly with scroll speed
   const pathLength = useSpring(scrollYProgress, {
-    stiffness: 420,
-    damping: 36,
-    mass: 0.6,
+    stiffness: 500,
+    damping: 38,
+    mass: 0.4,
     restDelta: 0.0005,
   });
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* Expressive looping calligraphy ribbon that bends fast and stays below 3/4th of the viewer's screen */}
+      {/* High-frequency fast-curving ribbon that stays ahead and below 3/4th of the screen */}
       <div className="pointer-events-none absolute inset-0 w-full h-full z-20 overflow-hidden">
         <svg
           className="w-full h-full opacity-90"
@@ -43,7 +44,7 @@ export function UnfilteredScrollStringWrapper({
           </defs>
 
           <motion.path
-            d="M 920 0 C 960 120, 1060 220, 1020 340 C 980 440, 840 460, 780 380 C 720 300, 800 180, 900 240 C 980 300, 1040 480, 960 620 C 880 760, 700 840, 720 1000 C 740 1140, 1020 1180, 1000 1320 C 980 1420, 860 1460, 800 1380 C 740 1300, 820 1200, 920 1260 C 1000 1320, 1020 1480, 920 1620 C 820 1760, 680 1840, 720 2000 C 760 2160, 1040 2180, 1010 2320 C 980 2440, 850 2460, 790 2380 C 730 2300, 820 2180, 920 2240 C 1000 2300, 1020 2480, 900 2620 C 780 2760, 660 2860, 720 3020 C 780 3180, 1050 3220, 1010 3380 C 970 3500, 840 3520, 780 3440 C 720 3360, 810 3240, 920 3300 C 1000 3360, 1020 3540, 910 3700 C 800 3840, 700 3940, 780 4060 C 840 4160, 950 4180, 920 4200"
+            d="M 880 0 C 1020 63, 660 147, 740 210 C 660 273, 1100 357, 1020 420 C 1120 483, 660 567, 740 630 C 660 693, 1100 777, 1020 840 C 1120 903, 660 987, 740 1050 C 660 1113, 1100 1197, 1020 1260 C 1120 1323, 660 1407, 740 1470 C 660 1533, 1100 1617, 1020 1680 C 1120 1743, 660 1827, 740 1890 C 660 1953, 1100 2037, 1020 2100 C 1120 2163, 660 2247, 740 2310 C 660 2373, 1100 2457, 1020 2520 C 1120 2583, 660 2667, 740 2730 C 660 2793, 1100 2877, 1020 2940 C 1120 3003, 660 3087, 740 3150 C 660 3213, 1100 3297, 1020 3360 C 1120 3423, 660 3507, 740 3570 C 660 3633, 1100 3717, 1020 3780 C 1120 3843, 660 3927, 740 3990 C 660 4053, 1080 4137, 980 4200"
             stroke="#D4AF7A"
             strokeWidth={2.5}
             vectorEffect="non-scaling-stroke"
