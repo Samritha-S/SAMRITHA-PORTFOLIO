@@ -187,10 +187,14 @@ function MarvelCardFlipModule() {
   const [quoteIndex, setQuoteIndex] = useState(0);
 
   const quotes = [
-    { text: "I love you 3000.", who: "Tony Stark" },
-    { text: "Part of the journey is the end.", who: "Iron Man" },
-    { text: "Whatever it takes.", who: "The Avengers" },
-    { text: "With great power comes great responsibility.", who: "Peter Parker" },
+    { text: "I could do this all day.", who: "Steve Rogers" },
+    { text: "I'm with you 'til the end of the line.", who: "Steve Rogers" },
+    {
+      text: "The price of freedom is high. It always has been. But it's a price I'm willing to pay.",
+      who: "Captain America",
+    },
+    { text: "Compromise where you can. Where you can't, don't. Even if everyone is telling you to move, your job is to plant yourself like a tree, look them in the eye, and say, 'No, you move.'", who: "Sharon Carter on Steve Rogers" },
+    { text: "Avengers, assemble.", who: "Captain America" },
   ];
 
   const handleFlip = () => {
@@ -217,42 +221,46 @@ function MarvelCardFlipModule() {
               <span className="text-xs uppercase tracking-wider font-semibold text-[var(--accent-secondary)]">
                 Cinema & Lore
               </span>
-              <span className="text-[10px] px-2 py-0.5 rounded font-mono bg-[#E23636]/20 text-[#E23636] border border-[#E23636]/40 font-bold">
-                MARVEL
+              <span className="text-[10px] px-2.5 py-0.5 rounded font-mono bg-blue-500/20 text-blue-300 border border-blue-400/40 font-bold flex items-center gap-1">
+                <span>★</span> CAPTAIN AMERICA
               </span>
             </div>
             <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-2">
               Quoting Movies By Heart
             </h3>
             <p className="text-xs text-[var(--text-primary)]/75 leading-relaxed">
-              Stories of courage, sacrifice, and heroes who bleed and still stand back up.
+              Stories of courage, quiet loyalty, and the stubborn kid from Brooklyn who refuses to stay down.
             </p>
           </div>
 
           <div className="p-3 rounded-lg panel-inset flex items-center justify-between">
-            <span className="text-xs text-[var(--text-primary)]/70">Click to flip card</span>
-            <RotateCw className="w-4 h-4 text-[var(--accent-gold)] group-hover:rotate-180 transition-transform duration-500" />
+            <span className="text-xs text-[var(--text-primary)]/80 font-serif italic">
+              &ldquo;I could do this all day.&rdquo;
+            </span>
+            <RotateCw className="w-4 h-4 text-[var(--accent-gold)] group-hover:rotate-180 transition-transform duration-500 shrink-0 ml-2" />
           </div>
         </div>
 
         {/* BACK FACE (180deg flipped) */}
         <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-xl p-6 bg-[var(--surface-amethyst)] border-2 border-[var(--accent-gold)]/60 flex flex-col justify-between shadow-md">
           <div className="flex justify-between items-center text-[10px] font-mono text-[var(--accent-gold)]">
-            <span>MEMORIZED LINE</span>
+            <span className="flex items-center gap-1">
+              <span>★</span> STEVE ROGERS
+            </span>
             <span>{quoteIndex + 1}/{quotes.length}</span>
           </div>
 
-          <div className="text-center my-auto">
-            <p className="font-serif italic text-lg text-[var(--text-primary)] leading-snug">
+          <div className="text-center my-auto px-2">
+            <p className="font-serif italic text-base sm:text-lg text-[var(--text-primary)] leading-snug">
               &ldquo;{quotes[quoteIndex].text}&rdquo;
             </p>
-            <span className="block text-xs font-mono text-[var(--accent-gold)] mt-2">
+            <span className="block text-xs font-mono text-[var(--accent-gold)] mt-3">
               — {quotes[quoteIndex].who}
             </span>
           </div>
 
           <div className="text-center text-[10px] text-[var(--accent-gold)]/80">
-            Tap to flip & cycle next quote
+            Tap to flip &amp; cycle next quote
           </div>
         </div>
       </motion.div>

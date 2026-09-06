@@ -24,7 +24,7 @@ const defaultUnfilteredMilestones: JourneyMilestone[] = [
     year: "2023",
     title: "The Year of Ink & Cinema",
     story:
-      "Filled journals with half-written poems, late-night character sketches, and rewatched Marvel phases until I could recite dialogues in rhythm.",
+      "Filled journals with half-written poems, late-night character sketches, and rewatching Captain America until I could recite Steve's lines by heart.",
   },
   {
     id: "u3",
