@@ -5,17 +5,17 @@
   [data-view="unfiltered"] {
     --bg-base: #F7F4D5;
     --bg-elevated: #EDE9C5;
-    --surface-amethyst: #D3968C;
-    --surface-dusk: #105666;
-    --surface-sage: #839958;
+    --surface-amethyst: #7E6B8F;
+    --surface-dusk: #607785;
+    --surface-sage: #9683A7;
     --accent-primary: #D3968C;
-    --accent-secondary: #105666;
-    --text-primary: #0A3323;
+    --accent-secondary: #607785;
+    --text-primary: #554466;
     --text-light: #F7F4D5;
-    --text-dark: #0A3323;
-    --accent-gold: #C4877D;
-    --gold-glow: rgba(196, 135, 125, 0.4);
-    --border-subtle: rgba(16, 86, 102, 0.15);
+    --text-dark: #3F324C;
+    --accent-gold: #7E6B8F;
+    --gold-glow: rgba(126, 107, 143, 0.35);
+    --border-subtle: rgba(96, 119, 133, 0.22);
     --card-surface: #EDE9C5;
     --card-hover: #E3DEAF;
   }

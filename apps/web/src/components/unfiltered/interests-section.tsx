@@ -116,7 +116,7 @@ function MusicModule() {
                 repeatType: "reverse",
               }}
               style={{
-                backgroundColor: isPassed ? "var(--accent-gold)" : "rgba(16, 86, 102, 0.4)",
+                backgroundColor: isPassed ? "var(--accent-gold)" : "rgba(96, 119, 133, 0.4)",
               }}
               className="w-1.5 rounded-sm transition-colors duration-150"
             />

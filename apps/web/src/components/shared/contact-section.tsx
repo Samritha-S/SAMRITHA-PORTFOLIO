@@ -48,7 +48,7 @@ export function ContactSection() {
         {/* Contact Info / Social Handles */}
         <div className="md:col-span-5 space-y-6">
           <div className={`p-6 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#105666] text-[#F7F4D5]"
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#607785] text-[#F7F4D5]"
           }`}>
             <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F7F4D5]"}`}>
               Direct Channels
@@ -67,19 +67,19 @@ export function ContactSection() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[#0A3323] border border-[#839958]/30 hover:border-[#D3968C] transition-colors text-xs text-[#D3968C] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 hover:border-[#D3968C] transition-colors text-xs text-[#F7F4D5] group"
                   >
-                    <InstagramIcon className="w-4 h-4 text-[#D3968C] group-hover:scale-110 transition-all" />
-                    <span className="text-[#F7F4D5] group-hover:text-[#D3968C] transition-colors">Instagram • @samritha.s</span>
+                    <InstagramIcon className="w-4 h-4 text-[#D8A7A0] group-hover:scale-110 transition-all" />
+                    <span className="text-[#F7F4D5] group-hover:text-[#D8A7A0] transition-colors">Instagram • @samritha.s</span>
                   </a>
                   <a
                     href="https://x.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[#0A3323] border border-[#839958]/30 hover:border-[#D3968C] transition-colors text-xs text-[#D3968C] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 hover:border-[#D3968C] transition-colors text-xs text-[#F7F4D5] group"
                   >
-                    <TwitterIcon className="w-4 h-4 text-[#D3968C] group-hover:scale-110 transition-all" />
-                    <span className="text-[#F7F4D5] group-hover:text-[#D3968C] transition-colors">X (Twitter) • @samritha_s</span>
+                    <TwitterIcon className="w-4 h-4 text-[#D8A7A0] group-hover:scale-110 transition-all" />
+                    <span className="text-[#F7F4D5] group-hover:text-[#D8A7A0] transition-colors">X (Twitter) • @samritha_s</span>
                   </a>
                 </>
               ) : (
@@ -125,10 +125,10 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Message Form: Dark green panel on unfiltered */}
+        {/* Message Form: Lavender panel on unfiltered */}
         <div className="md:col-span-7">
           <div className={`p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#0A3323] text-[#F7F4D5]"
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#7E6B8F] text-[#F7F4D5]"
           }`}>
             <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F7F4D5]"}`}>
               Send a Direct Message
@@ -136,9 +136,9 @@ export function ContactSection() {
 
             {submitted ? (
               <div className={`p-6 rounded-xl text-center border ${
-                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[#105666] border-[#D3968C]/50 text-[#F7F4D5]"
+                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[#607785] border-[#D3968C]/50 text-[#F7F4D5]"
               }`}>
-                <CheckCircle2 className={`w-8 h-8 mx-auto mb-2 ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D3968C]"}`} />
+                <CheckCircle2 className={`w-8 h-8 mx-auto mb-2 ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D8A7A0]"}`} />
                 <h4 className="font-serif text-lg font-medium">
                   Message Sent
                 </h4>
@@ -148,7 +148,7 @@ export function ContactSection() {
                 <button
                   onClick={() => setSubmitted(false)}
                   suppressHydrationWarning
-                  className={`mt-4 text-xs underline cursor-pointer ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D3968C]"}`}
+                  className={`mt-4 text-xs underline cursor-pointer ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D8A7A0]"}`}
                 >
                   Send another message
                 </button>
@@ -169,7 +169,7 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[#105666] text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:border-[#D3968C]"
+                        : "bg-[#607785] text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:border-[#D3968C]"
                     }`}
                   />
                 </div>
@@ -188,7 +188,7 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[#105666] text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:border-[#D3968C]"
+                        : "bg-[#607785] text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:border-[#D3968C]"
                     }`}
                   />
                 </div>
@@ -207,7 +207,7 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors resize-none ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[#105666] text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:border-[#D3968C]"
+                        : "bg-[#607785] text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:border-[#D3968C]"
                     }`}
                   />
                 </div>

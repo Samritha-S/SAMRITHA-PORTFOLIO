@@ -26,7 +26,7 @@ export function FilterToggle() {
           aria-pressed={!isFiltered}
           className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer ${
             !isFiltered
-              ? "text-[#0A3323] font-semibold"
+              ? "text-[#554466] font-semibold"
               : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
           }`}
         >
@@ -65,7 +65,7 @@ export function FilterToggle() {
             <motion.div
               layoutId="filter-active-capsule"
               transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              className="absolute inset-0 bg-[#105666] rounded-full shadow-sm border border-[#105666]/50 -z-10"
+              className="absolute inset-0 bg-[#607785] rounded-full shadow-sm border border-[#607785]/50 -z-10"
             />
           )}
         </button>

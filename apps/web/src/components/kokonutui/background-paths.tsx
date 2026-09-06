@@ -150,12 +150,11 @@ const FloatingPaths = memo(function FloatingPaths({
       >
         <title>Background Paths</title>
         <defs>
-          {/* Water Lily Pond Accent Waves on Cream:
-              Moss green (#839958) → Midnight green / Navy (#105666) with subtle Rosy touch */}
+          {/* Lavender (#7E6B8F) & Pastel Dusk Blue (#607785) Accent Waves on Cream: */}
           <linearGradient id="portfolioGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(131, 153, 88, 0.45)" />     {/* Moss green #839958 */}
-            <stop offset="50%" stopColor="rgba(16, 86, 102, 0.55)" />     {/* Midnight green / Navy #105666 */}
-            <stop offset="100%" stopColor="rgba(131, 153, 88, 0.4)" />    {/* Moss green #839958 */}
+            <stop offset="0%" stopColor="rgba(126, 107, 143, 0.45)" />     {/* Lavender #7E6B8F */}
+            <stop offset="50%" stopColor="rgba(96, 119, 133, 0.55)" />     {/* Pastel Blue #607785 */}
+            <stop offset="100%" stopColor="rgba(126, 107, 143, 0.4)" />    {/* Lavender #7E6B8F */}
           </linearGradient>
         </defs>
 

@@ -14,7 +14,7 @@ export function UnfilteredHeroAbout() {
       >
         <div className="max-w-3xl mx-auto text-center relative z-10">
           {/* Gentle Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#105666] border border-[#105666] text-xs text-[#F7F4D5] mb-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#607785] border border-[#607785] text-xs text-[#F7F4D5] mb-8 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#D8A7A0]" />
             <span>Unfiltered Personal Space</span>
           </div>
@@ -49,7 +49,7 @@ export function UnfilteredHeroAbout() {
             </a>
             <a
               href="#interests"
-              className="px-6 py-2.5 rounded-full border border-[var(--accent-secondary)] bg-[var(--accent-secondary)] text-[#F7F4D5] hover:brightness-110 transition-all duration-300 flex items-center gap-2 shadow-md text-xs sm:text-sm font-medium"
+              className="px-6 py-2.5 rounded-full border border-[#607785] bg-[#607785] text-[#F7F4D5] hover:brightness-110 transition-all duration-300 flex items-center gap-2 shadow-md text-xs sm:text-sm font-medium"
             >
               Explore Little Things
               <ArrowDown className="w-3.5 h-3.5 text-[#F7F4D5]" />
@@ -93,8 +93,8 @@ export function UnfilteredHeroAbout() {
               So this page is a small snapshot of me right now — not a finished version, just a work in progress.
             </p>
 
-            {/* Pull-quote: Inset panel in Rosy brown */}
-            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[#105666]/30 shadow-md">
+            {/* Pull-quote: Inset panel in Lavender */}
+            <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-amethyst)] border border-[#607785]/30 shadow-md">
               <span className="font-serif text-5xl text-[#F7F4D5] leading-none select-none block mb-2 opacity-90">
                 &ldquo;
               </span>

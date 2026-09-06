@@ -121,8 +121,8 @@ export function BlogSection() {
                   ? "bg-[var(--surface-dusk)]"
                   : "bg-[var(--surface-amethyst)]"
                 : index % 2 === 0
-                  ? "bg-[#105666] text-[#F7F4D5]"
-                  : "bg-[#0A3323] text-[#F7F4D5]"
+                  ? "bg-[#607785] text-[#F7F4D5]"
+                  : "bg-[#7E6B8F] text-[#F7F4D5]"
             }`}
           >
             <div>
@@ -130,7 +130,7 @@ export function BlogSection() {
                 <span className={`text-[10px] font-mono uppercase px-2.5 py-0.5 rounded border ${
                   isFiltered
                     ? "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--accent-gold)]"
-                    : "bg-[#839958] border-[#839958] text-[#0A3323] font-semibold"
+                    : "bg-[#F7F4D5] border-[#F7F4D5] text-[#554466] font-semibold"
                 }`}>
                   {post.tag}
                 </span>

@@ -90,15 +90,15 @@ export function WallSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Form Column: Inset in Midnight green panel */}
-          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[#105666] border border-[#D3968C]/30 shadow-lg relative">
+          {/* Form Column: Inset in Pastel Blue panel */}
+          <div className="lg:col-span-5 rounded-2xl p-6 sm:p-7 bg-[#607785] border border-[#D3968C]/30 shadow-lg relative">
             <h3 className="font-serif text-xl font-medium text-[#F7F4D5] flex items-center gap-2 mb-4">
               <MessageSquareHeart className="w-5 h-5 text-[#D3968C]" />
               Pin a Note
             </h3>
 
             {submitted ? (
-              <div className="p-6 rounded-xl bg-[#0A3323] border border-[#D3968C]/40 text-center">
+              <div className="p-6 rounded-xl bg-[#7E6B8F] border border-[#D3968C]/40 text-center">
                 <CheckCircle2 className="w-8 h-8 text-[#D3968C] mx-auto mb-2" />
                 <h4 className="font-serif text-lg font-medium text-[#F7F4D5]">
                   Note Received!
@@ -126,12 +126,12 @@ export function WallSection() {
                 />
 
                 {/* Anonymous toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0A3323] border border-[#839958]/30 text-xs">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 text-xs">
                   <span className="text-[#F7F4D5]/80">Post identity:</span>
                   <button
                     type="button"
                     onClick={() => setIsAnonymous(!isAnonymous)}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D3968C]/40 text-xs text-[#D3968C] hover:border-[#D3968C] cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D3968C]/40 text-xs text-[#F7F4D5] hover:border-[#D3968C] cursor-pointer transition-colors"
                   >
                     {isAnonymous ? (
                       <>
@@ -155,7 +155,7 @@ export function WallSection() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sam or Fellow Reader"
-                      className="w-full px-4 py-2 text-sm rounded-xl bg-[#0A3323] border border-[#839958]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:outline-none focus:border-[#D3968C] transition-colors"
+                      className="w-full px-4 py-2 text-sm rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:outline-none focus:border-[#D3968C] transition-colors"
                     />
                   </div>
                 )}
@@ -170,7 +170,7 @@ export function WallSection() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Share a thought, book recommendation, or kind word..."
-                    className="w-full px-4 py-2 text-sm rounded-xl bg-[#0A3323] border border-[#839958]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/40 focus:outline-none focus:border-[#D3968C] transition-colors resize-none"
+                    className="w-full px-4 py-2 text-sm rounded-xl bg-[#7E6B8F] border border-[#7E6B8F]/30 text-[#F7F4D5] placeholder-[#F7F4D5]/50 focus:outline-none focus:border-[#D3968C] transition-colors resize-none"
                   />
                 </div>
 
@@ -186,27 +186,27 @@ export function WallSection() {
             )}
           </div>
 
-          {/* Organic Pinboard Staggered Notes Column: Beige Parchment on Moss Wall */}
+          {/* Organic Pinboard Staggered Notes Column: Warm Parchment Notes */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
             {notes.map((note) => (
               <motion.div
                 key={note.id}
                 whileHover={{ scale: 1.03, rotate: 0, zIndex: 20 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`p-6 rounded-xl bg-[#FFFEEA] border border-[#105666]/20 shadow-md hover:border-[#D3968C] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
+                className={`p-6 rounded-xl bg-[#FFFEEA] border border-[#607785]/25 shadow-md hover:border-[#D3968C] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
               >
                 {/* Rosy Pushpin Header Dot */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D8A7A0] shadow-md border-2 border-[#105666]" />
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#D8A7A0] shadow-md border-2 border-[#607785]" />
 
                 <div className="flex justify-between items-center mb-3 pt-1">
-                  <span className="text-xs font-semibold text-[#105666] font-mono">
+                  <span className="text-xs font-semibold text-[#607785] font-mono">
                     {note.name ? note.name : "Anonymous Wanderer"}
                   </span>
-                  <span className="text-[10px] text-[#0A3323]/60 font-medium">
+                  <span className="text-[10px] text-[#554466]/70 font-medium">
                     {note.createdAt}
                   </span>
                 </div>
-                <p className="font-serif text-sm sm:text-base text-[#0A3323] leading-relaxed italic">
+                <p className="font-serif text-sm sm:text-base text-[#554466] leading-relaxed italic">
                   &ldquo;{note.message}&rdquo;
                 </p>
               </motion.div>

@@ -90,12 +90,12 @@ export function UnfilteredJourneyTimeline({
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
                 </div>
 
-                {/* Narrative Entry: Alternates Midnight green and Dark green with Beige text */}
+                {/* Narrative Entry: Alternates Pastel Blue and Lavender with Beige text */}
                 <div
                   className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-all duration-300 shadow-md relative ${
                     index % 2 === 0
-                      ? "bg-[#105666] text-[#F7F4D5]"
-                      : "bg-[#0A3323] text-[#F7F4D5]"
+                      ? "bg-[#607785] text-[#F7F4D5]"
+                      : "bg-[#7E6B8F] text-[#F7F4D5]"
                   }`}
                 >
                   <div className="sm:hidden text-xs font-serif font-bold text-[#D3968C] mb-1.5">
