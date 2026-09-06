@@ -9,36 +9,46 @@ export function UnfilteredScrollStringWrapper({
   children: React.ReactNode;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Tracks the user's active viewport position as they scroll through the sections
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.8", "end 0.95"],
+    offset: ["start 0.5", "end end"],
   });
 
-  // Smooth liquid momentum matching the scroll down
+  // Fast, responsive spring tracking so the line tip moves at the user's exact scroll speed
   const pathLength = useSpring(scrollYProgress, {
-    stiffness: 85,
-    damping: 26,
+    stiffness: 280,
+    damping: 32,
     restDelta: 0.001,
   });
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* Continuous thin ribbon string flowing downward from top of About to the end of the page */}
-      <div className="pointer-events-none absolute inset-0 w-full h-full z-10 overflow-hidden">
+      {/* High-visibility, fast-responsive gold string that tracks the user on screen */}
+      <div className="pointer-events-none absolute inset-0 w-full h-full z-20 overflow-hidden">
         <svg
-          className="w-full h-full opacity-60"
-          viewBox="0 0 1200 3200"
+          className="w-full h-full"
+          viewBox="0 0 1000 4000"
           preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <defs>
+            <filter id="stringGoldGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#D4AF7A" floodOpacity="0.85" />
+              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#D4AF7A" floodOpacity="0.4" />
+            </filter>
+          </defs>
+
           <motion.path
-            d="M 950 40 C 1050 120, 1100 240, 1020 300 C 940 360, 880 280, 930 200 C 980 120, 1060 220, 1020 380 C 980 540, 820 620, 850 780 C 880 940, 1000 980, 980 1080 C 960 1180, 870 1150, 860 1060 C 850 970, 930 1020, 950 1180 C 970 1340, 840 1440, 870 1600 C 900 1760, 1020 1800, 990 1900 C 960 2000, 880 1960, 890 1880 C 900 1800, 980 1860, 960 2020 C 940 2180, 800 2280, 840 2440 C 880 2600, 980 2700, 950 2850 C 920 3000, 820 3100, 860 3200"
+            d="M 880 0 C 880 83.5, 929 83.5, 929 167 C 929 250, 950 250, 950 333 C 950 416.5, 929 416.5, 929 500 C 929 583.5, 880 583.5, 880 667 C 880 750, 831 750, 831 833 C 831 916.5, 810 916.5, 810 1000 C 810 1083.5, 831 1083.5, 831 1167 C 831 1250, 880 1250, 880 1333 C 880 1416.5, 929 1416.5, 929 1500 C 929 1583.5, 950 1583.5, 950 1667 C 950 1750, 929 1750, 929 1833 C 929 1916.5, 880 1916.5, 880 2000 C 880 2083.5, 831 2083.5, 831 2167 C 831 2250, 810 2250, 810 2333 C 810 2416.5, 831 2416.5, 831 2500 C 831 2583.5, 880 2583.5, 880 2667 C 880 2750, 929 2750, 929 2833 C 929 2916.5, 950 2916.5, 950 3000 C 950 3083.5, 929 3083.5, 929 3167 C 929 3250, 880 3250, 880 3333 C 880 3416.5, 831 3416.5, 831 3500 C 831 3583.5, 810 3583.5, 810 3667 C 810 3750, 831 3750, 831 3833 C 831 3916.5, 880 3916.5, 880 4000"
             stroke="#D4AF7A"
-            strokeWidth={1.75}
+            strokeWidth={2.25}
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
             strokeLinejoin="round"
+            filter="url(#stringGoldGlow)"
             style={{ pathLength }}
           />
         </svg>
