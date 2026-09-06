@@ -22,7 +22,8 @@ const telemetryData = [
 
 export function GitHubSection() {
   return (
-    <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
+      <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono flex items-center justify-center gap-1.5">
           <GithubIcon className="w-3.5 h-3.5" />
@@ -48,6 +49,7 @@ export function GitHubSection() {
 
         {/* 26-Week Contribution Calendar Grid */}
         <BklitCommitGraph />
+      </div>
       </div>
     </section>
   );

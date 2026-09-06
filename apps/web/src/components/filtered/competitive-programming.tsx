@@ -37,7 +37,8 @@ export function CompetitiveProgrammingSection() {
   ];
 
   return (
-    <section id="competitive" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="competitive" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+      <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           Algorithmic Rigor
@@ -116,6 +117,7 @@ export function CompetitiveProgrammingSection() {
             </KokonutCard>
           );
         })}
+      </div>
       </div>
     </section>
   );

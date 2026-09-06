@@ -11,7 +11,8 @@ export function ResumeSection({
   resumeUrl?: string;
 }) {
   return (
-    <section id="resume" className="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <section id="resume" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+      <div className="max-w-4xl mx-auto">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           Credentials
@@ -62,6 +63,7 @@ export function ResumeSection({
           </a>
         </div>
       </KokonutCard>
+      </div>
     </section>
   );
 }

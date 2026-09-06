@@ -48,57 +48,65 @@ export function UnfilteredJourneyTimeline({
   milestones?: JourneyMilestone[];
 }) {
   return (
-    <section id="journey" className="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-      <div className="text-center mb-16">
-        <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
-          Personal Milestones
-        </span>
-        <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[var(--text-primary)] mt-3">
-          The Journey
-        </h2>
-        <div className="gold-hairline w-24 mx-auto mt-4" />
-        <p className="text-sm text-[var(--text-primary)]/80 max-w-lg mx-auto mt-4 leading-relaxed">
-          Not a checklist of accolades, but the chapters that shaped how I see the world.
-        </p>
-      </div>
+    <section id="journey" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
+            Personal Milestones
+          </span>
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[var(--text-primary)] mt-3">
+            The Journey
+          </h2>
+          <div className="gold-hairline w-24 mx-auto mt-4" />
+          <p className="text-sm text-[var(--text-primary)]/80 max-w-lg mx-auto mt-4 leading-relaxed">
+            Not a checklist of accolades, but the chapters that shaped how I see the world.
+          </p>
+        </div>
 
-      <div className="relative border-l border-[var(--border-subtle)] ml-4 sm:ml-32 space-y-12 pl-6 sm:pl-8">
-        {milestones.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="relative group"
-          >
-            {/* Year Badge on the Left (for desktop) */}
-            <div className="hidden sm:block absolute -left-36 top-0 text-right w-24">
-              <span className="font-serif text-lg font-medium text-[var(--accent-gold)]">
-                {item.year}
-              </span>
-            </div>
+        {/* Timeline Container with Glowing Gold Spine */}
+        <div className="relative pl-8 sm:pl-36">
+          {/* Continuous Glowing Gold Spine */}
+          <div className="absolute left-2 sm:left-28 top-3 bottom-6 w-[2px] gold-spine rounded-full pointer-events-none" />
 
-            {/* Glowing Timeline Marker */}
-            <div className="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 rounded-full bg-[var(--bg-base)] border-2 border-[var(--accent-gold)] group-hover:bg-[var(--accent-gold)] group-hover:shadow-[0_0_12px_var(--accent-gold)] transition-all duration-300 flex items-center justify-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
-            </div>
+          <div className="space-y-12">
+            {milestones.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative group"
+              >
+                {/* Year Label on the Left (Desktop) */}
+                <div className="hidden sm:block absolute -left-36 top-1 text-right w-20">
+                  <span className="font-serif text-base font-semibold text-[var(--accent-primary)] tracking-wide group-hover:text-[var(--accent-gold)] transition-colors">
+                    {item.year}
+                  </span>
+                </div>
 
-            {/* Content Card */}
-            <div className="p-6 rounded-2xl bg-[var(--card-surface)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300">
-              <div className="sm:hidden text-xs font-mono text-[var(--accent-gold)] mb-1">
-                {item.year}
-              </div>
-              <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-2 flex items-center gap-2">
-                {item.title}
-                <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]/60 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </h3>
-              <p className="text-sm text-[var(--text-primary)]/80 leading-relaxed">
-                {item.story}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+                {/* Glowing Gold Timeline Node */}
+                <div className="absolute -left-[30px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[var(--bg-base)] border-2 border-[var(--accent-gold)] shadow-[0_0_10px_var(--gold-glow)] group-hover:bg-[var(--accent-gold)] group-hover:shadow-[0_0_16px_var(--accent-gold)] transition-all duration-300 flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[#2C3436]" />
+                </div>
+
+                {/* Narrative Entry (Elevated ledger-style chronicle) */}
+                <div className="p-6 sm:p-7 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm relative">
+                  <div className="sm:hidden text-xs font-serif font-bold text-[var(--accent-primary)] mb-1.5">
+                    {item.year}
+                  </div>
+                  <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-2.5 flex items-center justify-between">
+                    <span>{item.title}</span>
+                    <Sparkles className="w-4 h-4 text-[var(--accent-gold)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </h3>
+                  <p className="text-sm text-[var(--text-primary)]/85 leading-relaxed font-sans">
+                    {item.story}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -111,7 +111,8 @@ export function ExperienceProjects() {
         );
 
   return (
-    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
+      <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           Engineered Solutions & Hackathons
@@ -212,6 +213,7 @@ export function ExperienceProjects() {
             </div>
           </KokonutCard>
         ))}
+      </div>
       </div>
     </section>
   );

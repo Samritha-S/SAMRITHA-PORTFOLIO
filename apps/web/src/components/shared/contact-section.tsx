@@ -28,7 +28,8 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
+      <div className="max-w-5xl mx-auto">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           {isFiltered ? "Initiate Communication" : "Say Hello"}
@@ -65,57 +66,57 @@ export function ContactSection() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
-                    <InstagramIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
-                    <span>Instagram • @samritha.s</span>
+                    <InstagramIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Instagram • @samritha.s</span>
                   </a>
                   <a
                     href="https://x.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
-                    <TwitterIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
-                    <span>X (Twitter) • @samritha_s</span>
+                    <TwitterIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_s</span>
                   </a>
                 </>
               ) : (
-                /* Filtered Socials: X, LinkedIn, GitHub, Email */
+                /* Filtered Socials: Email, LinkedIn, GitHub, X */
                 <>
                   <a
                     href="mailto:samritha@example.com"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
-                    <Mail className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
-                    <span>Email • samritha@example.com</span>
+                    <Mail className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Email • samritha@example.com</span>
                   </a>
                   <a
                     href="https://linkedin.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
-                    <LinkedinIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
-                    <span>LinkedIn • /in/samritha</span>
+                    <LinkedinIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">LinkedIn • /in/samritha</span>
                   </a>
                   <a
                     href="https://github.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
-                    <GithubIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
-                    <span>GitHub • @samritha</span>
+                    <GithubIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">GitHub • @samritha</span>
                   </a>
                   <a
                     href="https://x.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
-                    <TwitterIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-transform" />
-                    <span>X (Twitter) • @samritha_tech</span>
+                    <TwitterIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_tech</span>
                   </a>
                 </>
               )}
@@ -206,6 +207,7 @@ export function ContactSection() {
             )}
           </KokonutCard>
         </div>
+      </div>
       </div>
     </section>
   );

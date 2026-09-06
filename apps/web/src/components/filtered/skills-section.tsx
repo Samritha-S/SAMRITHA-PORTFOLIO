@@ -39,7 +39,8 @@ export function SkillsSection() {
   ];
 
   return (
-    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
+      <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           Technical Inventory
@@ -111,6 +112,7 @@ export function SkillsSection() {
         <blockquote className="border-l-2 border-[var(--accent-gold)] pl-4 italic text-sm text-[var(--text-primary)]/80">
           &ldquo;I&apos;m not trying to learn everything. I&apos;m trying to understand what I build.&rdquo;
         </blockquote>
+      </div>
       </div>
     </section>
   );

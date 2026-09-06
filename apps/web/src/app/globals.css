@@ -67,6 +67,43 @@
   text-shadow: 0 0 16px rgba(201, 162, 75, 0.35);
 }
 
+/* Section & Surface Utilities */
+.section-base {
+  background-color: var(--bg-base);
+}
+
+.section-elevated {
+  background-color: var(--bg-elevated);
+}
+
+.panel-inset {
+  background-color: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--border-subtle);
+}
+
+.gold-spine {
+  background: linear-gradient(180deg, var(--accent-gold) 0%, rgba(201, 162, 75, 0.5) 80%, transparent 100%);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* 3D Transform Utilities for Flip Cards */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
@@ -85,3 +122,4 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-gold);
 }
+

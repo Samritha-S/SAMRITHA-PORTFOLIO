@@ -28,7 +28,7 @@ export default function Home() {
   const { isFiltered } = useView();
 
   return (
-    <div className="relative min-h-screen selection:bg-[var(--accent-gold)] selection:text-[#011627]">
+    <div className="relative min-h-screen selection:bg-[var(--accent-gold)] selection:text-[#011627] bg-[var(--bg-base)]">
       {/* Top Fixed Header with Filter Toggle */}
       <Navbar />
 
@@ -38,90 +38,75 @@ export default function Home() {
           {!isFiltered ? (
             <motion.div
               key="unfiltered-view"
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
             >
-              {/* 1. Hero & 2. About Samritha */}
+              {/* 1. Hero (section-base) & 2. About Samritha (section-elevated) */}
               <UnfilteredHeroAbout />
 
-              {/* 3. Journey */}
-              <div className="gold-hairline max-w-4xl mx-auto my-12" />
+              {/* 3. Journey (section-base with luminous gold spine) */}
               <UnfilteredJourneyTimeline />
 
-              {/* 4. Interests & Hobbies (Bespoke Interactive Modules) */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 4. Interests & Hobbies (section-elevated with bespoke module containers) */}
               <InterestsSection />
 
-              {/* 5. Personal Blog */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
-              <BlogSection />
-
-              {/* 6. Wall / Post a Note */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 5. Wall / Post a Note (section-base with organic staggered pinboard) */}
               <WallSection />
 
-              {/* 7. Photo Gallery */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 6. Photo Gallery (section-elevated with masonry grid & Lightbox modal) */}
               <PhotoGallery />
 
-              {/* 8. Get in Touch */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 7. Personal Stories / Blog (section-base) */}
+              <BlogSection />
+
+              {/* 8. Get in Touch (section-base) */}
               <ContactSection />
             </motion.div>
           ) : (
             <motion.div
               key="filtered-view"
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
             >
-              {/* 1. Hero & 2. About Samritha */}
+              {/* 1. Hero (section-base) & 2. About Samritha (section-elevated) */}
               <FilteredHeroAbout />
 
-              {/* 3. Technical Milestones Journey */}
-              <div className="gold-hairline max-w-4xl mx-auto my-12" />
+              {/* 3. Technical Milestones Journey (section-base with gold spine) */}
               <FilteredJourneyTimeline />
 
-              {/* 4. Experience, Projects & Hackathons */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 4. Experience, Projects & Hackathons (section-elevated) */}
               <ExperienceProjects />
 
-              {/* 5. Currently Learning / What I Know / What I Want to Learn */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 5. Knowledge Inventory / Skills (section-base) */}
               <SkillsSection />
 
-              {/* 6. Competitive Programming */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 6. Competitive Programming (section-elevated) */}
               <CompetitiveProgrammingSection />
 
-              {/* 7. GitHub & Data Visualizations (Bklit UI) */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 7. GitHub & Data Visualizations (section-base with Bklit UI) */}
               <GitHubSection />
 
-              {/* 8. Resume */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 8. Resume / CV (section-elevated) */}
               <ResumeSection />
 
-              {/* 9. Technical Blog */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
-              <BlogSection />
-
-              {/* 10. Technical Photo Gallery */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 9. Technical Photo Gallery (section-elevated with Lightbox modal) */}
               <PhotoGallery />
 
-              {/* 11. Get in Touch */}
-              <div className="gold-hairline max-w-5xl mx-auto my-12" />
+              {/* 10. Technical Blog (section-base) */}
+              <BlogSection />
+
+              {/* 11. Get in Touch (section-base) */}
               <ContactSection />
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      {/* Shared Footer */}
+      {/* Shared Footer (section-base with hairline gold rule) */}
       <Footer />
     </div>
   );
