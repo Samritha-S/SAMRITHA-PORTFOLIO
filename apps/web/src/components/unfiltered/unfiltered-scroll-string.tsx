@@ -58,24 +58,36 @@ export function UnfilteredScrollStringWrapper({
   }, [rawProgress]);
 
   const ribbonPath = `
-    M 70 0
-    C 55 350, 90 750, 75 1100
-    C 65 1350, 440 1700, 500 2000
-    C 540 2200, 580 2400, 500 2600
-    C 420 2800, 420 3000, 500 3200
-    C 580 3400, 580 3600, 500 3800
-    C 420 4000, 420 4200, 500 4400
-    C 580 4600, 580 4800, 500 5000
-    C 420 5200, 420 5400, 500 5600
-    C 580 5800, 580 6000, 500 6200
-    C 420 6400, 420 6600, 500 6800
-    C 580 7000, 580 7200, 500 7400
-    C 420 7600, 470 7850, 500 8000
+    M 75 40
+    C 60 100, 115 150, 115 210
+    C 115 265, 50 275, 50 220
+    C 50 170, 95 180, 80 290
+    C 65 400, 65 500, 110 580
+    C 115 645, 50 655, 50 600
+    C 50 550, 95 565, 80 690
+    C 65 800, 75 920, 110 1000
+    C 115 1065, 50 1075, 50 1020
+    C 50 970, 95 985, 80 1120
+    C 70 1260, 200 1520, 500 1750
+    C 580 1900, 580 2050, 500 2200
+    C 420 2350, 420 2500, 500 2650
+    C 580 2800, 580 2950, 500 3100
+    C 420 3250, 420 3400, 500 3550
+    C 580 3700, 580 3850, 500 4000
+    C 420 4150, 420 4300, 500 4450
+    C 580 4600, 580 4750, 500 4900
+    C 420 5050, 420 5200, 500 5350
+    C 580 5500, 580 5650, 500 5800
+    C 420 5950, 420 6100, 500 6250
+    C 580 6400, 580 6550, 500 6700
+    C 420 6850, 420 7000, 500 7150
+    C 580 7300, 580 7450, 500 7600
+    C 420 7750, 470 7900, 500 8000
   `;
 
   return (
     <div ref={containerRef} className="relative w-full unfiltered-scroll-container">
-      {/* Sleek gold calligraphy ribbon: margin guide in About, gliding smoothly into center */}
+      {/* Sleek satin calligraphy ribbon with cute loops on side and center sweep */}
       <div className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden">
         <svg
           className="w-full h-full"
@@ -84,36 +96,53 @@ export function UnfilteredScrollStringWrapper({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Layer 1: Soft luminous ambient glow */}
+          <defs>
+            {/* Satin gold gradient with realistic fabric luster */}
+            <linearGradient id="satinGoldRibbon" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#E5C38D" />
+              <stop offset="30%" stopColor="#D4AF7A" />
+              <stop offset="55%" stopColor="#FFF4DE" />
+              <stop offset="80%" stopColor="#C59B63" />
+              <stop offset="100%" stopColor="#D4AF7A" />
+            </linearGradient>
+
+            {/* Soft ambient ribbon glow & shadow */}
+            <filter id="satinRibbonGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#1a0f24" floodOpacity="0.6" />
+              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#D4AF7A" floodOpacity="0.45" />
+            </filter>
+          </defs>
+
+          {/* Layer 1: Soft ambient gold aura */}
           <motion.path
             d={ribbonPath}
             stroke="#D4AF7A"
-            strokeWidth={5.5}
-            strokeOpacity={0.25}
+            strokeWidth={7}
+            strokeOpacity={0.22}
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{ pathLength }}
           />
 
-          {/* Layer 2: Rich satin gold body */}
+          {/* Layer 2: Main Satin Ribbon Band (tactile width & luster) */}
           <motion.path
             d={ribbonPath}
-            stroke="#D4AF7A"
-            strokeWidth={2.4}
-            strokeOpacity={0.9}
+            stroke="url(#satinGoldRibbon)"
+            strokeWidth={4}
+            filter="url(#satinRibbonGlow)"
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{ pathLength }}
           />
 
-          {/* Layer 3: Sleek champagne core gleam */}
+          {/* Layer 3: Silk shimmer highlight along the ribbon crest */}
           <motion.path
             d={ribbonPath}
-            stroke="#FFF2D6"
-            strokeWidth={0.8}
-            strokeOpacity={0.95}
+            stroke="#FFFDF7"
+            strokeWidth={1.2}
+            strokeOpacity={0.85}
             vectorEffect="non-scaling-stroke"
             strokeLinecap="round"
             strokeLinejoin="round"
