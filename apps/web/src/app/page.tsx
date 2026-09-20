@@ -27,6 +27,19 @@ import { ResumeSection } from "@/components/filtered/resume-section";
 
 export default function Home() {
   const { isFiltered } = useView();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="relative min-h-screen selection:bg-[var(--accent-gold)] selection:text-[#011627] bg-[var(--bg-base)]">
+        <Navbar />
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen selection:bg-[var(--accent-gold)] selection:text-[#011627] bg-[var(--bg-base)]">
