@@ -23,7 +23,7 @@ export function Navbar() {
           // Simple active link spy
           const sections = isFiltered
             ? ["about", "journey-tech", "projects", "skills", "competitive", "github", "resume", "blog", "contact"]
-            : ["about", "journey", "interests", "wall", "blog", "gallery", "contact"];
+            : ["about", "journey", "interests", "wall", "gallery", "blog", "contact"];
 
           for (const sectionId of [...sections].reverse()) {
             const el = document.getElementById(sectionId);
