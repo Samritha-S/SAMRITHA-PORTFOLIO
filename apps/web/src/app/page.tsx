@@ -47,29 +47,29 @@ export default function Home() {
               {/* 1. Hero (section-base) */}
               <UnfilteredHero />
 
-              {/* Continuous String: starts from About and follows scroll till the end of the page */}
+              {/* Continuous String: starts from About and concludes at the end of the Journey */}
               <UnfilteredScrollStringWrapper>
                 {/* 2. About Samritha */}
                 <UnfilteredAbout />
 
                 {/* 3. Journey (section-base with luminous gold spine) */}
                 <UnfilteredJourneyTimeline />
-
-                {/* 4. Interests & Hobbies (section-elevated with bespoke module containers) */}
-                <InterestsSection />
-
-                {/* 5. Wall / Post a Note (section-base with organic staggered pinboard) */}
-                <WallSection />
-
-                {/* 6. Photo Gallery (section-elevated with Skiper 49 Coverflow) */}
-                <PhotoGallery />
-
-                {/* 7. Personal Stories / Blog (section-base) */}
-                <BlogSection />
-
-                {/* 8. Get in Touch (section-base) */}
-                <ContactSection />
               </UnfilteredScrollStringWrapper>
+
+              {/* 4. Interests & Hobbies (section-elevated with bespoke module containers) */}
+              <InterestsSection />
+
+              {/* 5. Wall / Post a Note (section-base with organic staggered pinboard) */}
+              <WallSection />
+
+              {/* 6. Photo Gallery (section-elevated with Skiper 49 Coverflow) */}
+              <PhotoGallery />
+
+              {/* 7. Personal Stories / Blog (section-base) */}
+              <BlogSection />
+
+              {/* 8. Get in Touch (section-base) */}
+              <ContactSection />
             </motion.div>
           ) : (
             <motion.div

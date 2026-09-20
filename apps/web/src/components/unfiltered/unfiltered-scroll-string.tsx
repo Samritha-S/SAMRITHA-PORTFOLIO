@@ -33,9 +33,8 @@ export function UnfilteredScrollStringWrapper({
       const vpH = window.innerHeight;
       // Distance scrolled into the container relative to visible screen
       const scrolled = vpH - rect.top;
-      // Progress from 0 (at entry) to 1 (when scrolled through to the bottom)
-      // Provide a tiny 0.02 initial minimum so the start of the ribbon at top is visible when entering About
-      const progress = Math.min(1, Math.max(0.02, scrolled / (containerHeight - vpH * 0.2)));
+      // Reaches 1.0 when scrolled through to the end of Journey
+      const progress = Math.min(1, Math.max(0.02, scrolled / containerHeight));
       rawProgress.set(progress);
     };
 
@@ -57,6 +56,7 @@ export function UnfilteredScrollStringWrapper({
     };
   }, [rawProgress]);
 
+  // Ribbon starts at About, loops along margin, sweeps to middle, weaves through Journey, and concludes
   const ribbonPath = `
     M 75 40
     C 60 100, 115 150, 115 210
@@ -68,30 +68,20 @@ export function UnfilteredScrollStringWrapper({
     C 65 800, 75 920, 110 1000
     C 115 1065, 50 1075, 50 1020
     C 50 970, 95 985, 80 1120
-    C 70 1260, 200 1520, 500 1750
-    C 580 1900, 580 2050, 500 2200
-    C 420 2350, 420 2500, 500 2650
-    C 580 2800, 580 2950, 500 3100
-    C 420 3250, 420 3400, 500 3550
-    C 580 3700, 580 3850, 500 4000
-    C 420 4150, 420 4300, 500 4450
-    C 580 4600, 580 4750, 500 4900
-    C 420 5050, 420 5200, 500 5350
-    C 580 5500, 580 5650, 500 5800
-    C 420 5950, 420 6100, 500 6250
-    C 580 6400, 580 6550, 500 6700
-    C 420 6850, 420 7000, 500 7150
-    C 580 7300, 580 7450, 500 7600
-    C 420 7750, 470 7900, 500 8000
+    C 70 1260, 240 1440, 500 1560
+    C 580 1660, 580 1800, 500 1920
+    C 420 2040, 420 2160, 500 2260
+    C 550 2310, 550 2370, 500 2370
+    C 460 2370, 470 2330, 500 2330
   `;
 
   return (
     <div ref={containerRef} className="relative w-full unfiltered-scroll-container">
-      {/* Sleek satin calligraphy ribbon with cute loops on side and center sweep */}
+      {/* Sleek satin calligraphy ribbon: frames About on the side, sweeps to middle, and concludes at Journey end */}
       <div className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden">
         <svg
           className="w-full h-full"
-          viewBox="0 0 1000 8000"
+          viewBox="0 0 1000 2400"
           preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
