@@ -1,13 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Shield, Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
+  const [mounted, setMounted] = useState(false);
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +32,12 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#090d13] flex items-center justify-center px-4" />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#090d13] flex items-center justify-center px-4">

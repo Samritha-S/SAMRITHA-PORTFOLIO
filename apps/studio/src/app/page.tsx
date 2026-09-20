@@ -38,6 +38,7 @@ async function api(path: string, opts?: RequestInit) {
 
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 export default function StudioDashboard() {
+  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("settings");
   const [settings, setSettings]     = useState<SiteSettings | null>(null);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
@@ -63,7 +64,10 @@ export default function StudioDashboard() {
     }
   }, []);
 
-  useEffect(() => { loadAll(); }, [loadAll]);
+  useEffect(() => {
+    setMounted(true);
+    loadAll();
+  }, [loadAll]);
 
   const pendingCount = notes.filter((n) => !n.approved).length;
 
@@ -71,6 +75,17 @@ export default function StudioDashboard() {
     await fetch("/api/logout", { method: "POST" });
     window.location.href = "/login";
   };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#090d13] text-[#e6edf3] flex items-center justify-center font-sans">
+        <div className="flex items-center gap-2.5 text-sm text-[#8b949e]">
+          <span className="w-4 h-4 border-2 border-[#C9A24B] border-t-transparent rounded-full animate-spin" />
+          Loading Studio...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#090d13] text-[#e6edf3] flex flex-col font-sans">
