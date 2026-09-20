@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import React, { useRef } from "react";
+import { motion, useScroll, useSpring } from "motion/react";
 
 export function UnfilteredScrollStringWrapper({
   children,
@@ -10,51 +10,19 @@ export function UnfilteredScrollStringWrapper({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Raw motion value — 0 to 1 progress through the container
-  const rawProgress = useMotionValue(0.02);
-
-  // Smooth responsive spring: stays ahead of the user scroll
-  const pathLength = useSpring(rawProgress, {
-    stiffness: 400,
-    damping: 40,
-    mass: 0.2,
-    restDelta: 0.0002,
+  // Hardware-optimized scroll tracking directly from Motion without layout thrashing
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.85", "end end"],
   });
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const updateProgress = () => {
-      const rect = container.getBoundingClientRect();
-      const containerHeight = rect.height;
-      if (!containerHeight) return;
-
-      const vpH = window.innerHeight;
-      // Distance scrolled into the container relative to visible screen
-      const scrolled = vpH - rect.top;
-      // Reaches 1.0 when scrolled through to the end of Journey
-      const progress = Math.min(1, Math.max(0.02, scrolled / containerHeight));
-      rawProgress.set(progress);
-    };
-
-    // Calculate immediately on mount
-    updateProgress();
-
-    // Listen to both native scroll and Lenis RAF-driven scroll
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    let rafId: number;
-    const rafLoop = () => {
-      updateProgress();
-      rafId = requestAnimationFrame(rafLoop);
-    };
-    rafId = requestAnimationFrame(rafLoop);
-
-    return () => {
-      window.removeEventListener("scroll", updateProgress);
-      cancelAnimationFrame(rafId);
-    };
-  }, [rawProgress]);
+  // Buttery-smooth spring momentum that glides effortlessly with Lenis smooth scroll
+  const pathLength = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 30,
+    mass: 0.2,
+    restDelta: 0.0005,
+  });
 
   // Ribbon starts at About, loops along margin, sweeps to middle, weaves through Journey, and concludes
   const ribbonPath = `
@@ -78,7 +46,10 @@ export function UnfilteredScrollStringWrapper({
   return (
     <div ref={containerRef} className="relative w-full unfiltered-scroll-container">
       {/* Sleek satin calligraphy ribbon: frames About on the side, sweeps to middle, and concludes at Journey end */}
-      <div className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden"
+        style={{ willChange: "transform", transform: "translateZ(0)" }}
+      >
         <svg
           className="w-full h-full"
           viewBox="0 0 1000 2400"
@@ -96,10 +67,9 @@ export function UnfilteredScrollStringWrapper({
               <stop offset="100%" stopColor="#D4AF7A" />
             </linearGradient>
 
-            {/* Soft ambient ribbon glow & shadow */}
-            <filter id="satinRibbonGlow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#1a0f24" floodOpacity="0.6" />
-              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#D4AF7A" floodOpacity="0.45" />
+            {/* Lightweight GPU-accelerated ribbon drop shadow */}
+            <filter id="satinRibbonGlow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#1a0f24" floodOpacity="0.4" />
             </filter>
           </defs>
 
