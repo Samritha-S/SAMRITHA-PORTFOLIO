@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ExternalLink, Trophy } from "lucide-react";
 import { GithubIcon } from "@/components/shared/icons";
 import { KokonutCard } from "@/components/kokonutui/card";
+import { supabase } from "@/lib/supabase";
 
 interface ProjectItem {
   id: string;
@@ -100,13 +101,39 @@ const projects: ProjectItem[] = [
 
 export function ExperienceProjects() {
   const [filter, setFilter] = useState("All");
+  const [liveProjects, setLiveProjects] = useState<ProjectItem[] | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from("projects")
+      .select("*")
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setLiveProjects(
+            data.map((p) => ({
+              id: p.id,
+              title: p.title,
+              category: p.category,
+              description: p.description,
+              tags: typeof p.tags === "string" ? p.tags.split(",").map((t: string) => t.trim()) : p.tags,
+              demoUrl: p.demo_url || undefined,
+              repoUrl: p.repo_url || undefined,
+              award: p.award || undefined,
+            }))
+          );
+        }
+      });
+  }, []);
+
+  const activeProjectList = liveProjects && liveProjects.length > 0 ? liveProjects : projects;
 
   const categories = ["All", "Full-Stack", "AI & Computer Vision", "Real-Time"];
 
   const filteredProjects =
     filter === "All"
-      ? projects
-      : projects.filter((p) =>
+      ? activeProjectList
+      : activeProjectList.filter((p) =>
           p.category.toLowerCase().includes(filter.toLowerCase())
         );
 

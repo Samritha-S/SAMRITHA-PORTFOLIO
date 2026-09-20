@@ -5,8 +5,15 @@ import { Terminal, Code2, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import FlowField from "@/components/kokonutui/flow-field";
 import ConstellationField from "@/components/kokonutui/constellation-field";
+import { useView } from "@/context/view-context";
 
 export function FilteredHeroAbout() {
+  const { settings } = useView();
+
+  const title = settings?.filtered_hero_title || "Hi, I'm Samritha.";
+  const subtitle = settings?.filtered_hero_subtitle || "I build technology that turns ideas into useful, tangible experiences.";
+  const bio = settings?.filtered_hero_bio || "From full-stack applications and AI-powered platforms to hackathon prototypes and digital-twin solutions, I enjoy taking a problem from \"what if?\" to \"it works.\"";
+
   return (
     <>
       {/* 1. Hero Section: FlowField noir theme */}
@@ -23,19 +30,19 @@ export function FilteredHeroAbout() {
             <span>Computer Science Student • Full-Stack Developer • Builder</span>
           </div>
 
-          {/* Locked Copy §5.3 */}
+          {/* Dynamic Copy */}
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.15] mb-6">
-            Hi, I&apos;m Samritha.
+            {title}
           </h1>
 
           <div className="gold-hairline w-32 mx-auto mb-6" />
 
           <p className="font-serif text-xl sm:text-2xl text-[var(--accent-gold)] mb-6">
-            I build technology that turns ideas into useful, tangible experiences.
+            {subtitle}
           </p>
 
           <p className="text-sm sm:text-base text-[var(--text-primary)]/80 leading-relaxed max-w-2xl mx-auto mb-6">
-            From full-stack applications and AI-powered platforms to hackathon prototypes and digital-twin solutions, I enjoy taking a problem from &ldquo;what if?&rdquo; to &ldquo;it works.&rdquo;
+            {bio}
           </p>
 
           <p className="text-sm sm:text-base text-[var(--text-primary)]/80 leading-relaxed max-w-2xl mx-auto mb-8">

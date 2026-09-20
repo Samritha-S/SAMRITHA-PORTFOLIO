@@ -5,6 +5,7 @@ import {
   Compass, CheckCircle2, Trash2, Plus, ShieldCheck, Clock,
   Layers, FileText, MessageSquare, Sparkles, Terminal, ExternalLink,
   Edit2, Save, X, Image, BookOpen, LogOut, Upload, Eye, EyeOff,
+  Sliders, ToggleLeft, ToggleRight, LayoutTemplate
 } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -12,8 +13,21 @@ interface Milestone { id: string; view: "unfiltered" | "filtered"; year: string;
 interface WallNote   { id: string; name: string | null; message: string; approved: boolean; created_at: string; }
 interface Post       { id: string; title: string; excerpt: string; content: string; tag: string; date_label: string; read_time: string; view: string; published: boolean; }
 interface Photo      { id: string; url: string; title: string; caption: string; story: string; tag: string; date_label: string; view: string; }
+interface Project    { id: string; title: string; category: string; description: string; tags: string; demo_url?: string; repo_url?: string; award?: string; }
+interface SiteSettings {
+  default_view: "unfiltered" | "filtered";
+  allow_toggle: boolean;
+  site_title: string;
+  unfiltered_hero_title: string;
+  unfiltered_hero_subtitle: string;
+  unfiltered_hero_bio: string;
+  filtered_hero_title: string;
+  filtered_hero_subtitle: string;
+  filtered_hero_bio: string;
+  resume_url: string;
+}
 
-type Tab = "milestones" | "wall" | "posts" | "photos" | "resume";
+type Tab = "settings" | "milestones" | "projects" | "wall" | "posts" | "photos" | "resume";
 
 // ─── Helper fetch ─────────────────────────────────────────────────────────────
 async function api(path: string, opts?: RequestInit) {
@@ -24,21 +38,29 @@ async function api(path: string, opts?: RequestInit) {
 
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 export default function StudioDashboard() {
-  const [activeTab, setActiveTab] = useState<Tab>("milestones");
+  const [activeTab, setActiveTab] = useState<Tab>("settings");
+  const [settings, setSettings]     = useState<SiteSettings | null>(null);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
+  const [projects, setProjects]     = useState<Project[]>([]);
   const [notes, setNotes]           = useState<WallNote[]>([]);
   const [posts, setPosts]           = useState<Post[]>([]);
   const [photos, setPhotos]         = useState<Photo[]>([]);
 
   // Load data
   const loadAll = useCallback(async () => {
-    const [m, n, p, ph] = await Promise.all([
-      api("/api/milestones"),
-      api("/api/notes"),
-      api("/api/posts"),
-      api("/api/photos"),
-    ]);
-    setMilestones(m); setNotes(n); setPosts(p); setPhotos(ph);
+    try {
+      const [s, m, pr, n, p, ph] = await Promise.all([
+        api("/api/settings"),
+        api("/api/milestones"),
+        api("/api/projects"),
+        api("/api/notes"),
+        api("/api/posts"),
+        api("/api/photos"),
+      ]);
+      setSettings(s); setMilestones(m); setProjects(pr); setNotes(n); setPosts(p); setPhotos(ph);
+    } catch (err) {
+      console.error("Error loading studio data:", err);
+    }
   }, []);
 
   useEffect(() => { loadAll(); }, [loadAll]);
@@ -58,16 +80,16 @@ export default function StudioDashboard() {
           <div className="w-8 h-8 rounded-lg bg-[#C9A24B]/20 border border-[#C9A24B] flex items-center justify-center text-[#C9A24B] font-bold text-sm">S</div>
           <div>
             <h1 className="font-semibold text-xs sm:text-sm tracking-wide text-white">Samritha Portfolio Studio</h1>
-            <span className="text-[10px] text-[#8b949e] font-mono hidden xs:inline">Private Content Management</span>
+            <span className="text-[10px] text-[#8b949e] font-mono hidden xs:inline">Master Control & Content CMS</span>
           </div>
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-mono">
             <ShieldCheck className="w-3.5 h-3.5" /> Authenticated
           </span>
-          <a href="https://samritha.vercel.app" target="_blank" rel="noopener noreferrer"
+          <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-[#161b22] border border-[#30363d] text-[#8b949e] hover:text-white transition-colors">
-            <ExternalLink className="w-3 h-3" /> <span className="hidden sm:inline">View Site</span>
+            <ExternalLink className="w-3 h-3" /> <span className="hidden sm:inline">View Live Site</span>
           </a>
           <button onClick={handleLogout}
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-red-950/40 border border-red-500/30 text-red-400 hover:bg-red-950/70 transition-colors cursor-pointer">
@@ -77,15 +99,17 @@ export default function StudioDashboard() {
       </header>
 
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-        {/* Navigation: Horizontal scroll on mobile, vertical sidebar on desktop */}
+        {/* Navigation */}
         <aside className="md:col-span-3 space-y-1">
           <div className="flex md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
             {([
-              { id: "milestones", icon: Compass,       label: "Journey Milestones", count: milestones.length, badge: false },
-              { id: "wall",       icon: MessageSquare,  label: "Wall Moderation",    count: pendingCount, badge: pendingCount > 0 },
-              { id: "posts",      icon: BookOpen,       label: "Blog & Stories",     count: posts.length, badge: false },
-              { id: "photos",     icon: Image,          label: "Photo Gallery",      count: photos.length, badge: false },
-              { id: "resume",     icon: FileText,       label: "Resume File",        count: null, badge: false },
+              { id: "settings",   icon: Sliders,        label: "Site Mode & Hero",   count: null, badge: false },
+              { id: "projects",   icon: Layers,         label: "Projects & Tech",    count: projects.length, badge: false },
+              { id: "milestones", icon: Compass,        label: "Journey Milestones", count: milestones.length, badge: false },
+              { id: "wall",       icon: MessageSquare,   label: "Wall Moderation",    count: pendingCount, badge: pendingCount > 0 },
+              { id: "posts",      icon: BookOpen,        label: "Blog & Stories",     count: posts.length, badge: false },
+              { id: "photos",     icon: Image,           label: "Photo Gallery",      count: photos.length, badge: false },
+              { id: "resume",     icon: FileText,        label: "Resume File",        count: null, badge: false },
             ]).map(({ id, icon: Icon, label, count, badge }) => (
               <button key={id} onClick={() => setActiveTab(id as Tab)}
                 className={`flex items-center justify-between gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-colors whitespace-nowrap cursor-pointer shrink-0 md:shrink md:w-full ${
@@ -105,22 +129,297 @@ export default function StudioDashboard() {
 
           <div className="hidden md:block pt-4 border-t border-[#21262d] mt-4">
             <div className="flex items-center gap-2 text-[10px] text-[#8b949e] font-mono px-2">
-              <Clock className="w-3 h-3" /> Last sync: just now
+              <Clock className="w-3 h-3" /> Real-time sync: Active
             </div>
             <div className="flex items-center gap-2 text-[10px] text-[#8b949e] font-mono px-2 mt-1">
-              <Sparkles className="w-3 h-3 text-[#C9A24B]" /> Powered by Supabase + Cloudinary
+              <Sparkles className="w-3 h-3 text-[#C9A24B]" /> Full Backend Control
             </div>
           </div>
         </aside>
 
         {/* Content */}
         <main className="md:col-span-9 bg-[#161b22] border border-[#21262d] rounded-2xl p-6 sm:p-8 overflow-auto">
+          {activeTab === "settings"   && <SettingsTab settings={settings} onRefresh={loadAll} />}
+          {activeTab === "projects"   && <ProjectsTab projects={projects} onRefresh={loadAll} />}
           {activeTab === "milestones" && <MilestonesTab milestones={milestones} onRefresh={loadAll} />}
           {activeTab === "wall"       && <WallTab notes={notes} onRefresh={loadAll} />}
           {activeTab === "posts"      && <PostsTab posts={posts} onRefresh={loadAll} />}
           {activeTab === "photos"     && <PhotosTab photos={photos} onRefresh={loadAll} />}
           {activeTab === "resume"     && <ResumeTab />}
         </main>
+      </div>
+    </div>
+  );
+}
+
+// ─── Settings Tab: Controls default view, toggle lock, and Hero copy ────────────
+function SettingsTab({ settings, onRefresh }: { settings: SiteSettings | null; onRefresh: () => void }) {
+  const [form, setForm] = useState<SiteSettings>({
+    default_view: "unfiltered",
+    allow_toggle: true,
+    site_title: "Samritha S",
+    unfiltered_hero_title: "Hi, I'm Samritha.",
+    unfiltered_hero_subtitle: "A little curious, a little chaotic, and always finding something new to love.",
+    unfiltered_hero_bio: "Here, you'll find the things that make me me — the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.",
+    filtered_hero_title: "Hi, I'm Samritha.",
+    filtered_hero_subtitle: "I build technology that turns ideas into useful, tangible experiences.",
+    filtered_hero_bio: "From full-stack applications and AI-powered platforms to hackathon prototypes and digital-twin solutions, I enjoy taking a problem from 'what if?' to 'it works.'",
+    resume_url: "/resume.pdf",
+  });
+  const [saving, setSaving] = useState(false);
+  const [savedMsg, setSavedMsg] = useState(false);
+
+  useEffect(() => {
+    if (settings) setForm(settings);
+  }, [settings]);
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    await api("/api/settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    setSaving(false);
+    setSavedMsg(true);
+    setTimeout(() => setSavedMsg(false), 3000);
+    onRefresh();
+  };
+
+  return (
+    <form onSubmit={handleSave} className="space-y-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[#21262d]">
+        <div>
+          <h2 className="text-lg font-semibold text-white">Site Mode & Core Copy</h2>
+          <p className="text-xs text-[#8b949e] mt-0.5">Control the primary perspective of your portfolio and configure hero copy live.</p>
+        </div>
+        <button
+          type="submit"
+          disabled={saving}
+          className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50"
+        >
+          <Save className="w-3.5 h-3.5" />
+          {saving ? "Saving Changes…" : "Save Settings"}
+        </button>
+      </div>
+
+      {savedMsg && (
+        <div className="p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-400 text-xs font-mono flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4" /> Changes saved to Supabase! Live on your site immediately.
+        </div>
+      )}
+
+      {/* 1. Global View Mode Switch */}
+      <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-4">
+        <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+          <Sliders className="w-4 h-4 text-[#C9A24B]" />
+          Perspective & Mode Controls
+        </h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          {/* Default Mode Selector */}
+          <div>
+            <label className="block text-xs text-[#8b949e] mb-2 font-mono">Default Opening Mode</label>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, default_view: "unfiltered" })}
+                className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-medium border flex items-center justify-center gap-2 transition-colors cursor-pointer ${
+                  form.default_view === "unfiltered"
+                    ? "bg-[#8B5FBF]/20 border-[#8B5FBF] text-[#F5EFE8]"
+                    : "bg-[#161b22] border-[#30363d] text-[#8b949e]"
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#D4AF7A]" />
+                Unfiltered (Raw)
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, default_view: "filtered" })}
+                className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-medium border flex items-center justify-center gap-2 transition-colors cursor-pointer ${
+                  form.default_view === "filtered"
+                    ? "bg-[#C9A24B]/20 border-[#C9A24B] text-[#C9A24B]"
+                    : "bg-[#161b22] border-[#30363d] text-[#8b949e]"
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5" />
+                Filtered (Tech)
+              </button>
+            </div>
+            <p className="text-[11px] text-[#8b949e] mt-1.5">When visitors land on your URL, which version should they see first?</p>
+          </div>
+
+          {/* Lock / Allow Toggle */}
+          <div>
+            <label className="block text-xs text-[#8b949e] mb-2 font-mono">Visitor Toggle Permission</label>
+            <div
+              onClick={() => setForm({ ...form, allow_toggle: !form.allow_toggle })}
+              className="py-2.5 px-3 rounded-xl bg-[#161b22] border border-[#30363d] flex items-center justify-between cursor-pointer hover:border-[#C9A24B]/40 transition-colors"
+            >
+              <span className="text-xs text-white">Allow visitors to toggle mode</span>
+              {form.allow_toggle ? (
+                <ToggleRight className="w-6 h-6 text-emerald-400" />
+              ) : (
+                <ToggleLeft className="w-6 h-6 text-[#8b949e]" />
+              )}
+            </div>
+            <p className="text-[11px] text-[#8b949e] mt-1.5">If turned OFF, the toggle switch is hidden on the site, locking it to the default mode above.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Unfiltered Mode Hero Copy */}
+      <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
+        <h3 className="text-sm font-semibold text-[#D4AF7A] flex items-center gap-2">
+          <Sparkles className="w-4 h-4" />
+          Unfiltered (Personal) Hero Copy
+        </h3>
+        <div>
+          <label className="block text-xs text-[#8b949e] mb-1 font-mono">Hero Title</label>
+          <input
+            value={form.unfiltered_hero_title}
+            onChange={(e) => setForm({ ...form, unfiltered_hero_title: e.target.value })}
+            className={inputCls}
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-[#8b949e] mb-1 font-mono">Hero Subtitle / Tagline</label>
+          <input
+            value={form.unfiltered_hero_subtitle}
+            onChange={(e) => setForm({ ...form, unfiltered_hero_subtitle: e.target.value })}
+            className={inputCls}
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-[#8b949e] mb-1 font-mono">Bio Paragraph</label>
+          <textarea
+            value={form.unfiltered_hero_bio}
+            onChange={(e) => setForm({ ...form, unfiltered_hero_bio: e.target.value })}
+            rows={3}
+            className={inputCls}
+          />
+        </div>
+      </div>
+
+      {/* 3. Filtered Mode Hero Copy */}
+      <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
+        <h3 className="text-sm font-semibold text-[#C9A24B] flex items-center gap-2">
+          <Terminal className="w-4 h-4" />
+          Filtered (Technical) Hero Copy
+        </h3>
+        <div>
+          <label className="block text-xs text-[#8b949e] mb-1 font-mono">Hero Title</label>
+          <input
+            value={form.filtered_hero_title}
+            onChange={(e) => setForm({ ...form, filtered_hero_title: e.target.value })}
+            className={inputCls}
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-[#8b949e] mb-1 font-mono">Engineering Tagline</label>
+          <input
+            value={form.filtered_hero_subtitle}
+            onChange={(e) => setForm({ ...form, filtered_hero_subtitle: e.target.value })}
+            className={inputCls}
+          />
+        </div>
+        <div>
+          <label className="block text-xs text-[#8b949e] mb-1 font-mono">Technical Bio</label>
+          <textarea
+            value={form.filtered_hero_bio}
+            onChange={(e) => setForm({ ...form, filtered_hero_bio: e.target.value })}
+            rows={3}
+            className={inputCls}
+          />
+        </div>
+      </div>
+    </form>
+  );
+}
+
+// ─── Projects Tab ─────────────────────────────────────────────────────────────
+function ProjectsTab({ projects, onRefresh }: { projects: Project[]; onRefresh: () => void }) {
+  const [adding, setAdding] = useState(false);
+  const [form, setForm] = useState({ title: "", category: "", description: "", tags: "", demo_url: "", repo_url: "", award: "" });
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    await api("/api/projects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    setSaving(false);
+    setAdding(false);
+    setForm({ title: "", category: "", description: "", tags: "", demo_url: "", repo_url: "", award: "" });
+    onRefresh();
+  };
+
+  const handleDelete = async (id: string) => {
+    await api("/api/projects", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    onRefresh();
+  };
+
+  return (
+    <div>
+      <div className="flex items-center justify-between pb-5 border-b border-[#21262d] mb-6">
+        <div>
+          <h2 className="text-lg font-semibold text-white">Engineering Projects</h2>
+          <p className="text-xs text-[#8b949e] mt-0.5">Manage the technical projects displayed in the Filtered mode.</p>
+        </div>
+        {!adding && (
+          <button onClick={() => setAdding(true)}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer">
+            <Plus className="w-3.5 h-3.5" /> Add Project
+          </button>
+        )}
+      </div>
+
+      {adding && (
+        <form onSubmit={handleSave} className="mb-6 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
+          <h3 className="text-sm font-semibold text-white">Add New Engineering Project</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Project Title" className={inputCls} />
+            <input required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} placeholder="Category (e.g. AI & Systems)" className={inputCls} />
+            <input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} placeholder="Tech Tags (comma separated)" className={inputCls} />
+            <input value={form.award} onChange={(e) => setForm({ ...form, award: e.target.value })} placeholder="Award (optional)" className={inputCls} />
+            <input value={form.demo_url} onChange={(e) => setForm({ ...form, demo_url: e.target.value })} placeholder="Live Demo URL (optional)" className={inputCls} />
+            <input value={form.repo_url} onChange={(e) => setForm({ ...form, repo_url: e.target.value })} placeholder="GitHub Repo URL (optional)" className={inputCls} />
+          </div>
+          <textarea required value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Project Description" rows={3} className={inputCls} />
+          <div className="flex gap-2">
+            <button type="submit" disabled={saving}
+              className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50">
+              {saving ? "Saving…" : "Save Project"}
+            </button>
+            <button type="button" onClick={() => setAdding(false)}
+              className="px-4 py-2 rounded-lg bg-[#21262d] text-[#8b949e] text-xs cursor-pointer">Cancel</button>
+          </div>
+        </form>
+      )}
+
+      <div className="space-y-3">
+        {projects.map((p) => (
+          <div key={p.id} className="flex items-start justify-between gap-4 p-4 rounded-xl bg-[#0d1117] border border-[#21262d]">
+            <div>
+              <span className="text-[11px] font-mono text-[#C9A24B]">{p.category}</span>
+              <p className="text-sm font-medium text-white mt-0.5">{p.title}</p>
+              <p className="text-xs text-[#8b949e] mt-1 leading-relaxed">{p.description}</p>
+              <p className="text-[10px] text-[#8b949e] font-mono mt-2">{p.tags}</p>
+            </div>
+            <button onClick={() => handleDelete(p.id)} className="text-[#8b949e] hover:text-red-400 transition-colors cursor-pointer shrink-0">
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
+        {projects.length === 0 && <p className="text-xs text-[#8b949e] italic">No projects yet. Add one above.</p>}
       </div>
     </div>
   );
@@ -433,12 +732,10 @@ function PhotosTab({ photos, onRefresh }: { photos: Photo[]; onRefresh: () => vo
     if (!file) return;
     setUploading(true);
 
-    // 1. Upload to Cloudinary via our server route
     const fd = new FormData();
     fd.append("file", file);
     const { url } = await api("/api/upload", { method: "POST", body: fd });
 
-    // 2. Save metadata to Supabase
     await api("/api/photos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -543,6 +840,14 @@ function ResumeTab() {
     fd.append("file", file);
     const res = await api("/api/upload", { method: "POST", body: fd });
     setUrl(res.url);
+
+    // Automatically save into settings
+    await api("/api/settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resume_url: res.url }),
+    });
+
     setUploading(false);
     setSaved(true);
   };
@@ -550,12 +855,12 @@ function ResumeTab() {
   return (
     <div>
       <div className="pb-5 border-b border-[#21262d] mb-6">
-        <h2 className="text-lg font-semibold text-white">Resume / CV</h2>
-        <p className="text-xs text-[#8b949e] mt-0.5">Upload your PDF to Cloudinary and copy the URL to use in the Filtered view.</p>
+        <h2 className="text-lg font-semibold text-white">Resume / CV PDF</h2>
+        <p className="text-xs text-[#8b949e] mt-0.5">Upload your PDF resume to Cloudinary. It updates your portfolio resume download link automatically.</p>
       </div>
       <div className="p-6 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-4 max-w-lg">
         <div>
-          <label className="block text-xs text-[#8b949e] mb-1.5">Upload PDF Resume</label>
+          <label className="block text-xs text-[#8b949e] mb-1.5">Upload New PDF Resume</label>
           <input ref={fileRef} type="file" accept=".pdf" className={inputCls} />
         </div>
         <button onClick={handleUpload} disabled={uploading}
@@ -564,22 +869,10 @@ function ResumeTab() {
         </button>
         {saved && url && (
           <div className="space-y-2">
-            <p className="text-xs text-emerald-400">✓ Uploaded! Copy this URL into your Resume section component:</p>
+            <p className="text-xs text-emerald-400">✓ Uploaded & saved to site settings!</p>
             <code className="block text-xs text-white bg-[#21262d] p-3 rounded-lg break-all font-mono">{url}</code>
           </div>
         )}
-        <p className="text-[11px] text-[#8b949e]">
-          After uploading, update <code className="text-[#C9A24B]">resumeUrl</code> in your resume section component with the URL above.
-        </p>
-        <div className="flex gap-2">
-          <Terminal className="w-3.5 h-3.5 text-[#8b949e] mt-0.5" />
-          <div className="flex flex-col gap-1">
-            <a href="https://cloudinary.com/console/media_library" target="_blank" rel="noopener noreferrer"
-              className="text-xs text-[#C9A24B] hover:underline flex items-center gap-1">
-              Open Cloudinary Media Library <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );

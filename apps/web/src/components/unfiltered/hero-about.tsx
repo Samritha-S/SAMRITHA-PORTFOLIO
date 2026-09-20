@@ -4,8 +4,15 @@ import React from "react";
 import { Sparkles, Heart, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import BackgroundPaths from "@/components/kokonutui/background-paths";
+import { useView } from "@/context/view-context";
 
 export function UnfilteredHero() {
+  const { settings } = useView();
+
+  const title = settings?.unfiltered_hero_title || "Hi, I'm Samritha.";
+  const subtitle = settings?.unfiltered_hero_subtitle || "A little curious, a little chaotic, and always finding something new to love.";
+  const bio = settings?.unfiltered_hero_bio || "Here, you'll find the things that make me me — the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.";
+
   return (
     <BackgroundPaths
       className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base"
@@ -17,16 +24,16 @@ export function UnfilteredHero() {
           <span>Unfiltered Personal Space</span>
         </div>
 
-        {/* Locked Copy §5.1 */}
+        {/* Dynamic Title */}
         <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[#F5EFE8] tracking-tight leading-[1.15] mb-6">
-          Hi, I&apos;m Samritha.
+          {title}
         </h1>
 
         {/* Subtle hairline under headline */}
         <div className="gold-hairline w-32 mx-auto mb-6" />
 
         <p className="font-serif italic text-lg sm:text-2xl text-[#C98FA0] font-medium mb-6">
-          A little curious, a little chaotic, and always finding something new to love.
+          {subtitle}
         </p>
 
         <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed max-w-2xl mx-auto mb-6">
@@ -34,7 +41,7 @@ export function UnfilteredHero() {
         </p>
 
         <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed max-w-2xl mx-auto mb-10">
-          Here, you&apos;ll find the things that make me me — the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.
+          {bio}
         </p>
 
         {/* Hero CTAs */}

@@ -6,7 +6,11 @@ import { Sparkles, Terminal } from "lucide-react";
 import { motion } from "motion/react";
 
 export function FilterToggle() {
-  const { isFiltered, toggleView, isTransitioning } = useView();
+  const { isFiltered, toggleView, isTransitioning, settings } = useView();
+
+  if (settings && !settings.allow_toggle) {
+    return null; // Backend locked: visitors cannot toggle the mode
+  }
 
   return (
     <div className="relative flex items-center">
