@@ -58,7 +58,7 @@ export function UnfilteredScrollStringWrapper({
   return (
     <div ref={containerRef} className="relative w-full">
       {/* Gold calligraphy ribbon — wide S-curves spanning ~60% of the screen width */}
-      <div className="pointer-events-none absolute inset-0 w-full h-full z-20 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden">
         <svg
           className="w-full h-full opacity-90"
           viewBox="0 0 1000 8000"
@@ -120,7 +120,7 @@ export function UnfilteredScrollStringWrapper({
       </div>
 
       {/* Page sections */}
-      <div className="relative z-0">{children}</div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
