@@ -11,7 +11,7 @@
  */
 
 import { motion } from "motion/react";
-import { memo, useMemo, type ReactNode } from "react";
+import { memo, useMemo, useState, useEffect, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface Point {
@@ -83,8 +83,8 @@ function generateAestheticPath(
   return pathCommands.join(" ");
 }
 
-const generateUniqueId = (prefix: string): string =>
-  `${prefix}-${Math.random().toString(36).substr(2, 9)}`;
+const generateUniqueId = (prefix: string, index: number, position: number): string =>
+  `${prefix}-${position}-${index}`;
 
 // Memoized FloatingPaths component
 const FloatingPaths = memo(function FloatingPaths({
@@ -92,10 +92,16 @@ const FloatingPaths = memo(function FloatingPaths({
 }: {
   position: number;
 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const primaryPaths: PathData[] = useMemo(
     () =>
       Array.from({ length: 12 }, (_, i) => ({
-        id: generateUniqueId("primary"),
+        id: generateUniqueId("primary", i, position),
         d: generateAestheticPath(i, position, "primary"),
         opacity: 0.08 + i * 0.01,
         width: 3.5 + i * 0.25,
@@ -108,7 +114,7 @@ const FloatingPaths = memo(function FloatingPaths({
   const secondaryPaths: PathData[] = useMemo(
     () =>
       Array.from({ length: 15 }, (_, i) => ({
-        id: generateUniqueId("secondary"),
+        id: generateUniqueId("secondary", i, position),
         d: generateAestheticPath(i, position, "secondary"),
         opacity: 0.06 + i * 0.008,
         width: 2.5 + i * 0.2,
@@ -121,7 +127,7 @@ const FloatingPaths = memo(function FloatingPaths({
   const accentPaths: PathData[] = useMemo(
     () =>
       Array.from({ length: 10 }, (_, i) => ({
-        id: generateUniqueId("accent"),
+        id: generateUniqueId("accent", i, position),
         d: generateAestheticPath(i, position, "accent"),
         opacity: 0.04 + i * 0.006,
         width: 1.8 + i * 0.15,
@@ -130,6 +136,8 @@ const FloatingPaths = memo(function FloatingPaths({
       })),
     [position]
   );
+
+  if (!mounted) return null;
 
   const sharedAnimationProps = {
     opacity: 1,
