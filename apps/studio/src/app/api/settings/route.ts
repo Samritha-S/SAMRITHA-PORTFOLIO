@@ -2,17 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET() {
-  const { data, error } = await supabaseAdmin
-    .from("site_settings")
-    .select("*")
-    .eq("id", "global")
-    .single();
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("site_settings")
+      .select("*")
+      .eq("id", "global")
+      .single();
 
-  if (error && error.code !== "PGRST116") {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (data) return NextResponse.json(data);
+  } catch (err) {
+    console.error("Supabase settings error:", err);
   }
 
-  return NextResponse.json(data || {
+  // Graceful default fallback
+  return NextResponse.json({
     id: "global",
     default_view: "unfiltered",
     allow_toggle: true,

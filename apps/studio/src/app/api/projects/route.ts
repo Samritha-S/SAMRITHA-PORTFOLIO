@@ -2,13 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET() {
-  const { data, error } = await supabaseAdmin
-    .from("projects")
-    .select("*")
-    .order("display_order", { ascending: true });
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("projects")
+      .select("*")
+      .order("display_order", { ascending: true });
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+    if (data && data.length > 0) return NextResponse.json(data);
+  } catch (err) {
+    console.error("Supabase projects error:", err);
+  }
+
+  return NextResponse.json([]);
 }
 
 export async function POST(req: NextRequest) {
