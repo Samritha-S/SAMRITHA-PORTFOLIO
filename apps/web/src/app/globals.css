@@ -123,6 +123,11 @@
   background-color: var(--surface-sage);
 }
 
+/* Unfiltered Scroll Ribbon Canvas: transparent section backgrounds reveal the golden ribbon at z-0 behind content elements */
+.unfiltered-scroll-container section {
+  background-color: transparent !important;
+}
+
 .surface-dusk {
   background-color: var(--surface-dusk);
 }

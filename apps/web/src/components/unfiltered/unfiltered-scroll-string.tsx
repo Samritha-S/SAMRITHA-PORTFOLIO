@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "motion/react";
 
 export function UnfilteredScrollStringWrapper({
   children,
@@ -11,12 +11,12 @@ export function UnfilteredScrollStringWrapper({
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Raw motion value — 0 to 1 progress through the container
-  const rawProgress = useMotionValue(0);
+  const rawProgress = useMotionValue(0.02);
 
-  // Very stiff spring: responds instantly and stays ahead of the user
+  // Smooth responsive spring: stays ahead of the user scroll
   const pathLength = useSpring(rawProgress, {
-    stiffness: 800,
-    damping: 50,
+    stiffness: 400,
+    damping: 40,
     mass: 0.2,
     restDelta: 0.0002,
   });
@@ -28,20 +28,22 @@ export function UnfilteredScrollStringWrapper({
     const updateProgress = () => {
       const rect = container.getBoundingClientRect();
       const containerHeight = rect.height;
-      // How far the top of the container is above the current viewport bottom (start trigger)
-      // We want progress=0 when container top is at viewport bottom, progress=1 when container bottom is at top
+      if (!containerHeight) return;
+
       const vpH = window.innerHeight;
-      // Distance scrolled into the container relative to the full container height
-      // Offset: start drawing when container top is 90% down screen, finish when container bottom leaves top
-      const scrolled = vpH * 0.9 - rect.top;
-      const total = containerHeight + vpH * 0.9;
-      const progress = Math.min(1, Math.max(0, scrolled / total));
+      // Distance scrolled into the container relative to visible screen
+      const scrolled = vpH - rect.top;
+      // Progress from 0 (at entry) to 1 (when scrolled through to the bottom)
+      // Provide a tiny 0.02 initial minimum so the start of the ribbon at top is visible when entering About
+      const progress = Math.min(1, Math.max(0.02, scrolled / (containerHeight - vpH * 0.2)));
       rawProgress.set(progress);
     };
 
+    // Calculate immediately on mount
+    updateProgress();
+
     // Listen to both native scroll and Lenis RAF-driven scroll
     window.addEventListener("scroll", updateProgress, { passive: true });
-    // Also fire on every animation frame so Lenis smooth scroll is captured
     let rafId: number;
     const rafLoop = () => {
       updateProgress();
@@ -56,7 +58,7 @@ export function UnfilteredScrollStringWrapper({
   }, [rawProgress]);
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div ref={containerRef} className="relative w-full unfiltered-scroll-container">
       {/* Gold calligraphy ribbon — wide S-curves spanning ~60% of the screen width */}
       <div className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden">
         <svg
@@ -119,8 +121,8 @@ export function UnfilteredScrollStringWrapper({
         </svg>
       </div>
 
-      {/* Page sections */}
-      <div className="relative z-10">{children}</div>
+      {/* Page sections with transparent backgrounds so ribbon at z-0 is visible underneath */}
+      <div className="relative z-10 [&_section]:!bg-transparent">{children}</div>
     </div>
   );
 }
