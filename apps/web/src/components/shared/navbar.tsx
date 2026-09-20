@@ -50,8 +50,8 @@ export function Navbar() {
     { label: "Journey", href: "#journey" },
     { label: "Interests", href: "#interests" },
     { label: "Notes Wall", href: "#wall" },
-    { label: "Stories", href: "#blog" },
     { label: "Gallery", href: "#gallery" },
+    { label: "Stories", href: "#blog" },
     { label: "Connect", href: "#contact" },
   ];
 
