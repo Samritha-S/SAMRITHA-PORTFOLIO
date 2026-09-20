@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useView } from "@/context/view-context";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Carousel_003 } from "@/components/ui/skiper-ui/skiper49";
 import ConstellationField from "@/components/kokonutui/constellation-field";
+import { supabase } from "@/lib/supabase";
 
 interface GalleryItem {
   id: string;
@@ -17,6 +18,7 @@ interface GalleryItem {
   tag: string;
   gradient: string;
   icon: string;
+  src?: string;
 }
 
 const unfilteredGallery: GalleryItem[] = [
@@ -172,8 +174,37 @@ const filteredGallery: GalleryItem[] = [
 export function PhotoGallery() {
   const { isFiltered } = useView();
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [livePhotos, setLivePhotos] = useState<GalleryItem[] | null>(null);
 
-  const items = isFiltered ? filteredGallery : unfilteredGallery;
+  useEffect(() => {
+    supabase
+      .from("photos")
+      .select("*")
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setLivePhotos(
+            data.map((ph, idx) => ({
+              id: ph.id,
+              title: ph.title || "Visual Memory",
+              caption: ph.caption || "",
+              story: ph.story || "",
+              date: ph.date_label || "Recent",
+              aspect: "aspect-[4/3]",
+              tag: ph.tag || "Archive",
+              gradient: idx % 2 === 0
+                ? "from-[#2E1F3D] via-[#8B5FBF] to-[#D4AF7A]"
+                : "from-[#3D2B52] via-[#C98FA0] to-[#2E1F3D]",
+              icon: "📸",
+              src: ph.url,
+            }))
+          );
+        }
+      });
+  }, []);
+
+  const defaultItems = isFiltered ? filteredGallery : unfilteredGallery;
+  const items = livePhotos && livePhotos.length > 0 ? livePhotos : defaultItems;
 
   return (
     <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
@@ -245,14 +276,23 @@ export function PhotoGallery() {
 
               {/* High-Resolution Image Frame */}
               <div
-                className={`h-60 sm:h-76 w-full bg-gradient-to-br ${selectedItem.gradient} relative flex items-center justify-center border-b border-[var(--border-subtle)]`}
+                className={`h-60 sm:h-76 w-full ${selectedItem.src ? "bg-black" : `bg-gradient-to-br ${selectedItem.gradient}`} relative flex items-center justify-center border-b border-[var(--border-subtle)] overflow-hidden`}
               >
-                <span className="text-6xl sm:text-7xl filter drop-shadow-xl select-none">
-                  {selectedItem.icon}
-                </span>
+                {selectedItem.src ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={selectedItem.src}
+                    alt={selectedItem.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-6xl sm:text-7xl filter drop-shadow-xl select-none">
+                    {selectedItem.icon}
+                  </span>
+                )}
 
                 {/* Metadata Pills Inside Lightbox */}
-                <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                <div className="absolute bottom-3 left-4 flex items-center gap-2 z-10">
                   <span className="text-xs font-mono px-3 py-1 rounded-full bg-[var(--bg-base)]/90 border border-[var(--accent-gold)]/50 text-[var(--accent-gold)]">
                     {selectedItem.tag}
                   </span>

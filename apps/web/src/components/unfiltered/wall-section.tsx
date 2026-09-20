@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MessageSquareHeart, Send, CheckCircle2, User, EyeOff } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import { motion } from "motion/react";
@@ -37,14 +37,35 @@ const initialNotes: WallNote[] = [
   },
 ];
 
+const tilts = ["-rotate-1 sm:-rotate-2", "rotate-1 sm:rotate-1.5", "-rotate-1", "rotate-2"];
+
 export function WallSection() {
-  const [notes] = useState<WallNote[]>(initialNotes);
+  const [notes, setNotes] = useState<WallNote[]>(initialNotes);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [honeypot, setHoneypot] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/wall")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.notes && data.notes.length > 0) {
+          setNotes(
+            data.notes.map((n: { id: string; name: string | null; message: string; created_at?: string }, i: number) => ({
+              id: n.id,
+              name: n.name,
+              message: n.message,
+              createdAt: n.created_at ? new Date(n.created_at).toLocaleDateString() : "Recently",
+              tilt: tilts[i % tilts.length],
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, [submitted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

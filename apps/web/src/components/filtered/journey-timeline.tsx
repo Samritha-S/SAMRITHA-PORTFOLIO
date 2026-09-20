@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Code2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export interface TechMilestone {
   id: string;
@@ -43,10 +44,23 @@ const defaultFilteredMilestones: TechMilestone[] = [
 ];
 
 export function FilteredJourneyTimeline({
-  milestones = defaultFilteredMilestones,
+  milestones: propMilestones = defaultFilteredMilestones,
 }: {
   milestones?: TechMilestone[];
 }) {
+  const [milestones, setMilestones] = useState<TechMilestone[]>(propMilestones);
+
+  useEffect(() => {
+    supabase
+      .from("milestones")
+      .select("*")
+      .eq("view", "filtered")
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        if (data && data.length > 0) setMilestones(data);
+      });
+  }, []);
+
   return (
     <section id="journey-tech" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
       <div className="max-w-4xl mx-auto">

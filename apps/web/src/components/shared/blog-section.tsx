@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useView } from "@/context/view-context";
 import { Calendar, ArrowRight, X } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 interface BlogPostItem {
   id: string;
@@ -89,8 +90,35 @@ const technicalPosts: BlogPostItem[] = [
 export function BlogSection() {
   const { isFiltered } = useView();
   const [selectedPost, setSelectedPost] = useState<BlogPostItem | null>(null);
+  const [livePosts, setLivePosts]       = useState<BlogPostItem[] | null>(null);
 
-  const posts = isFiltered ? technicalPosts : personalPosts;
+  useEffect(() => {
+    supabase
+      .from("posts")
+      .select("*")
+      .eq("published", true)
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setLivePosts(
+            data.map((p) => ({
+              id: p.id,
+              title: p.title,
+              excerpt: p.excerpt,
+              content: p.content,
+              date: p.date_label,
+              readTime: p.read_time,
+              tag: p.tag,
+            }))
+          );
+        }
+      });
+  }, []);
+
+  const allPosts = livePosts ?? (isFiltered ? technicalPosts : personalPosts);
+  const posts = livePosts
+    ? allPosts.filter(() => true) // already filtered by DB view if needed
+    : (isFiltered ? technicalPosts : personalPosts);
 
   return (
     <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">

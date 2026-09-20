@@ -1,80 +1,41 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
-// In-memory / mock persistent store for local review
-export interface StoredWallNote {
-  id: string;
-  name: string | null;
-  message: string;
-  createdAt: string;
-  approved: boolean;
-}
-
-// Global variable in Node context for demo/testing
-declare global {
-  var __wallNotesStore: StoredWallNote[] | undefined;
-}
-
-if (!global.__wallNotesStore) {
-  global.__wallNotesStore = [
-    {
-      id: "1",
-      name: "A fellow wanderer",
-      message: "Your writing on ordinary afternoons resonated deeply. Keep observing the little things.",
-      createdAt: "Yesterday",
-      approved: true,
-    },
-    {
-      id: "2",
-      name: null,
-      message: "Pet every dog you see! That is the single best rule for a happy life.",
-      createdAt: "3 days ago",
-      approved: true,
-    },
-    {
-      id: "3",
-      name: "Kavya",
-      message: "The Mystic Amethyst palette is so uniquely you. Loved reading your stories here.",
-      createdAt: "Last week",
-      approved: true,
-    },
-  ];
-}
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export async function GET() {
-  // Public site only returns approved notes
-  const approvedNotes = (global.__wallNotesStore || []).filter((n) => n.approved);
-  return NextResponse.json({ notes: approvedNotes });
+  const { data, error } = await supabase
+    .from("wall_notes")
+    .select("id, name, message, created_at")
+    .eq("approved", true)
+    .order("created_at", { ascending: false });
+
+  if (error) return NextResponse.json({ notes: [] });
+  return NextResponse.json({ notes: data });
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { name, message, honeypot } = body;
 
-    // Honeypot spam protection (FRD §6.4)
-    if (honeypot) {
-      return NextResponse.json({ success: true, message: "Filtered." });
+    if (honeypot) return NextResponse.json({ success: true });
+    if (!message?.trim()) {
+      return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
 
-    if (!message || typeof message !== "string" || message.trim().length === 0) {
-      return NextResponse.json({ error: "Message is required." }, { status: 400 });
-    }
-
-    const newNote: StoredWallNote = {
-      id: Date.now().toString(),
+    const { error } = await supabase.from("wall_notes").insert({
       name: name ? String(name).slice(0, 60) : null,
       message: String(message).slice(0, 600),
-      createdAt: "Just now",
-      approved: false, // Default unapproved until moderated in studio
-    };
-
-    global.__wallNotesStore = [newNote, ...(global.__wallNotesStore || [])];
-
-    return NextResponse.json({
-      success: true,
-      message: "Note submitted for moderation.",
-      note: newNote,
+      approved: false,
     });
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, message: "Note submitted for moderation." });
   } catch {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }

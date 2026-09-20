@@ -204,6 +204,15 @@ const Carousel_003 = ({
                   <div
                     className={`h-full w-full bg-gradient-to-br ${item.gradient} p-6 flex flex-col justify-between relative select-none`}
                   >
+                    {item.src ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={item.src}
+                        alt={item.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : null}
+
                     {/* Top row: Tag & Date */}
                     <div className="flex items-center justify-between z-10">
                       <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-black/40 border border-white/15 text-[var(--accent-gold)] backdrop-blur-sm">
@@ -214,11 +223,13 @@ const Carousel_003 = ({
                       </span>
                     </div>
 
-                    {/* Center Icon */}
-                    <div className="flex-1 flex items-center justify-center my-3">
-                      <span className="text-6xl filter drop-shadow-xl transform group-hover:scale-110 transition-transform duration-300">
-                        {item.icon}
-                      </span>
+                    {/* Center Icon (only if no image src) */}
+                    <div className="flex-1 flex items-center justify-center my-3 z-10">
+                      {!item.src && (
+                        <span className="text-6xl filter drop-shadow-xl transform group-hover:scale-110 transition-transform duration-300">
+                          {item.icon}
+                        </span>
+                      )}
                     </div>
 
                     {/* Bottom Metadata Panel */}

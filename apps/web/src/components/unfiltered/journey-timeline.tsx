@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export interface JourneyMilestone {
   id: string;
@@ -43,10 +44,23 @@ const defaultUnfilteredMilestones: JourneyMilestone[] = [
 ];
 
 export function UnfilteredJourneyTimeline({
-  milestones = defaultUnfilteredMilestones,
+  milestones: propMilestones = defaultUnfilteredMilestones,
 }: {
   milestones?: JourneyMilestone[];
 }) {
+  const [milestones, setMilestones] = useState<JourneyMilestone[]>(propMilestones);
+
+  useEffect(() => {
+    supabase
+      .from("milestones")
+      .select("*")
+      .eq("view", "unfiltered")
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        if (data && data.length > 0) setMilestones(data);
+      });
+  }, []);
+
   return (
     <section id="journey" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
       <div className="max-w-4xl mx-auto">
