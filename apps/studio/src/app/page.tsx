@@ -53,21 +53,21 @@ export default function StudioDashboard() {
   return (
     <div className="min-h-screen bg-[#090d13] text-[#e6edf3] flex flex-col font-sans">
       {/* Top Nav */}
-      <header className="border-b border-[#21262d] bg-[#0d1117]/90 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
-        <div className="flex items-center gap-3">
+      <header className="border-b border-[#21262d] bg-[#0d1117]/95 backdrop-blur px-4 sm:px-6 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30">
+        <div className="flex items-center gap-2.5 sm:gap-3">
           <div className="w-8 h-8 rounded-lg bg-[#C9A24B]/20 border border-[#C9A24B] flex items-center justify-center text-[#C9A24B] font-bold text-sm">S</div>
           <div>
-            <h1 className="font-semibold text-sm tracking-wide text-white">Samritha Portfolio Studio</h1>
-            <span className="text-[10px] text-[#8b949e] font-mono">Private Content Management</span>
+            <h1 className="font-semibold text-xs sm:text-sm tracking-wide text-white">Samritha Portfolio Studio</h1>
+            <span className="text-[10px] text-[#8b949e] font-mono hidden xs:inline">Private Content Management</span>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-mono">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-mono">
             <ShieldCheck className="w-3.5 h-3.5" /> Authenticated
           </span>
           <a href="https://samritha.vercel.app" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-[#161b22] border border-[#30363d] text-[#8b949e] hover:text-white transition-colors">
-            <ExternalLink className="w-3 h-3" /> View Site
+            <ExternalLink className="w-3 h-3" /> <span className="hidden sm:inline">View Site</span>
           </a>
           <button onClick={handleLogout}
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-red-950/40 border border-red-500/30 text-red-400 hover:bg-red-950/70 transition-colors cursor-pointer">
@@ -76,32 +76,34 @@ export default function StudioDashboard() {
         </div>
       </header>
 
-      <div className="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 md:grid-cols-12 gap-8">
-        {/* Sidebar */}
+      <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+        {/* Navigation: Horizontal scroll on mobile, vertical sidebar on desktop */}
         <aside className="md:col-span-3 space-y-1">
-          {([
-            { id: "milestones", icon: Compass,       label: "Journey Milestones", count: milestones.length, badge: false },
-            { id: "wall",       icon: MessageSquare,  label: "Wall Moderation",    count: pendingCount, badge: pendingCount > 0 },
-            { id: "posts",      icon: BookOpen,       label: "Blog & Stories",     count: posts.length, badge: false },
-            { id: "photos",     icon: Image,          label: "Photo Gallery",      count: photos.length, badge: false },
-            { id: "resume",     icon: FileText,       label: "Resume File",        count: null, badge: false },
-          ]).map(({ id, icon: Icon, label, count, badge }) => (
-            <button key={id} onClick={() => setActiveTab(id as Tab)}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-colors cursor-pointer ${
-                activeTab === id
-                  ? "bg-[#C9A24B]/15 text-[#C9A24B] border border-[#C9A24B]/40"
-                  : "text-[#8b949e] hover:bg-[#161b22] hover:text-white border border-transparent"
-              }`}>
-              <span className="flex items-center gap-2.5"><Icon className="w-4 h-4" />{label}</span>
-              {count !== null && (
-                <span className={`text-xs font-mono px-2 py-0.5 rounded-full ${
-                  badge ? "bg-amber-500 text-black font-semibold animate-pulse" : "bg-[#21262d] text-white"
-                }`}>{count}</span>
-              )}
-            </button>
-          ))}
+          <div className="flex md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+            {([
+              { id: "milestones", icon: Compass,       label: "Journey Milestones", count: milestones.length, badge: false },
+              { id: "wall",       icon: MessageSquare,  label: "Wall Moderation",    count: pendingCount, badge: pendingCount > 0 },
+              { id: "posts",      icon: BookOpen,       label: "Blog & Stories",     count: posts.length, badge: false },
+              { id: "photos",     icon: Image,          label: "Photo Gallery",      count: photos.length, badge: false },
+              { id: "resume",     icon: FileText,       label: "Resume File",        count: null, badge: false },
+            ]).map(({ id, icon: Icon, label, count, badge }) => (
+              <button key={id} onClick={() => setActiveTab(id as Tab)}
+                className={`flex items-center justify-between gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-colors whitespace-nowrap cursor-pointer shrink-0 md:shrink md:w-full ${
+                  activeTab === id
+                    ? "bg-[#C9A24B]/15 text-[#C9A24B] border border-[#C9A24B]/40"
+                    : "text-[#8b949e] hover:bg-[#161b22] hover:text-white border border-transparent"
+                }`}>
+                <span className="flex items-center gap-2 sm:gap-2.5"><Icon className="w-4 h-4" />{label}</span>
+                {count !== null && (
+                  <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${
+                    badge ? "bg-amber-500 text-black font-semibold animate-pulse" : "bg-[#21262d] text-white"
+                  }`}>{count}</span>
+                )}
+              </button>
+            ))}
+          </div>
 
-          <div className="pt-4 border-t border-[#21262d] mt-4">
+          <div className="hidden md:block pt-4 border-t border-[#21262d] mt-4">
             <div className="flex items-center gap-2 text-[10px] text-[#8b949e] font-mono px-2">
               <Clock className="w-3 h-3" /> Last sync: just now
             </div>
@@ -351,7 +353,7 @@ function PostsTab({ posts, onRefresh }: { posts: Post[]; onRefresh: () => void }
       {isFormOpen && (
         <form onSubmit={handleSave} className="mb-6 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
           <h3 className="text-sm font-semibold text-white">{editing ? "Edit Post" : "New Post"}</h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Title" className={inputCls} />
             <input required value={form.tag} onChange={(e) => setForm({ ...form, tag: e.target.value })} placeholder="Tag (e.g. Essays)" className={inputCls} />
             <input value={form.date_label} onChange={(e) => setForm({ ...form, date_label: e.target.value })} placeholder="Date label (e.g. Sep 2024)" className={inputCls} />
@@ -482,7 +484,7 @@ function PhotosTab({ photos, onRefresh }: { photos: Photo[]; onRefresh: () => vo
           <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Title" className={inputCls} />
           <input value={form.tag} onChange={(e) => setForm({ ...form, tag: e.target.value })} placeholder="Tag (e.g. Atmosphere)" className={inputCls} />
           <input value={form.caption} onChange={(e) => setForm({ ...form, caption: e.target.value })} placeholder="Short caption" className={inputCls} />
