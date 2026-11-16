@@ -22,7 +22,7 @@ export function Navbar() {
 
           // Simple active link spy
           const sections = isFiltered
-            ? ["about", "journey-tech", "projects", "skills", "competitive", "github", "resume", "blog", "contact"]
+            ? ["about", "journey-tech", "projects", "skills", "competitions", "github", "resume", "contact"]
             : ["about", "journey", "interests", "wall", "gallery", "blog", "contact"];
 
           for (const sectionId of [...sections].reverse()) {
@@ -60,10 +60,9 @@ export function Navbar() {
     { label: "Milestones", href: "#journey-tech" },
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
-    { label: "Algorithms", href: "#competitive" },
+    { label: "Competitions", href: "#competitions" },
     { label: "GitHub", href: "#github" },
     { label: "Resume", href: "#resume" },
-    { label: "Tech Blog", href: "#blog" },
     { label: "Contact", href: "#contact" },
   ];
 

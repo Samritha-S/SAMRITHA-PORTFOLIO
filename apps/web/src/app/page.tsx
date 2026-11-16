@@ -113,13 +113,7 @@ export default function Home() {
               {/* 8. Resume / CV (section-elevated) */}
               <ResumeSection />
 
-              {/* 9. Technical Photo Gallery (section-elevated with Lightbox modal) */}
-              <PhotoGallery />
-
-              {/* 10. Technical Blog (section-base) */}
-              <BlogSection />
-
-              {/* 11. Get in Touch (section-base) */}
+              {/* 9. Get in Touch (section-base) */}
               <ContactSection />
             </motion.div>
           )}

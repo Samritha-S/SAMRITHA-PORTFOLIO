@@ -83,41 +83,32 @@ export function ContactSection() {
                   </a>
                 </>
               ) : (
-                /* Filtered Socials: Email, LinkedIn, GitHub, X */
+                /* Filtered Channels: Email, LinkedIn, GitHub */
                 <>
                   <a
-                    href="mailto:samritha@example.com"
+                    href="mailto:samritha.25cse@sonatech.ac.in"
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
                     <Mail className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Email • samritha@example.com</span>
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Email • samritha.25cse@sonatech.ac.in</span>
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://linkedin.com/in/samritha-s/"
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
                     <LinkedinIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">LinkedIn • /in/samritha</span>
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">LinkedIn • in/samritha-s</span>
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/Samritha-S"
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
                     <GithubIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">GitHub • @samritha</span>
-                  </a>
-                  <a
-                    href="https://x.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
-                  >
-                    <TwitterIcon className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_tech</span>
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">GitHub • Samritha-S</span>
                   </a>
                 </>
               )}

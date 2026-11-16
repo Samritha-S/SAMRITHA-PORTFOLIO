@@ -15,31 +15,45 @@ export interface TechMilestone {
 const defaultFilteredMilestones: TechMilestone[] = [
   {
     id: "f1",
-    year: "2024",
-    title: "AI Systems, Open Source & Production Engineering",
+    year: "2026",
+    title: "Research Abstract Published at ICSHI 2026",
     story:
-      "Deepened expertise in LLM agent pipelines, high-throughput vector databases, and real-time event-driven backends. Began contributing to open source and architecting full-stack solutions.",
+      "Sole author of an AICTE-sponsored research abstract on Digital Twins in Healthcare.",
   },
   {
     id: "f2",
-    year: "2023",
-    title: "Hackathons, Team Leadership & Digital Twins",
+    year: "2026",
+    title: "IEEE Computer Society Hack Battle (HB-26)",
     story:
-      "Led developer squads across intensive 24-48 hour hackathons. Designed and shipped StadiumPulse, CarbonTrace, and IdentiMatch, learning to make rapid architectural trade-offs under high stakes.",
+      "36-hour hackathon participant on Developer Tooling; led ingestion and chunking for codebase intelligence.",
   },
   {
     id: "f3",
-    year: "2022",
-    title: "Core CS Fundamentals, DSA & Backend Scalability",
+    year: "2026",
+    title: "Smart India Hackathon 2026",
     story:
-      "Drilled algorithms and data structures daily across LeetCode and competitive programming. Mastered relational database design, REST APIs, and memory management fundamentals.",
+      "Hardware-track submission for FenceSense, an intelligent electric fence monitoring system.",
   },
   {
     id: "f4",
-    year: "2021",
-    title: "First Lines of Code & The Builder Mindset",
+    year: "2026",
+    title: "PromptWars Virtual (StadiumPulse)",
     story:
-      "Wrote first C and Java applications. Realized software engineering is the closest human discipline to applied magic: turning an idea in your head into something real and functional.",
+      "Five challenges completed; engineered StadiumPulse, a GenAI crowd safety and stadium operations system.",
+  },
+  {
+    id: "f5",
+    year: "2026",
+    title: "Founder's Office Intern — Imagivite Technology Pvt. Ltd.",
+    story:
+      "Bookymet QA testing and authored BRDs/PRDs for a regional ride-hailing venture.",
+  },
+  {
+    id: "f6",
+    year: "2026",
+    title: "ABTalks Vicodathon",
+    story:
+      "Solo redesign of the ABTalks platform across three mobile-first screens using Antigravity and Vite/React/Tailwind.",
   },
 ];
 
@@ -56,9 +70,12 @@ export function FilteredJourneyTimeline({
       .select("*")
       .eq("view", "filtered")
       .order("display_order", { ascending: true })
-      .then(({ data }) => {
-        if (data && data.length > 0) setMilestones(data);
-      });
+      .then(
+        ({ data }) => {
+          if (data && data.length > 0) setMilestones(data);
+        },
+        () => {}
+      );
   }, []);
 
   return (
