@@ -17,29 +17,21 @@ export async function GET() {
   const localNotes: StoredNote[] = Array.isArray(store.notes) ? store.notes : [];
 
   try {
-    const queryPromise = supabaseAdmin
+    const { data, error } = await supabaseAdmin
       .from("wall_notes")
       .select("*")
       .order("created_at", { ascending: false });
-    const timeoutPromise = new Promise<{ data: null; error: Error }>((resolve) =>
-      setTimeout(() => resolve({ data: null, error: new Error("Supabase timeout") }), 1500)
-    );
-    const { data, error } = await Promise.race([queryPromise, timeoutPromise]);
 
     if (!error && Array.isArray(data)) {
       const seen = new Set(data.map((n) => n.id));
       const merged = [...data, ...localNotes.filter((n) => !seen.has(n.id))];
-      return NextResponse.json(merged, {
-        headers: { "Cache-Control": "no-store, max-age=0" },
-      });
+      return NextResponse.json(merged);
     }
   } catch (err) {
     console.warn("Supabase wall_notes offline, using local store:", err);
   }
 
-  return NextResponse.json(localNotes, {
-    headers: { "Cache-Control": "no-store, max-age=0" },
-  });
+  return NextResponse.json(localNotes);
 }
 
 export async function PATCH(req: NextRequest) {
