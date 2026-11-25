@@ -122,7 +122,14 @@ export function BlogSection() {
     : (isFiltered ? technicalPosts : personalPosts);
 
   return (
-    <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
+    <section
+      id="blog"
+      className={`py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden ${
+        isFiltered
+          ? "section-base"
+          : "bg-[#A9B9A5]/25 border-y border-[var(--border-subtle)]/40"
+      }`}
+    >
       {isFiltered && (
         <ConstellationField
           className="absolute inset-0 pointer-events-none"
