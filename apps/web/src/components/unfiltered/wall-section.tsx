@@ -119,17 +119,17 @@ export function WallSection() {
             </h3>
 
             {submitted ? (
-              <div className="p-6 rounded-xl bg-[var(--surface-forest)] border border-[var(--accent-gold)]/40 text-center">
-                <CheckCircle2 className="w-8 h-8 text-[var(--accent-gold)] mx-auto mb-2" />
-                <h4 className="font-serif text-lg font-medium text-[var(--text-on-dark)]">
+              <div className="p-6 rounded-xl bg-[var(--surface-lavender)] border border-[var(--accent-gold)]/50 text-center">
+                <CheckCircle2 className="w-8 h-8 text-[var(--surface-plum)] mx-auto mb-2" />
+                <h4 className="font-serif text-lg font-medium text-[var(--text-primary)]">
                   Note Received!
                 </h4>
-                <p className="text-xs text-[var(--text-on-dark)]/80 mt-1 leading-relaxed">
+                <p className="text-xs text-[var(--text-primary)]/80 mt-1 leading-relaxed">
                   Your message has been placed in Samritha&apos;s mailbox. Once approved by moderation, it will appear on the wall. ✨
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 text-xs text-[var(--accent-gold)] underline cursor-pointer"
+                  className="mt-4 text-xs text-[var(--surface-plum)] font-medium underline cursor-pointer"
                 >
                   Send another note
                 </button>
@@ -147,20 +147,20 @@ export function WallSection() {
                 />
 
                 {/* Anonymous toggle */}
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--surface-forest)]/80 border border-[var(--accent-secondary)]/30 text-xs">
-                  <span className="text-[var(--text-on-dark)]/80">Post identity:</span>
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[var(--surface-lavender)] border border-[var(--accent-gold)]/40 text-xs">
+                  <span className="text-[var(--text-primary)]/85 font-medium">Post identity:</span>
                   <button
                     type="button"
                     onClick={() => setIsAnonymous(!isAnonymous)}
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--accent-gold)]/40 text-xs text-[var(--text-on-dark)] hover:border-[var(--accent-gold)] cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--bg-base)]/80 border border-[var(--surface-plum)]/30 text-xs text-[var(--text-primary)] font-medium hover:border-[var(--accent-gold)] cursor-pointer transition-colors"
                   >
                     {isAnonymous ? (
                       <>
-                        <EyeOff className="w-3.5 h-3.5 text-[var(--accent-gold)]" /> Anonymous
+                        <EyeOff className="w-3.5 h-3.5 text-[var(--surface-plum)]" /> Anonymous
                       </>
                     ) : (
                       <>
-                        <User className="w-3.5 h-3.5 text-[var(--accent-gold)]" /> With Name
+                        <User className="w-3.5 h-3.5 text-[var(--surface-plum)]" /> With Name
                       </>
                     )}
                   </button>
@@ -176,7 +176,7 @@ export function WallSection() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sam or Fellow Reader"
-                      className="w-full px-4 py-2 text-sm rounded-xl bg-[var(--surface-forest)]/80 border border-[var(--accent-secondary)]/30 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:outline-none focus:border-[var(--accent-gold)] transition-colors"
+                      className="w-full px-4 py-2 text-sm rounded-xl bg-[var(--surface-lavender)] border border-[var(--accent-gold)]/40 text-[var(--text-primary)] placeholder-[var(--text-primary)]/50 focus:outline-none focus:border-[var(--accent-gold)] transition-colors"
                     />
                   </div>
                 )}
@@ -191,7 +191,7 @@ export function WallSection() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Share a thought, book recommendation, or kind word..."
-                    className="w-full px-4 py-2 text-sm rounded-xl bg-[var(--surface-forest)]/80 border border-[var(--accent-secondary)]/30 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none"
+                    className="w-full px-4 py-2 text-sm rounded-xl bg-[var(--surface-lavender)] border border-[var(--accent-gold)]/40 text-[var(--text-primary)] placeholder-[var(--text-primary)]/50 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none"
                   />
                 </div>
 
