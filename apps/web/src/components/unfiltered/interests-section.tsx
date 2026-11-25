@@ -16,7 +16,7 @@ import {
 
 export function InterestsSection() {
   return (
-    <section id="interests" className="py-24 px-4 sm:px-6 lg:px-8 section-sage relative border-y border-[var(--border-subtle)]/40">
+    <section id="interests" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#E5D9C5]/45 relative border-y border-[var(--border-subtle)]/40">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
@@ -275,7 +275,7 @@ function WalkingModule() {
   return (
     <div
       onClick={() => setSteps((s) => s + 500)}
-      className="rounded-xl p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer group shadow-sm"
+      className="rounded-xl p-6 bg-[var(--bg-base)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 text-[var(--surface-forest)]">
