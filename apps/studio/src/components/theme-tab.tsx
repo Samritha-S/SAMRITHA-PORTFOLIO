@@ -23,35 +23,55 @@ export function ThemeTab({
   const [form, setForm] = useState<ThemeConfig>(theme);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const dirtyRef = React.useRef(false);
 
   useEffect(() => {
-    setForm(theme);
+    if (!dirtyRef.current) {
+      setForm(theme);
+    }
   }, [theme]);
 
-  const updateColor = (mode: "unfiltered" | "filtered", key: keyof PaletteTheme, value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      [mode]: {
-        ...prev[mode],
-        [key]: value,
-      },
-    }));
+  const persistTheme = async (next: ThemeConfig) => {
+    setSaving(true);
+    setError(null);
+    try {
+      await onSave(next);
+      dirtyRef.current = false;
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to save theme colours.");
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleReset = (mode: "unfiltered" | "filtered") => {
-    setForm((prev) => ({
-      ...prev,
+  const updateColor = (mode: "unfiltered" | "filtered", key: keyof PaletteTheme, value: string) => {
+    dirtyRef.current = true;
+    const next: ThemeConfig = {
+      ...form,
+      [mode]: {
+        ...form[mode],
+        [key]: value,
+      },
+    };
+    setForm(next);
+  };
+
+  const handleReset = async (mode: "unfiltered" | "filtered") => {
+    dirtyRef.current = true;
+    const next: ThemeConfig = {
+      ...form,
       [mode]: { ...DEFAULT_THEME[mode] },
-    }));
+    };
+    setForm(next);
+    await persistTheme(next);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaving(true);
-    await onSave(form);
-    setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    await persistTheme(form);
   };
 
   return (
@@ -79,6 +99,12 @@ export function ThemeTab({
       {saved && (
         <div className="p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-400 text-xs font-mono flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4" /> Palette colours saved and synced live!
+        </div>
+      )}
+
+      {error && (
+        <div className="p-3 rounded-xl bg-red-950/50 border border-red-500/40 text-red-400 text-xs font-mono">
+          {error}
         </div>
       )}
 

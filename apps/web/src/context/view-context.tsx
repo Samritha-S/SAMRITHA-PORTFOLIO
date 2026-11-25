@@ -82,9 +82,12 @@ function applyPaletteToRoot(palette: PaletteTheme, mode: SiteView) {
   if (mode === "unfiltered") {
     root.style.setProperty("--surface-amethyst", palette.bgElevated);
     root.style.setProperty("--surface-dusk", palette.bgElevated);
+    root.style.setProperty("--surface-sage", palette.bgElevated);
     root.style.setProperty("--card-surface", palette.bgElevated);
+    root.style.setProperty("--card-hover", palette.bgElevated);
   } else {
     root.style.setProperty("--surface-dusk", palette.bgElevated);
+    root.style.setProperty("--surface-sage", palette.bgElevated);
     root.style.setProperty("--card-surface", palette.bgElevated);
   }
 }

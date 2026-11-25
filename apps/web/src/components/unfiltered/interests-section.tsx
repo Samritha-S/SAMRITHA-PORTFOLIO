@@ -19,14 +19,14 @@ export function InterestsSection() {
     <section id="interests" className="py-24 px-4 sm:px-6 lg:px-8 section-sage relative border-y border-[var(--border-subtle)]/40">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-xs uppercase tracking-widest text-[#D4AF7A] font-medium">
+          <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
             The Things That Make Me Me
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5EFE8] mt-3">
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[var(--text-primary)] mt-3">
             Interests & Little Obsessions
           </h2>
           <div className="gold-hairline w-24 mx-auto mt-4" />
-          <p className="text-sm text-[#F5EFE8]/85 max-w-xl mx-auto mt-4 leading-relaxed">
+          <p className="text-sm text-[var(--text-primary)]/85 max-w-xl mx-auto mt-4 leading-relaxed">
             Not certificates, not deadlines — just the passions, curiosities, and quirks
             that breathe life into ordinary days.
           </p>
