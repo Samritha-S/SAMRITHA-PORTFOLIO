@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useView } from "@/context/view-context";
 import { Calendar, ArrowRight, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -215,38 +216,47 @@ export function BlogSection() {
       </div>
 
       {/* Reading Modal */}
-      {selectedPost && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="max-w-2xl w-full bg-[var(--bg-elevated)] border border-[var(--accent-gold)]/60 rounded-3xl p-6 sm:p-10 shadow-2xl relative max-h-[85vh] overflow-y-auto">
-            <button
-              onClick={() => setSelectedPost(null)}
-              aria-label="Close story modal"
-              suppressHydrationWarning
-              className="absolute top-6 right-6 p-2 rounded-full bg-[var(--bg-base)] text-[var(--text-primary)] hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
+      {selectedPost &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            onClick={() => setSelectedPost(null)}
+            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-2xl w-full bg-[var(--bg-elevated)] border border-[var(--accent-gold)]/60 rounded-3xl p-6 sm:p-10 shadow-2xl relative max-h-[85vh] overflow-y-auto"
             >
-              <X className="w-5 h-5" />
-            </button>
+              <button
+                onClick={() => setSelectedPost(null)}
+                aria-label="Close story modal"
+                suppressHydrationWarning
+                className="absolute top-6 right-6 p-2 rounded-full bg-[var(--bg-base)] text-[var(--text-primary)] hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            <div className="flex items-center gap-3 text-xs text-[var(--accent-gold)] mb-4 font-mono">
-              <span>{selectedPost.tag}</span>
-              <span>•</span>
-              <span>{selectedPost.date}</span>
-              <span>•</span>
-              <span>{selectedPost.readTime}</span>
+              <div className="flex items-center gap-3 text-xs text-[var(--accent-gold)] mb-4 font-mono">
+                <span>{selectedPost.tag}</span>
+                <span>•</span>
+                <span>{selectedPost.date}</span>
+                <span>•</span>
+                <span>{selectedPost.readTime}</span>
+              </div>
+
+              <h3 className="font-serif text-2xl sm:text-4xl font-normal text-[var(--text-primary)] mb-6">
+                {selectedPost.title}
+              </h3>
+
+              <div className="gold-hairline w-full mb-6" />
+
+              <div className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed font-serif space-y-4">
+                <p>{selectedPost.content}</p>
+              </div>
             </div>
-
-            <h3 className="font-serif text-2xl sm:text-4xl font-normal text-[var(--text-primary)] mb-6">
-              {selectedPost.title}
-            </h3>
-
-            <div className="gold-hairline w-full mb-6" />
-
-            <div className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed font-serif space-y-4">
-              <p>{selectedPost.content}</p>
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useView } from "@/context/view-context";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -245,9 +246,11 @@ export function PhotoGallery() {
       </div>
 
       {/* Lightbox Modal on Click: Captions, story, tag, and date live exclusively here */}
-      <AnimatePresence>
-        {selectedItem && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {selectedItem && (
+              <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
             {/* Backdrop Blur */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -331,7 +334,9 @@ export function PhotoGallery() {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+    )}
     </section>
   );
 }
