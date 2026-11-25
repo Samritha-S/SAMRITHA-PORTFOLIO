@@ -145,8 +145,9 @@ export const DEFAULT_SECTIONS: PortfolioSections = {
   },
   skills: {
     currentlyLearning: [
-      "Java, via IntelliJ IDEA",
-      'NPTEL course: "Design Thinking - A Primer"',
+      "Data Structures & Algorithms (DSA)",
+      "Open Source Contributions",
+      "Machine Learning (ML)",
     ],
     groups: [
       { category: "Languages", items: ["Java", "Python", "C", "JavaScript", "TypeScript"] },
@@ -157,7 +158,7 @@ export const DEFAULT_SECTIONS: PortfolioSections = {
       { category: "Tools", items: ["Git", "GitHub", "VS Code", "REST APIs", "WebSockets"] },
       { category: "Also", items: ["Antigravity", "Vite"] },
     ],
-    courseworkTitle: "Coursework (Semester 3)",
+    courseworkTitle: "Current Coursework (Semester 3)",
     coursework: [
       { code: "U23CS301", title: "Data Structures" },
       { code: "U23CS302", title: "Computer Architecture" },
@@ -172,9 +173,9 @@ export const DEFAULT_SECTIONS: PortfolioSections = {
       {
         title: "PromptWars Virtual",
         organization: "Google for Developers x H2S",
-        status: "4 Challenges Completed",
-        participants: "46,286 participants",
-        ranks: ["#114", "#604", "#832", "#1265"],
+        status: "5 Challenges Completed",
+        participants: "55,912 participants",
+        ranks: ["#114", "#164", "#604", "#832", "#1265"],
         note: "Invited to PromptWars Exclusive Edition (invite-only, Top 400)",
       },
       {

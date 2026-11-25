@@ -36,33 +36,12 @@ export function SkillsSection() {
             Technical Inventory
           </span>
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[var(--text-primary)] mt-3">
-            What I Know
+            Technology Stack
           </h2>
           <div className="gold-hairline w-24 mx-auto mt-4" />
         </div>
 
-        {/* Currently Learning Banner */}
-        <div className="p-6 sm:p-7 rounded-2xl bg-[var(--card-surface)] border border-[var(--accent-gold)]/40 backdrop-blur-md shadow-md">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-2">
-              <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold flex items-center gap-2">
-                <BookOpen className="w-3.5 h-3.5" />
-                Currently Learning
-              </span>
-              <ul className="space-y-1 text-sm sm:text-base font-serif text-[var(--text-primary)]">
-                {currentlyLearning.map((item, idx) => (
-                  <li key={idx}>• {item}</li>
-                ))}
-              </ul>
-            </div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[var(--bg-base)] border border-[var(--accent-gold)]/40 text-[var(--accent-gold)] shrink-0 self-start sm:self-auto font-mono">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse" />
-              Active Focus
-            </span>
-          </div>
-        </div>
-
-        {/* What I Know Grid */}
+        {/* Technology Stack Grid */}
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {groups.map((group) => {
@@ -91,28 +70,62 @@ export function SkillsSection() {
           </div>
         </div>
 
-        {/* Coursework (Semester 3) */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-[var(--card-surface)] border border-[var(--border-subtle)] backdrop-blur-md shadow-md">
-          <div className="flex items-center gap-2 mb-6">
-            <GraduationCap className="w-5 h-5 text-[var(--accent-gold)]" />
-            <h3 className="font-serif text-xl sm:text-2xl font-medium text-[var(--text-primary)]">
-              {courseworkTitle}
+        {/* What I'm Learning Section (Currently Learning + Current Coursework) */}
+        <div className="pt-4 space-y-8">
+          <div className="text-center">
+            <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
+              Continuous Growth
+            </span>
+            <h3 className="font-serif text-3xl sm:text-4xl font-normal text-[var(--text-primary)] mt-2">
+              What I&apos;m Learning
             </h3>
+            <div className="gold-hairline w-20 mx-auto mt-3" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {coursework.map((course) => (
-              <div
-                key={course.code}
-                className="p-4 rounded-xl bg-[var(--bg-base)]/80 border border-[var(--border-subtle)] flex flex-col justify-between"
-              >
-                <span className="text-sm font-medium text-[var(--text-primary)]">
-                  {course.title}
+
+          {/* Currently Learning Banner */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-[var(--card-surface)] border border-[var(--accent-gold)]/40 backdrop-blur-md shadow-md">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-2">
+                <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold flex items-center gap-2">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  Currently Learning
                 </span>
-                <span className="text-xs font-mono text-[var(--accent-gold)] mt-2">
-                  {course.code}
-                </span>
+                <ul className="space-y-1 text-sm sm:text-base font-serif text-[var(--text-primary)]">
+                  {currentlyLearning.map((item, idx) => (
+                    <li key={idx}>• {item}</li>
+                  ))}
+                </ul>
               </div>
-            ))}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[var(--bg-base)] border border-[var(--accent-gold)]/40 text-[var(--accent-gold)] shrink-0 self-start sm:self-auto font-mono">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse" />
+                Active Focus
+              </span>
+            </div>
+          </div>
+
+          {/* Current Coursework */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-[var(--card-surface)] border border-[var(--border-subtle)] backdrop-blur-md shadow-md">
+            <div className="flex items-center gap-2 mb-6">
+              <GraduationCap className="w-5 h-5 text-[var(--accent-gold)]" />
+              <h4 className="font-serif text-xl sm:text-2xl font-medium text-[var(--text-primary)]">
+                {courseworkTitle}
+              </h4>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {coursework.map((course) => (
+                <div
+                  key={course.code}
+                  className="p-4 rounded-xl bg-[var(--bg-base)]/80 border border-[var(--border-subtle)] flex flex-col justify-between"
+                >
+                  <span className="text-sm font-medium text-[var(--text-primary)]">
+                    {course.title}
+                  </span>
+                  <span className="text-xs font-mono text-[var(--accent-gold)] mt-2">
+                    {course.code}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

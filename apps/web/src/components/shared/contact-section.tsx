@@ -72,8 +72,8 @@ export function ContactSection() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Contact Info / Social Handles */}
         <div className="md:col-span-5 space-y-6">
-          <div className={`p-6 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[var(--surface-forest)] text-[var(--text-on-dark)]"
+          <div className={`p-6 rounded-2xl border shadow-md ${
+            isFiltered ? "bg-[#011627] border-[var(--accent-gold)]/40" : "bg-[var(--surface-forest)] border-[var(--border-subtle)] text-[var(--text-on-dark)]"
           }`}>
             <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[var(--text-on-dark)]"}`}>
               Direct Channels
@@ -139,10 +139,10 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Message Form: Warm Ivory panel on unfiltered with Deep Purple heading, Midnight Navy on filtered */}
+        {/* Message Form: Warm Ivory panel on unfiltered with Deep Purple heading, Blue Noir on filtered */}
         <div className="md:col-span-7">
-          <div className={`p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[var(--bg-base)] text-[var(--text-primary)]"
+          <div className={`p-6 sm:p-8 rounded-2xl border shadow-md ${
+            isFiltered ? "bg-[#011627] border-[var(--accent-gold)]/40" : "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--text-primary)]"
           }`}>
             <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[var(--surface-plum)]"}`}>
               Send a Direct Message

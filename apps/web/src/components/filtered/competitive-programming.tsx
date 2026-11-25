@@ -88,7 +88,7 @@ export function CompetitiveProgrammingSection() {
         </div>
 
         {/* Research Publication Card */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-[var(--surface-dusk)] border border-[var(--accent-gold)]/40 shadow-lg">
+        <div className="p-6 sm:p-8 rounded-2xl bg-[#011627] border border-[var(--accent-gold)]/40 shadow-lg">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[var(--border-subtle)]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[var(--bg-base)] border border-[var(--accent-gold)]/40 flex items-center justify-center text-[var(--accent-gold)] shrink-0">

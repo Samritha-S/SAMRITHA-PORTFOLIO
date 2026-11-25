@@ -151,7 +151,7 @@ export function ExperienceProjects() {
             <div className="gold-hairline w-24 mx-auto mt-4" />
           </div>
 
-          <div className="rounded-2xl p-6 sm:p-8 bg-[var(--surface-dusk)] border border-[var(--border-subtle)] shadow-md space-y-6">
+          <div className="rounded-2xl p-6 sm:p-8 bg-[#011627] border border-[var(--accent-gold)]/40 shadow-lg space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-[var(--border-subtle)]">
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold">
@@ -172,7 +172,7 @@ export function ExperienceProjects() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
               {/* Ride-Hailing Venture */}
-              <div className="p-5 rounded-xl bg-[var(--bg-base)]/70 border border-[var(--border-subtle)] space-y-3">
+              <div className="p-5 rounded-xl bg-[#0B2034] border border-[var(--border-subtle)] space-y-3">
                 <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold">
                   <Compass className="w-3.5 h-3.5" />
                   Ride-Hailing Venture (Tamil Nadu)
@@ -185,7 +185,7 @@ export function ExperienceProjects() {
               </div>
 
               {/* Bookymet Platform */}
-              <div className="p-5 rounded-xl bg-[var(--bg-base)]/70 border border-[var(--border-subtle)] space-y-3">
+              <div className="p-5 rounded-xl bg-[#0B2034] border border-[var(--border-subtle)] space-y-3">
                 <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold">
                   <Briefcase className="w-3.5 h-3.5" />
                   Bookymet (Turf-Booking Platform)
@@ -198,7 +198,7 @@ export function ExperienceProjects() {
             </div>
 
             {/* Across Both Initiatives */}
-            <div className="p-5 rounded-xl bg-[var(--surface-amethyst)]/50 border border-[var(--accent-gold)]/20">
+            <div className="p-5 rounded-xl bg-[#0B2034] border border-[var(--accent-gold)]/20">
               <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold block mb-2">
                 Across Both Ventures
               </span>
