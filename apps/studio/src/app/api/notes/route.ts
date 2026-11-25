@@ -2,29 +2,45 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 import { readContentStore, writeContentStore } from "@/lib/data-store";
 
+export const dynamic = "force-dynamic";
+
+interface StoredNote {
+  id: string;
+  name: string | null;
+  message: string;
+  approved: boolean;
+  created_at: string;
+}
+
 export async function GET() {
+  const store = readContentStore();
+  const localNotes: StoredNote[] = Array.isArray(store.notes) ? store.notes : [];
+
   try {
-    const { data } = await supabaseAdmin
+    const { data, error } = await supabaseAdmin
       .from("wall_notes")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (data) return NextResponse.json(data);
+    if (!error && Array.isArray(data)) {
+      const seen = new Set(data.map((n) => n.id));
+      const merged = [...data, ...localNotes.filter((n) => !seen.has(n.id))];
+      return NextResponse.json(merged);
+    }
   } catch (err) {
     console.warn("Supabase wall_notes offline, using local store:", err);
   }
 
-  const store = readContentStore();
-  return NextResponse.json(store.notes || []);
+  return NextResponse.json(localNotes);
 }
 
 export async function PATCH(req: NextRequest) {
   const { id, approved } = await req.json();
 
-  let updatedNote: any = null;
+  let updatedNote: StoredNote | null = null;
 
-  writeContentStore((store) => {
-    store.notes = (store.notes || []).map((n: any) => {
+  writeContentStore((store: { notes?: StoredNote[] }) => {
+    store.notes = (store.notes || []).map((n) => {
       if (n.id === id) {
         updatedNote = { ...n, approved };
         return updatedNote;
@@ -52,8 +68,8 @@ export async function PATCH(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   const { id } = await req.json();
 
-  writeContentStore((store) => {
-    store.notes = (store.notes || []).filter((n: any) => n.id !== id);
+  writeContentStore((store: { notes?: StoredNote[] }) => {
+    store.notes = (store.notes || []).filter((n) => n.id !== id);
     return store;
   });
 

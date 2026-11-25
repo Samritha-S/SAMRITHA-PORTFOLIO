@@ -32,3 +32,17 @@ export function readContentStore() {
     photos: [],
   };
 }
+
+export function writeContentStore<T = Record<string, unknown>>(updater: (data: T) => T) {
+  try {
+    const filePath = getDataFilePath();
+    const current = readContentStore() as T;
+    const updated = updater(current);
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify(updated, null, 2), "utf-8");
+    return updated;
+  } catch (err) {
+    console.error("Error writing portfolio-content.json in web:", err);
+    return null;
+  }
+}

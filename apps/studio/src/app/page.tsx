@@ -754,16 +754,25 @@ function WallTab({ notes, onRefresh }: { notes: WallNote[]; onRefresh: () => voi
 
   return (
     <div>
-      <div className="pb-5 border-b border-[#21262d] mb-6">
-        <h2 className="text-lg font-semibold text-white">Wall Moderation</h2>
-        <p className="text-xs text-[#8b949e] mt-0.5">Approve visitor notes before they appear on the public wall.</p>
+      <div className="flex items-center justify-between gap-4 pb-5 border-b border-[#21262d] mb-6">
+        <div>
+          <h2 className="text-lg font-semibold text-white">Wall Moderation</h2>
+          <p className="text-xs text-[#8b949e] mt-0.5">Approve visitor notes before they appear on the public wall.</p>
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          className="px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] hover:border-[#C9A24B]/60 cursor-pointer"
+        >
+          Refresh Queue
+        </button>
       </div>
 
-      {pending.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-xs font-mono uppercase tracking-widest text-amber-400 mb-3">
-            Pending ({pending.length})
-          </h3>
+      <div className="mb-8">
+        <h3 className="text-xs font-mono uppercase tracking-widest text-amber-400 mb-3">
+          Pending ({pending.length})
+        </h3>
+        {pending.length > 0 ? (
           <div className="space-y-3">
             {pending.map((n) => (
               <div key={n.id} className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/30">
@@ -782,8 +791,10 @@ function WallTab({ notes, onRefresh }: { notes: WallNote[]; onRefresh: () => voi
               </div>
             ))}
           </div>
-        </div>
-      )}
+        ) : (
+          <p className="text-xs text-[#8b949e] italic">No pending notes awaiting approval.</p>
+        )}
+      </div>
 
       <div>
         <h3 className="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-3">

@@ -1,15 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { readContentStore, writeContentStore } from "@/lib/data-store";
+
+export const dynamic = "force-dynamic";
+
+interface StoredNote {
+  id: string;
+  name: string | null;
+  message: string;
+  approved?: boolean;
+  created_at?: string;
+}
 
 export async function GET() {
-  const { data, error } = await supabase
-    .from("wall_notes")
-    .select("id, name, message, created_at")
-    .eq("approved", true)
-    .order("created_at", { ascending: false });
+  const localNotes = ((readContentStore().notes as StoredNote[] | undefined) ?? []).filter(
+    (n) => n.approved === true
+  );
 
-  if (error) return NextResponse.json({ notes: [] });
-  return NextResponse.json({ notes: data });
+  try {
+    const { data, error } = await supabase
+      .from("wall_notes")
+      .select("id, name, message, created_at")
+      .eq("approved", true)
+      .order("created_at", { ascending: false });
+
+    if (!error && Array.isArray(data) && data.length > 0) {
+      const seen = new Set(data.map((n) => n.id));
+      const merged = [...data, ...localNotes.filter((n) => !seen.has(n.id))];
+      return NextResponse.json({ notes: merged });
+    }
+  } catch {
+    // Fall back to local store
+  }
+
+  return NextResponse.json({ notes: localNotes });
 }
 
 export async function POST(req: NextRequest) {
@@ -22,15 +46,49 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
 
-    const { error } = await supabase.from("wall_notes").insert({
-      name: name ? String(name).slice(0, 60) : null,
-      message: String(message).slice(0, 600),
-      approved: false,
+    const cleanName = name ? String(name).trim().slice(0, 60) || null : null;
+    const cleanMessage = String(message).trim().slice(0, 600);
+    const createdAt = new Date().toISOString();
+    let insertedId = `note_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+
+    let savedToSupabase = false;
+    try {
+      const { data, error } = await supabase
+        .from("wall_notes")
+        .insert({
+          name: cleanName,
+          message: cleanMessage,
+          approved: false,
+        })
+        .select("id")
+        .single();
+      if (!error && data?.id) {
+        insertedId = data.id;
+        savedToSupabase = true;
+      }
+    } catch {
+      // Continue to local store fallback
+    }
+
+    writeContentStore<{ notes?: StoredNote[] }>((store) => ({
+      ...store,
+      notes: [
+        {
+          id: insertedId,
+          name: cleanName,
+          message: cleanMessage,
+          approved: false,
+          created_at: createdAt,
+        },
+        ...(store.notes ?? []),
+      ],
+    }));
+
+    return NextResponse.json({
+      success: true,
+      persisted: savedToSupabase,
+      message: "Note submitted for moderation.",
     });
-
-    if (error) throw error;
-
-    return NextResponse.json({ success: true, message: "Note submitted for moderation." });
   } catch {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
