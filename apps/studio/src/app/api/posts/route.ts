@@ -1,32 +1,82 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { readContentStore, writeContentStore } from "@/lib/data-store";
 
 export async function GET() {
-  const { data, error } = await supabaseAdmin
-    .from("posts")
-    .select("*")
-    .order("display_order", { ascending: true });
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+  try {
+    const { data } = await supabaseAdmin
+      .from("posts")
+      .select("*")
+      .order("display_order", { ascending: true });
+
+    if (data && data.length > 0) return NextResponse.json(data);
+  } catch (err) {
+    console.warn("Supabase posts offline, using local store:", err);
+  }
+
+  const store = readContentStore();
+  return NextResponse.json(store.posts || []);
 }
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { data, error } = await supabaseAdmin.from("posts").insert(body).select().single();
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+  const id = body.id || `post_${Date.now()}`;
+  const newPost = { ...body, id };
+
+  writeContentStore((store) => {
+    store.posts = store.posts || [];
+    store.posts.push(newPost);
+    return store;
+  });
+
+  try {
+    const { data } = await supabaseAdmin.from("posts").insert(newPost).select().single();
+    if (data) return NextResponse.json(data);
+  } catch (err) {
+    console.warn("Supabase posts sync skipped (offline):", err);
+  }
+
+  return NextResponse.json(newPost);
 }
 
 export async function PATCH(req: NextRequest) {
   const { id, ...updates } = await req.json();
-  const { data, error } = await supabaseAdmin.from("posts").update(updates).eq("id", id).select().single();
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+  let updatedPost: any = null;
+
+  writeContentStore((store) => {
+    store.posts = (store.posts || []).map((p: any) => {
+      if (p.id === id) {
+        updatedPost = { ...p, ...updates };
+        return updatedPost;
+      }
+      return p;
+    });
+    return store;
+  });
+
+  try {
+    const { data } = await supabaseAdmin.from("posts").update(updates).eq("id", id).select().single();
+    if (data) return NextResponse.json(data);
+  } catch (err) {
+    console.warn("Supabase posts sync skipped (offline):", err);
+  }
+
+  return NextResponse.json(updatedPost || { id, ...updates });
 }
 
 export async function DELETE(req: NextRequest) {
   const { id } = await req.json();
-  const { error } = await supabaseAdmin.from("posts").delete().eq("id", id);
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  writeContentStore((store) => {
+    store.posts = (store.posts || []).filter((p: any) => p.id !== id);
+    return store;
+  });
+
+  try {
+    await supabaseAdmin.from("posts").delete().eq("id", id);
+  } catch (err) {
+    console.warn("Supabase posts sync skipped (offline):", err);
+  }
+
   return NextResponse.json({ ok: true });
 }

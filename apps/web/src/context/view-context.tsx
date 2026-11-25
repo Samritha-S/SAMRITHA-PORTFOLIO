@@ -40,44 +40,62 @@ export function ViewProvider({ children }: { children: React.ReactNode }) {
     setMounted(true);
 
     const loadSettings = async () => {
+      let data: Partial<SiteSettingsData> | null = null;
       try {
-        const { data } = await supabase
+        const res = await supabase
           .from("site_settings")
           .select("*")
           .eq("id", "global")
           .single();
+        if (res.data) data = res.data as Partial<SiteSettingsData>;
+      } catch {}
 
-        if (data) {
-          setSettings({
-            default_view: data.default_view,
-            allow_toggle: data.allow_toggle,
-            unfiltered_hero_title: data.unfiltered_hero_title,
-            unfiltered_hero_subtitle: data.unfiltered_hero_subtitle,
-            unfiltered_hero_bio: data.unfiltered_hero_bio,
-            filtered_hero_title: data.filtered_hero_title,
-            filtered_hero_subtitle: data.filtered_hero_subtitle,
-            filtered_hero_bio: data.filtered_hero_bio,
-            resume_url: data.resume_url,
-          });
+      if (!data) {
+        try {
+          const res = await fetch("/api/content");
+          if (res.ok) {
+            const json = await res.json();
+            if (json.settings) data = json.settings as Partial<SiteSettingsData>;
+          }
+        } catch {}
+      }
 
-          // If user hasn't manually chosen a mode in this session, or toggle is disabled, follow backend default
-          const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
-          const targetView: SiteView = (!data.allow_toggle || !saved) ? data.default_view : saved;
+      if (data) {
+        const defaultView: SiteView = data.default_view === "filtered" ? "filtered" : "unfiltered";
+        const allowToggle = data.allow_toggle ?? true;
 
+        setSettings({
+          default_view: defaultView,
+          allow_toggle: allowToggle,
+          unfiltered_hero_title: data.unfiltered_hero_title ?? "",
+          unfiltered_hero_subtitle: data.unfiltered_hero_subtitle ?? "",
+          unfiltered_hero_bio: data.unfiltered_hero_bio ?? "",
+          filtered_hero_title: data.filtered_hero_title ?? "",
+          filtered_hero_subtitle: data.filtered_hero_subtitle ?? "",
+          filtered_hero_bio: data.filtered_hero_bio ?? "",
+          resume_url: data.resume_url ?? "/Samritha_S_Resume.pdf",
+        });
+
+        // Support ?view=filtered or ?view=unfiltered for direct recruiter/share links
+        const urlView = new URLSearchParams(window.location.search).get("view");
+        const paramView = urlView === "filtered" || urlView === "unfiltered" ? urlView : null;
+
+        // If user hasn't manually chosen a mode in this session, or toggle is disabled, follow backend default
+        const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
+        const targetView: SiteView = !allowToggle
+          ? defaultView
+          : paramView || saved || defaultView;
+
+        setViewState(targetView);
+        document.documentElement.setAttribute("data-view", targetView);
+      } else {
+        const urlView = new URLSearchParams(window.location.search).get("view");
+        const paramView = urlView === "filtered" || urlView === "unfiltered" ? urlView : null;
+        const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
+        const targetView = paramView || (saved === "filtered" || saved === "unfiltered" ? saved : null);
+        if (targetView) {
           setViewState(targetView);
           document.documentElement.setAttribute("data-view", targetView);
-        } else {
-          const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
-          if (saved === "filtered" || saved === "unfiltered") {
-            setViewState(saved);
-            document.documentElement.setAttribute("data-view", saved);
-          }
-        }
-      } catch {
-        const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
-        if (saved === "filtered" || saved === "unfiltered") {
-          setViewState(saved);
-          document.documentElement.setAttribute("data-view", saved);
         }
       }
     };

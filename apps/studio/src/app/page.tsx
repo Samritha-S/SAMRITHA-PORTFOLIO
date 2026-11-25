@@ -51,14 +51,37 @@ export default function StudioDashboard() {
   const loadAll = useCallback(async () => {
     try {
       const [s, m, pr, n, p, ph] = await Promise.all([
-        api("/api/settings"),
-        api("/api/milestones"),
-        api("/api/projects"),
-        api("/api/notes"),
-        api("/api/posts"),
-        api("/api/photos"),
+        api("/api/settings").catch((err) => {
+          console.warn("Failed to load settings:", err);
+          return null;
+        }),
+        api("/api/milestones").catch((err) => {
+          console.warn("Failed to load milestones:", err);
+          return [];
+        }),
+        api("/api/projects").catch((err) => {
+          console.warn("Failed to load projects:", err);
+          return [];
+        }),
+        api("/api/notes").catch((err) => {
+          console.warn("Failed to load notes:", err);
+          return [];
+        }),
+        api("/api/posts").catch((err) => {
+          console.warn("Failed to load posts:", err);
+          return [];
+        }),
+        api("/api/photos").catch((err) => {
+          console.warn("Failed to load photos:", err);
+          return [];
+        }),
       ]);
-      setSettings(s); setMilestones(m); setProjects(pr); setNotes(n); setPosts(p); setPhotos(ph);
+      setSettings(s);
+      setMilestones(m || []);
+      setProjects(pr || []);
+      setNotes(n || []);
+      setPosts(p || []);
+      setPhotos(ph || []);
     } catch (err) {
       console.error("Error loading studio data:", err);
     }
@@ -356,24 +379,53 @@ function SettingsTab({ settings, onRefresh }: { settings: SiteSettings | null; o
 // ─── Projects Tab ─────────────────────────────────────────────────────────────
 function ProjectsTab({ projects, onRefresh }: { projects: Project[]; onRefresh: () => void }) {
   const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState({ title: "", category: "", description: "", tags: "", demo_url: "", repo_url: "", award: "" });
   const [saving, setSaving] = useState(false);
+
+  const resetForm = () => {
+    setForm({ title: "", category: "", description: "", tags: "", demo_url: "", repo_url: "", award: "" });
+  };
+
+  const startEdit = (p: Project) => {
+    setEditing(p);
+    setAdding(false);
+    setForm({
+      title: p.title || "",
+      category: p.category || "",
+      description: p.description || "",
+      tags: p.tags || "",
+      demo_url: p.demo_url || "",
+      repo_url: p.repo_url || "",
+      award: p.award || "",
+    });
+  };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    await api("/api/projects", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    if (editing) {
+      await api("/api/projects", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editing.id, ...form }),
+      });
+      setEditing(null);
+    } else {
+      await api("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      setAdding(false);
+    }
     setSaving(false);
-    setAdding(false);
-    setForm({ title: "", category: "", description: "", tags: "", demo_url: "", repo_url: "", award: "" });
+    resetForm();
     onRefresh();
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this project?")) return;
     await api("/api/projects", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -382,56 +434,86 @@ function ProjectsTab({ projects, onRefresh }: { projects: Project[]; onRefresh: 
     onRefresh();
   };
 
+  const isFormOpen = adding || !!editing;
+
   return (
     <div>
       <div className="flex items-center justify-between pb-5 border-b border-[#21262d] mb-6">
         <div>
           <h2 className="text-lg font-semibold text-white">Engineering Projects</h2>
-          <p className="text-xs text-[#8b949e] mt-0.5">Manage the technical projects displayed in the Filtered mode.</p>
+          <p className="text-xs text-[#8b949e] mt-0.5">Manage and edit the technical projects displayed in the Filtered mode.</p>
         </div>
-        {!adding && (
-          <button onClick={() => setAdding(true)}
+        {!isFormOpen && (
+          <button onClick={() => { setAdding(true); setEditing(null); resetForm(); }}
             className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer">
             <Plus className="w-3.5 h-3.5" /> Add Project
           </button>
         )}
       </div>
 
-      {adding && (
+      {isFormOpen && (
         <form onSubmit={handleSave} className="mb-6 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
-          <h3 className="text-sm font-semibold text-white">Add New Engineering Project</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-white">
+              {editing ? `Edit Project: ${editing.title}` : "Add New Engineering Project"}
+            </h3>
+            <span className="text-xs font-mono text-[#C9A24B]">
+              {editing ? "Editing Mode" : "New Entry"}
+            </span>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Project Title" className={inputCls} />
-            <input required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} placeholder="Category (e.g. AI & Systems)" className={inputCls} />
+            <input required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} placeholder="Category (e.g. GenAI & Web, Data & ML)" className={inputCls} />
             <input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} placeholder="Tech Tags (comma separated)" className={inputCls} />
-            <input value={form.award} onChange={(e) => setForm({ ...form, award: e.target.value })} placeholder="Award (optional)" className={inputCls} />
+            <input value={form.award} onChange={(e) => setForm({ ...form, award: e.target.value })} placeholder="Award or Badge (optional)" className={inputCls} />
             <input value={form.demo_url} onChange={(e) => setForm({ ...form, demo_url: e.target.value })} placeholder="Live Demo URL (optional)" className={inputCls} />
             <input value={form.repo_url} onChange={(e) => setForm({ ...form, repo_url: e.target.value })} placeholder="GitHub Repo URL (optional)" className={inputCls} />
           </div>
           <textarea required value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Project Description" rows={3} className={inputCls} />
           <div className="flex gap-2">
             <button type="submit" disabled={saving}
-              className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50">
-              {saving ? "Saving…" : "Save Project"}
+              className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50 flex items-center gap-1.5">
+              <Save className="w-3.5 h-3.5" />
+              {saving ? "Saving…" : editing ? "Update Project" : "Save Project"}
             </button>
-            <button type="button" onClick={() => setAdding(false)}
-              className="px-4 py-2 rounded-lg bg-[#21262d] text-[#8b949e] text-xs cursor-pointer">Cancel</button>
+            <button type="button" onClick={() => { setAdding(false); setEditing(null); resetForm(); }}
+              className="px-4 py-2 rounded-lg bg-[#21262d] text-[#8b949e] text-xs cursor-pointer hover:text-white">Cancel</button>
           </div>
         </form>
       )}
 
       <div className="space-y-3">
         {projects.map((p) => (
-          <div key={p.id} className="flex items-start justify-between gap-4 p-4 rounded-xl bg-[#0d1117] border border-[#21262d]">
-            <div>
-              <span className="text-[11px] font-mono text-[#C9A24B]">{p.category}</span>
-              <p className="text-sm font-medium text-white mt-0.5">{p.title}</p>
+          <div key={p.id} className="flex items-start justify-between gap-4 p-4 rounded-xl bg-[#0d1117] border border-[#21262d] hover:border-[#30363d] transition-colors">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="text-[11px] font-mono text-[#C9A24B]">{p.category}</span>
+                {p.award && (
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#C9A24B]/10 border border-[#C9A24B]/30 text-[#C9A24B]">
+                    {p.award}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm font-medium text-white">{p.title}</p>
               <p className="text-xs text-[#8b949e] mt-1 leading-relaxed">{p.description}</p>
-              <p className="text-[10px] text-[#8b949e] font-mono mt-2">{p.tags}</p>
+              {p.tags && <p className="text-[10px] text-[#8b949e]/80 font-mono mt-2">{p.tags}</p>}
             </div>
-            <button onClick={() => handleDelete(p.id)} className="text-[#8b949e] hover:text-red-400 transition-colors cursor-pointer shrink-0">
-              <Trash2 className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => startEdit(p)}
+                className="text-[#8b949e] hover:text-[#C9A24B] p-1.5 rounded-lg hover:bg-[#161b22] transition-colors cursor-pointer"
+                title="Edit Project"
+              >
+                <Edit2 className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleDelete(p.id)}
+                className="text-[#8b949e] hover:text-red-400 p-1.5 rounded-lg hover:bg-[#161b22] transition-colors cursor-pointer"
+                title="Delete Project"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         ))}
         {projects.length === 0 && <p className="text-xs text-[#8b949e] italic">No projects yet. Add one above.</p>}
@@ -443,25 +525,54 @@ function ProjectsTab({ projects, onRefresh }: { projects: Project[]; onRefresh: 
 // ─── Milestones Tab ───────────────────────────────────────────────────────────
 function MilestonesTab({ milestones, onRefresh }: { milestones: Milestone[]; onRefresh: () => void }) {
   const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<Milestone | null>(null);
   const [view, setView]     = useState<"unfiltered" | "filtered">("unfiltered");
   const [year, setYear]     = useState("");
   const [title, setTitle]   = useState("");
   const [story, setStory]   = useState("");
   const [saving, setSaving] = useState(false);
 
-  const handleAdd = async (e: React.FormEvent) => {
+  const resetForm = () => {
+    setYear("");
+    setTitle("");
+    setStory("");
+    setView("unfiltered");
+  };
+
+  const startEdit = (m: Milestone) => {
+    setEditing(m);
+    setAdding(false);
+    setView(m.view);
+    setYear(m.year);
+    setTitle(m.title);
+    setStory(m.story);
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    await api("/api/milestones", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ view, year, title, story }),
-    });
-    setSaving(false); setAdding(false); setYear(""); setTitle(""); setStory("");
+    if (editing) {
+      await api("/api/milestones", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editing.id, view, year, title, story }),
+      });
+      setEditing(null);
+    } else {
+      await api("/api/milestones", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ view, year, title, story }),
+      });
+      setAdding(false);
+    }
+    setSaving(false);
+    resetForm();
     onRefresh();
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this milestone?")) return;
     await api("/api/milestones", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -470,6 +581,7 @@ function MilestonesTab({ milestones, onRefresh }: { milestones: Milestone[]; onR
     onRefresh();
   };
 
+  const isFormOpen = adding || !!editing;
   const filter = (v: string) => milestones.filter((m) => m.view === v);
 
   return (
@@ -477,16 +589,26 @@ function MilestonesTab({ milestones, onRefresh }: { milestones: Milestone[]; onR
       <div className="flex items-center justify-between pb-5 border-b border-[#21262d] mb-6">
         <div>
           <h2 className="text-lg font-semibold text-white">Journey Milestones</h2>
-          <p className="text-xs text-[#8b949e] mt-0.5">Add milestones for Unfiltered (personal) and Filtered (tech) timelines.</p>
+          <p className="text-xs text-[#8b949e] mt-0.5">Manage and edit milestones for Unfiltered (personal) and Filtered (tech) timelines.</p>
         </div>
-        <button onClick={() => setAdding(true)}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer">
-          <Plus className="w-3.5 h-3.5" /> Add Milestone
-        </button>
+        {!isFormOpen && (
+          <button onClick={() => { setAdding(true); setEditing(null); resetForm(); }}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer">
+            <Plus className="w-3.5 h-3.5" /> Add Milestone
+          </button>
+        )}
       </div>
 
-      {adding && (
-        <form onSubmit={handleAdd} className="mb-6 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
+      {isFormOpen && (
+        <form onSubmit={handleSave} className="mb-6 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-white">
+              {editing ? `Edit Milestone: ${editing.title}` : "Add New Milestone"}
+            </h3>
+            <span className="text-xs font-mono text-[#C9A24B]">
+              {editing ? "Editing Mode" : "New Entry"}
+            </span>
+          </div>
           <div className="flex gap-2">
             {(["unfiltered", "filtered"] as const).map((v) => (
               <button key={v} type="button" onClick={() => setView(v)}
@@ -496,18 +618,19 @@ function MilestonesTab({ milestones, onRefresh }: { milestones: Milestone[]; onR
             ))}
           </div>
           <input required value={year} onChange={(e) => setYear(e.target.value)}
-            placeholder="Year (e.g. 2024)" className={inputCls} />
+            placeholder="Year (e.g. 2026)" className={inputCls} />
           <input required value={title} onChange={(e) => setTitle(e.target.value)}
             placeholder="Milestone Title" className={inputCls} />
           <textarea required value={story} onChange={(e) => setStory(e.target.value)}
             placeholder="Story / Description" rows={3} className={inputCls} />
           <div className="flex gap-2">
             <button type="submit" disabled={saving}
-              className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50">
-              {saving ? "Saving…" : "Save"}
+              className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50 flex items-center gap-1.5">
+              <Save className="w-3.5 h-3.5" />
+              {saving ? "Saving…" : editing ? "Update Milestone" : "Save Milestone"}
             </button>
-            <button type="button" onClick={() => setAdding(false)}
-              className="px-4 py-2 rounded-lg bg-[#21262d] text-[#8b949e] text-xs cursor-pointer">Cancel</button>
+            <button type="button" onClick={() => { setAdding(false); setEditing(null); resetForm(); }}
+              className="px-4 py-2 rounded-lg bg-[#21262d] text-[#8b949e] text-xs cursor-pointer hover:text-white">Cancel</button>
           </div>
         </form>
       )}
@@ -517,16 +640,24 @@ function MilestonesTab({ milestones, onRefresh }: { milestones: Milestone[]; onR
           <h3 className="text-xs font-mono uppercase tracking-widest text-[#C9A24B] mb-3">{v} Timeline</h3>
           <div className="space-y-3">
             {filter(v).map((m) => (
-              <div key={m.id} className="flex items-start justify-between gap-4 p-4 rounded-xl bg-[#0d1117] border border-[#21262d]">
-                <div>
+              <div key={m.id} className="flex items-start justify-between gap-4 p-4 rounded-xl bg-[#0d1117] border border-[#21262d] hover:border-[#30363d] transition-colors">
+                <div className="flex-1 min-w-0">
                   <span className="text-xs font-mono text-[#C9A24B]">{m.year}</span>
                   <p className="text-sm font-medium text-white mt-0.5">{m.title}</p>
                   <p className="text-xs text-[#8b949e] mt-1 leading-relaxed">{m.story}</p>
                 </div>
-                <button onClick={() => handleDelete(m.id)}
-                  className="text-[#8b949e] hover:text-red-400 transition-colors cursor-pointer shrink-0">
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button onClick={() => startEdit(m)}
+                    className="text-[#8b949e] hover:text-[#C9A24B] p-1.5 rounded-lg hover:bg-[#161b22] transition-colors cursor-pointer"
+                    title="Edit Milestone">
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => handleDelete(m.id)}
+                    className="text-[#8b949e] hover:text-red-400 p-1.5 rounded-lg hover:bg-[#161b22] transition-colors cursor-pointer"
+                    title="Delete Milestone">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
             {filter(v).length === 0 && (
@@ -731,9 +862,30 @@ function PostsTab({ posts, onRefresh }: { posts: Post[]; onRefresh: () => void }
 function PhotosTab({ photos, onRefresh }: { photos: Photo[]; onRefresh: () => void }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({ title: "", caption: "", story: "", tag: "", date_label: "", view: "unfiltered" });
+  const [editing, setEditing] = useState<Photo | null>(null);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview]     = useState<string | null>(null);
   const [file, setFile]           = useState<File | null>(null);
+
+  const resetForm = () => {
+    setForm({ title: "", caption: "", story: "", tag: "", date_label: "", view: "unfiltered" });
+    setFile(null);
+    setPreview(null);
+    setEditing(null);
+  };
+
+  const startEdit = (ph: Photo) => {
+    setEditing(ph);
+    setPreview(ph.url || null);
+    setForm({
+      title: ph.title || "",
+      caption: ph.caption || "",
+      story: ph.story || "",
+      tag: ph.tag || "",
+      date_label: ph.date_label || "",
+      view: ph.view || "unfiltered",
+    });
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -742,28 +894,47 @@ function PhotosTab({ photos, onRefresh }: { photos: Photo[]; onRefresh: () => vo
     setPreview(URL.createObjectURL(f));
   };
 
-  const handleUpload = async (e: React.FormEvent) => {
+  const handleUploadOrSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) return;
     setUploading(true);
 
-    const fd = new FormData();
-    fd.append("file", file);
-    const { url } = await api("/api/upload", { method: "POST", body: fd });
+    if (editing) {
+      let finalUrl = editing.url;
+      if (file) {
+        const fd = new FormData();
+        fd.append("file", file);
+        const { url } = await api("/api/upload", { method: "POST", body: fd });
+        finalUrl = url;
+      }
+      await api("/api/photos", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editing.id, url: finalUrl, ...form }),
+      });
+      setEditing(null);
+    } else {
+      if (!file) {
+        setUploading(false);
+        return;
+      }
+      const fd = new FormData();
+      fd.append("file", file);
+      const { url } = await api("/api/upload", { method: "POST", body: fd });
 
-    await api("/api/photos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, ...form }),
-    });
+      await api("/api/photos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, ...form }),
+      });
+    }
 
     setUploading(false);
-    setFile(null); setPreview(null);
-    setForm({ title: "", caption: "", story: "", tag: "", date_label: "", view: "unfiltered" });
+    resetForm();
     onRefresh();
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this photo?")) return;
     await api("/api/photos", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
     onRefresh();
   };
@@ -772,12 +943,19 @@ function PhotosTab({ photos, onRefresh }: { photos: Photo[]; onRefresh: () => vo
     <div>
       <div className="pb-5 border-b border-[#21262d] mb-6">
         <h2 className="text-lg font-semibold text-white">Photo Gallery</h2>
-        <p className="text-xs text-[#8b949e] mt-0.5">Upload photos to Cloudinary and they appear in the portfolio gallery instantly.</p>
+        <p className="text-xs text-[#8b949e] mt-0.5">Upload photos to Cloudinary and manage existing photo details and captions.</p>
       </div>
 
-      {/* Upload Form */}
-      <form onSubmit={handleUpload} className="mb-8 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-4">
-        <h3 className="text-sm font-semibold text-white">Upload New Photo</h3>
+      {/* Upload/Edit Form */}
+      <form onSubmit={handleUploadOrSave} className="mb-8 p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-white">
+            {editing ? `Edit Photo: ${editing.title}` : "Upload New Photo"}
+          </h3>
+          {editing && (
+            <span className="text-xs font-mono text-[#C9A24B]">Editing Mode</span>
+          )}
+        </div>
 
         {/* Drop Zone */}
         <div
@@ -811,27 +989,52 @@ function PhotosTab({ photos, onRefresh }: { photos: Photo[]; onRefresh: () => vo
               }`}>{v}</button>
           ))}
         </div>
-        <button type="submit" disabled={uploading || !file}
-          className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50 flex items-center gap-1.5">
-          <Upload className="w-3.5 h-3.5" />{uploading ? "Uploading…" : "Upload Photo"}
-        </button>
+        <div className="flex gap-2">
+          <button type="submit" disabled={uploading || (!file && !editing)}
+            className="px-4 py-2 rounded-lg bg-[#C9A24B] text-[#0c1117] text-xs font-semibold hover:brightness-110 cursor-pointer disabled:opacity-50 flex items-center gap-1.5">
+            <Save className="w-3.5 h-3.5" />
+            {uploading ? "Saving…" : editing ? "Update Photo Details" : "Upload Photo"}
+          </button>
+          {editing && (
+            <button type="button" onClick={resetForm}
+              className="px-4 py-2 rounded-lg bg-[#21262d] text-[#8b949e] text-xs cursor-pointer hover:text-white">Cancel</button>
+          )}
+        </div>
       </form>
 
       {/* Photo Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {photos.map((ph) => (
           <div key={ph.id} className="relative group rounded-xl overflow-hidden border border-[#21262d] bg-[#0d1117]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={ph.url} alt={ph.title} className="w-full h-32 object-cover" />
+            {ph.url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={ph.url} alt={ph.title} className="w-full h-32 object-cover" />
+            ) : (
+              <div className="w-full h-32 flex flex-col items-center justify-center bg-[#161b22] text-[#8b949e]">
+                <Image className="w-6 h-6 mb-1 opacity-50" />
+                <span className="text-[10px] font-mono">No Image Uploaded</span>
+              </div>
+            )}
             <div className="p-2">
               <p className="text-xs font-medium text-white truncate">{ph.title}</p>
               <p className="text-[10px] text-[#8b949e]">{ph.view} · {ph.tag}</p>
             </div>
-            <button
-              onClick={() => handleDelete(ph.id)}
-              className="absolute top-2 right-2 p-1.5 rounded-full bg-black/70 text-[#8b949e] hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all cursor-pointer">
-              <Trash2 className="w-3.5 h-3.5" />
-            </button>
+            <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+              <button
+                onClick={() => startEdit(ph)}
+                className="p-1.5 rounded-full bg-black/70 text-[#8b949e] hover:text-[#C9A24B] transition-colors cursor-pointer"
+                title="Edit Photo Details"
+              >
+                <Edit2 className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={() => handleDelete(ph.id)}
+                className="p-1.5 rounded-full bg-black/70 text-[#8b949e] hover:text-red-400 transition-colors cursor-pointer"
+                title="Delete Photo"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         ))}
         {photos.length === 0 && <p className="col-span-3 text-xs text-[#8b949e] italic">No photos uploaded yet.</p>}

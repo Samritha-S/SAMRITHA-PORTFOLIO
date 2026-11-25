@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Briefcase, Building2, ExternalLink, Trophy, ShieldAlert, Compass } from "lucide-react";
 import { GithubIcon } from "@/components/shared/icons";
 import { KokonutCard } from "@/components/kokonutui/card";
@@ -144,15 +144,51 @@ const projects: ProjectItem[] = [
   },
 ];
 
+interface RawProject {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  tags: string | string[];
+  demo_url?: string | null;
+  repo_url?: string | null;
+  award?: string | null;
+  badge?: string | null;
+}
+
 export function ExperienceProjects() {
   const [filter, setFilter] = useState("All");
+  const [projectList, setProjectList] = useState<ProjectItem[]>(projects);
+
+  useEffect(() => {
+    fetch("/api/content")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.projects) && data.projects.length > 0) {
+          setProjectList(
+            data.projects.map((p: RawProject) => ({
+              id: p.id,
+              title: p.title,
+              category: p.category,
+              description: p.description,
+              tags: typeof p.tags === "string" ? p.tags.split(",").map((t: string) => t.trim()) : p.tags,
+              demoUrl: p.demo_url || undefined,
+              repoUrl: p.repo_url || undefined,
+              award: p.award || undefined,
+              badge: p.badge || undefined,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const categories = ["All", "GenAI & Web", "Data & ML", "Hardware & IoT", "Strategy & Design"];
 
   const filteredProjects =
     filter === "All"
-      ? projects
-      : projects.filter((p) => p.category === filter);
+      ? projectList
+      : projectList.filter((p) => p.category === filter);
 
   return (
     <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">

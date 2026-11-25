@@ -76,6 +76,18 @@ export function FilteredJourneyTimeline({
         },
         () => {}
       );
+
+    fetch("/api/content")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data.milestones) && data.milestones.length > 0) {
+          const filtered = (data.milestones as Array<TechMilestone & { view?: string }>).filter(
+            (m) => m.view === "filtered"
+          );
+          if (filtered.length > 0) setMilestones(filtered);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   return (

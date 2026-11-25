@@ -13,17 +13,31 @@ export function ContactSection() {
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate brief network submission
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setName("");
-    setEmail("");
-    setMessage("");
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json?.error || "Could not send message.");
+      }
+      setSubmitted(true);
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Could not send message.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -202,6 +216,12 @@ export function ContactSection() {
                     }`}
                   />
                 </div>
+
+                {submitError && (
+                  <p className="text-xs text-red-400 bg-red-950/30 border border-red-400/30 rounded-lg px-3 py-2">
+                    {submitError}
+                  </p>
+                )}
 
                 <ParticleButton
                   type="submit"

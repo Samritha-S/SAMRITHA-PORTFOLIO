@@ -5,7 +5,7 @@ import { GithubIcon } from "@/components/shared/icons";
 import { BklitAreaChart } from "@/components/bklit/area-chart";
 import { BklitCommitGraph } from "@/components/bklit/commit-graph";
 import ConstellationField from "@/components/kokonutui/constellation-field";
-import { Users, Bug, Globe, ExternalLink } from "lucide-react";
+import { Bug, Globe, ExternalLink } from "lucide-react";
 import { KokonutCard } from "@/components/kokonutui/card";
 
 const telemetryData = [
