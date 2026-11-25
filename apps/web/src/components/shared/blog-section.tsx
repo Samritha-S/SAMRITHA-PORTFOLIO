@@ -162,7 +162,7 @@ export function BlogSection() {
                   : "bg-[var(--surface-plum)]"
                 : isSandUnfiltered
                   ? "bg-[var(--surface-lavender)] text-[var(--text-primary)]"
-                  : index % 3 === 0
+                  : index % 3 === 2
                     ? "bg-[var(--surface-plum)] text-[var(--text-on-dark)]"
                     : "bg-[var(--surface-forest)] text-[var(--text-on-dark)]"
             }`}
