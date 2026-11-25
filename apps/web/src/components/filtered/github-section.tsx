@@ -258,7 +258,7 @@ export function GitHubSection() {
                   onClick={() => setTab(item.id)}
                   className={`px-4 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${
                     tab === item.id
-                      ? "bg-[var(--accent-gold)] text-[#011627] font-semibold"
+                      ? "bg-[var(--accent-gold)] text-[var(--text-dark)] font-semibold"
                       : "text-[var(--text-primary)]/75 hover:text-[var(--text-primary)]"
                   }`}
                 >

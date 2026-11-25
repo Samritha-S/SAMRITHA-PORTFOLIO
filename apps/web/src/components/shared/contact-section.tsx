@@ -73,12 +73,12 @@ export function ContactSection() {
         {/* Contact Info / Social Handles */}
         <div className="md:col-span-5 space-y-6">
           <div className={`p-6 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#3D2B52] text-[#F5EFE8]"
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[var(--surface-forest)] text-[var(--text-on-dark)]"
           }`}>
-            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F5EFE8]"}`}>
+            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[var(--text-on-dark)]"}`}>
               Direct Channels
             </h3>
-            <p className="text-xs leading-relaxed mb-6 text-[var(--text-primary)]/80">
+            <p className={`text-xs leading-relaxed mb-6 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/80"}`}>
               {isFiltered ? contact.filteredNote : contact.unfilteredNote}
             </p>
 
@@ -90,19 +90,19 @@ export function ContactSection() {
                     href={contact.instagram}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)]/10 border border-[var(--accent-gold)]/25 hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-on-dark)] group"
                   >
                     <InstagramIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Instagram • @samritha.s</span>
+                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">Instagram • @samritha.s</span>
                   </a>
                   <a
                     href={contact.twitter}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)]/10 border border-[var(--accent-gold)]/25 hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-on-dark)] group"
                   >
                     <TwitterIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_s</span>
+                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_s</span>
                   </a>
                 </>
               ) : (
@@ -139,30 +139,30 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Message Form: Lighter Plum panel on unfiltered */}
+        {/* Message Form: Deep Plum panel on unfiltered, Midnight Navy on filtered */}
         <div className="md:col-span-7">
           <div className={`p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[#3D2B52] text-[#F5EFE8]"
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[var(--surface-plum)] text-[var(--text-on-dark)]"
           }`}>
-            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F5EFE8]"}`}>
+            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[var(--text-on-dark)]"}`}>
               Send a Direct Message
             </h3>
 
             {submitted ? (
               <div className={`p-6 rounded-xl text-center border ${
-                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[#2E1F3D] border-[#D4AF7A]/50 text-[#F5EFE8]"
+                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[var(--surface-forest)] border-[var(--accent-gold)]/50 text-[var(--text-on-dark)]"
               }`}>
-                <CheckCircle2 className={`w-8 h-8 mx-auto mb-2 ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D4AF7A]"}`} />
+                <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-[var(--accent-gold)]" />
                 <h4 className="font-serif text-lg font-medium">
                   Message Sent
                 </h4>
-                <p className={`text-xs mt-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F5EFE8]/85"}`}>
+                <p className={`text-xs mt-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/85"}`}>
                   Thank you for reaching out. I&apos;ll get back to you as soon as I can!
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   suppressHydrationWarning
-                  className={`mt-4 text-xs underline cursor-pointer ${isFiltered ? "text-[var(--accent-gold)]" : "text-[#D4AF7A]"}`}
+                  className="mt-4 text-xs underline cursor-pointer text-[var(--accent-gold)]"
                 >
                   Send another message
                 </button>
@@ -170,7 +170,7 @@ export function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F5EFE8]/90"}`}>
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/90"}`}>
                     Your Name *
                   </label>
                   <input
@@ -183,13 +183,13 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[#2E1F3D] text-[#F5EFE8] placeholder-[#F5EFE8]/40 focus:border-[#D4AF7A]"
+                        : "bg-[var(--surface-forest)]/80 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:border-[var(--accent-gold)]"
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F5EFE8]/90"}`}>
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/90"}`}>
                     Your Email *
                   </label>
                   <input
@@ -202,13 +202,13 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[#2E1F3D] text-[#F5EFE8] placeholder-[#F5EFE8]/40 focus:border-[#D4AF7A]"
+                        : "bg-[var(--surface-forest)]/80 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:border-[var(--accent-gold)]"
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[#F5EFE8]/90"}`}>
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/90"}`}>
                     Your Message *
                   </label>
                   <textarea
@@ -221,7 +221,7 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors resize-none ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[#2E1F3D] text-[#F5EFE8] placeholder-[#F5EFE8]/40 focus:border-[#D4AF7A]"
+                        : "bg-[var(--surface-forest)]/80 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:border-[var(--accent-gold)]"
                     }`}
                   />
                 </div>
@@ -235,7 +235,7 @@ export function ContactSection() {
                 <ParticleButton
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full ${isFiltered ? "" : "bg-[#D3968C] text-[#F7F4D5] border-none hover:brightness-105"}`}
+                  className={`w-full ${isFiltered ? "" : "bg-[var(--accent-primary)] text-[var(--text-on-dark)] border-none hover:brightness-105"}`}
                 >
                   <Send className="w-4 h-4" />
                   {isSubmitting ? "Transmitting..." : "Send Message"}

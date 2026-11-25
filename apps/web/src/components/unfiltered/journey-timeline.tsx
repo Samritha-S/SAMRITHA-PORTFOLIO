@@ -114,25 +114,31 @@ export function UnfilteredJourneyTimeline({
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] group-hover:bg-[var(--bg-base)]" />
                 </div>
 
-                {/* Narrative Entry: Lighter plum card with subtle orchid border and champagne accents */}
-                <div
-                  className={`p-6 sm:p-7 rounded-xl border border-[#8B5FBF]/30 hover:border-[#D4AF7A] transition-all duration-300 shadow-md relative ${
-                    index % 2 === 0
-                      ? "bg-[#3D2B52] text-[#F5EFE8]"
-                      : "bg-[#352447] text-[#F5EFE8]"
-                  }`}
-                >
-                  <div className="sm:hidden text-xs font-serif font-bold text-[#C98FA0] mb-1.5">
-                    {item.year}
-                  </div>
-                  <h3 className="font-serif text-xl font-medium text-[#F5EFE8] mb-2.5 flex items-center justify-between">
-                    <span>{item.title}</span>
-                    <Sparkles className="w-4 h-4 text-[#D4AF7A] opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </h3>
-                  <p className="text-sm text-[#F5EFE8]/85 leading-relaxed font-sans">
-                    {item.story}
-                  </p>
-                </div>
+                {/* Narrative Entry: Retained Deep Plum & Deep Forest with occasional Light Lavender */}
+                {(() => {
+                  const isLavender = index % 3 === 2;
+                  const cardBg = isLavender
+                    ? "bg-[var(--surface-lavender)] text-[var(--text-primary)] border-[var(--accent-primary)]/25"
+                    : index % 2 === 0
+                      ? "bg-[var(--surface-plum)] text-[var(--text-on-dark)] border-[var(--accent-secondary)]/35"
+                      : "bg-[var(--surface-forest)] text-[var(--text-on-dark)] border-[var(--accent-secondary)]/35";
+                  return (
+                    <div
+                      className={`p-6 sm:p-7 rounded-xl border hover:border-[var(--accent-gold)] transition-all duration-300 shadow-md relative ${cardBg}`}
+                    >
+                      <div className={`sm:hidden text-xs font-serif font-bold mb-1.5 ${isLavender ? "text-[var(--accent-primary)]" : "text-[var(--accent-secondary)]"}`}>
+                        {item.year}
+                      </div>
+                      <h3 className={`font-serif text-xl font-medium mb-2.5 flex items-center justify-between ${isLavender ? "text-[var(--text-primary)]" : "text-[var(--text-on-dark)]"}`}>
+                        <span>{item.title}</span>
+                        <Sparkles className="w-4 h-4 text-[var(--accent-gold)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </h3>
+                      <p className={`text-sm leading-relaxed font-sans ${isLavender ? "text-[var(--text-primary)]/85" : "text-[var(--text-on-dark)]/85"}`}>
+                        {item.story}
+                      </p>
+                    </div>
+                  );
+                })()}
               </motion.div>
             ))}
           </div>

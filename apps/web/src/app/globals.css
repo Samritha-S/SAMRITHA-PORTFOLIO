@@ -3,37 +3,48 @@
 @layer base {
   :root,
   [data-view="unfiltered"] {
-    --bg-base: #2E1F3D;
-    --bg-elevated: #3D2B52;
+    --bg-base: #F0EFE6;
+    --bg-elevated: #E1E7DC;
     --surface-amethyst: #3D2B52;
-    --surface-dusk: #3D2B52;
-    --surface-sage: #352447;
-    --accent-primary: #8B5FBF;
-    --accent-secondary: #C98FA0;
-    --text-primary: #F5EFE8;
-    --text-light: #F5EFE8;
-    --text-dark: #2E1F3D;
-    --accent-gold: #D4AF7A;
-    --gold-glow: rgba(212, 175, 122, 0.4);
-    --border-subtle: rgba(139, 95, 191, 0.22);
-    --card-surface: #3D2B52;
-    --card-hover: #483360;
+    --surface-plum: #3D2B52;
+    --surface-lavender: #D8C9E2;
+    --surface-forest: #263B32;
+    --surface-navy: #1E3152;
+    --surface-dusk: #E1E7DC;
+    --surface-sage: #E1E7DC;
+    --surface-muted-sage: #A9B9A5;
+    --accent-primary: #344E41;
+    --accent-secondary: #A58DB5;
+    --text-primary: #29372F;
+    --text-light: #F0EFE6;
+    --text-on-dark: #F5EFE8;
+    --text-dark: #263B32;
+    --accent-gold: #B49A68;
+    --gold-glow: rgba(180, 154, 104, 0.35);
+    --border-subtle: rgba(52, 78, 65, 0.22);
+    --card-surface: #E1E7DC;
+    --card-hover: #D4DFD0;
   }
 
   [data-view="filtered"] {
-    --bg-base: #011627;
-    --bg-elevated: #1F2F32;
-    --surface-amethyst: #362831;
-    --surface-dusk: #182730;
-    --surface-sage: #1E2E2B;
-    --accent-primary: #795663;
-    --accent-secondary: #8A9688;
-    --text-primary: #D9BCAF;
-    --accent-gold: #C9A24B;
-    --gold-glow: rgba(201, 162, 75, 0.35);
-    --border-subtle: rgba(138, 150, 136, 0.28);
-    --card-surface: rgba(31, 47, 50, 0.65);
-    --card-hover: rgba(31, 47, 50, 0.85);
+    --bg-base: #1E3152;
+    --bg-elevated: #263B32;
+    --surface-amethyst: #3D2B52;
+    --surface-plum: #3D2B52;
+    --surface-forest: #263B32;
+    --surface-navy: #1E3152;
+    --surface-dusk: #182844;
+    --surface-sage: #263B32;
+    --surface-muted-sage: #A9B9A5;
+    --accent-primary: #496B59;
+    --accent-secondary: #A58DB5;
+    --text-primary: #EAE9DF;
+    --text-on-dark: #F5EFE8;
+    --accent-gold: #B49A68;
+    --gold-glow: rgba(180, 154, 104, 0.35);
+    --border-subtle: rgba(180, 154, 104, 0.26);
+    --card-surface: rgba(38, 59, 50, 0.72);
+    --card-hover: rgba(38, 59, 50, 0.9);
   }
 
   *,

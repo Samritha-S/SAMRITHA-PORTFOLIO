@@ -256,5 +256,23 @@
       "published": true
     }
   ],
-  "photos": []
+  "photos": [],
+  "theme": {
+    "unfiltered": {
+      "bgBase": "#F5F3EB",
+      "bgElevated": "#E5EBE3",
+      "accentPrimary": "#496B59",
+      "accentSecondary": "#A7B8A4",
+      "textPrimary": "#24342C",
+      "accentGold": "#B49A68"
+    },
+    "filtered": {
+      "bgBase": "#011627",
+      "bgElevated": "#1F2F32",
+      "accentPrimary": "#795663",
+      "accentSecondary": "#8A9688",
+      "textPrimary": "#D9BCAF",
+      "accentGold": "#C9A24B"
+    }
+  }
 }

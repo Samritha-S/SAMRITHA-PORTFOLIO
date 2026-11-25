@@ -25,7 +25,7 @@ export function Footer() {
           </span>
           <span className="text-[var(--accent-gold)]">•</span>
           <span>
-            {isFiltered ? "Blue Noir Palette" : "Mystic Amethyst Palette"}
+            {isFiltered ? "Midnight Navy Palette" : "Botanical Plum Palette"}
           </span>
         </div>
 

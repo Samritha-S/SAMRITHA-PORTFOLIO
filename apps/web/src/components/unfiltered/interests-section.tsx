@@ -140,7 +140,7 @@ function MintChocChipModule() {
   return (
     <div
       onClick={() => setBites((b) => (b + 1) % 5)}
-      className="rounded-[28px] p-6 bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
+      className="rounded-[28px] p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
         <span className="text-xs uppercase tracking-wider font-semibold text-[var(--accent-secondary)]">
@@ -275,7 +275,7 @@ function WalkingModule() {
   return (
     <div
       onClick={() => setSteps((s) => s + 500)}
-      className="rounded-xl p-6 bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 relative overflow-hidden cursor-pointer group shadow-sm"
+      className="rounded-xl p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 text-[var(--accent-secondary)]">
@@ -380,7 +380,7 @@ function PoetryModule() {
   return (
     <div
       onClick={() => setVerseIdx((v) => (v + 1) % verses.length)}
-      className="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm p-6 bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
+      className="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 text-[var(--accent-secondary)]">

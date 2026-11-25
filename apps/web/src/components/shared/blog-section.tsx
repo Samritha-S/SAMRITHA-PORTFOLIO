@@ -149,7 +149,9 @@ export function BlogSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {posts.map((post, index) => (
+        {posts.map((post, index) => {
+          const isLavenderUnfiltered = !isFiltered && index % 3 === 2;
+          return (
           <div
             key={post.id}
             onClick={() => setSelectedPost(post)}
@@ -157,10 +159,12 @@ export function BlogSection() {
               isFiltered
                 ? index % 2 === 0
                   ? "bg-[var(--surface-dusk)]"
-                  : "bg-[var(--surface-amethyst)]"
-                : index % 2 === 0
-                  ? "bg-[#3D2B52] text-[#F5EFE8]"
-                  : "bg-[#352447] text-[#F5EFE8]"
+                  : "bg-[var(--surface-plum)]"
+                : isLavenderUnfiltered
+                  ? "bg-[var(--surface-lavender)] text-[var(--text-primary)]"
+                  : index % 2 === 0
+                    ? "bg-[var(--surface-plum)] text-[var(--text-on-dark)]"
+                    : "bg-[var(--surface-forest)] text-[var(--text-on-dark)]"
             }`}
           >
             <div>
@@ -168,36 +172,39 @@ export function BlogSection() {
                 <span className={`text-[10px] font-mono uppercase px-2.5 py-0.5 rounded border ${
                   isFiltered
                     ? "bg-[var(--bg-base)] border-[var(--border-subtle)] text-[var(--accent-gold)]"
-                    : "bg-[#2E1F3D] border-[#8B5FBF]/40 text-[#D4AF7A] font-semibold"
+                    : isLavenderUnfiltered
+                      ? "bg-[var(--bg-base)]/75 border-[var(--accent-primary)]/30 text-[var(--accent-primary)] font-semibold"
+                      : "bg-[var(--bg-base)]/15 border-[var(--accent-gold)]/40 text-[var(--accent-gold)] font-semibold"
                 }`}>
                   {post.tag}
                 </span>
-                <span className={`${isFiltered ? "text-[var(--text-primary)]/60" : "text-[#F5EFE8]/70"} flex items-center gap-1`}>
+                <span className={`${isFiltered || isLavenderUnfiltered ? "text-[var(--text-primary)]/70" : "text-[var(--text-on-dark)]/70"} flex items-center gap-1`}>
                   <Calendar className="w-3 h-3 text-[var(--accent-gold)]" />
                   {post.date}
                 </span>
               </div>
 
               <h3 className={`font-serif text-xl font-medium mb-3 transition-colors ${
-                isFiltered ? "text-[var(--text-primary)] group-hover:text-[var(--accent-gold)]" : "text-[#F5EFE8] group-hover:text-[#D4AF7A]"
+                isFiltered || isLavenderUnfiltered ? "text-[var(--text-primary)] group-hover:text-[var(--accent-primary)]" : "text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)]"
               }`}>
                 {post.title}
               </h3>
               <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${
-                isFiltered ? "text-[var(--text-primary)]/75" : "text-[#F7F4D5]/80"
+                isFiltered || isLavenderUnfiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/80"
               }`}>
                 {post.excerpt}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs text-[var(--accent-gold)] font-medium">
+            <div className={`pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-medium ${isLavenderUnfiltered ? "text-[var(--accent-primary)]" : "text-[var(--accent-gold)]"}`}>
               <span>{post.readTime}</span>
               <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 Read Story <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Reading Modal */}

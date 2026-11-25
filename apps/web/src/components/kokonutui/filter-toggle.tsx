@@ -18,7 +18,7 @@ export function FilterToggle() {
       <div
         role="group"
         aria-label="Filter the site perspective switch"
-        className="relative inline-flex items-center p-1 rounded-full border border-[var(--accent-gold)]/40 bg-[var(--bg-base)]/80 backdrop-blur-md shadow-sm transition-all duration-300 hover:border-[var(--accent-gold)]"
+        className="relative inline-flex items-center p-1 rounded-full border border-[var(--accent-gold)]/50 bg-[var(--bg-elevated)]/90 backdrop-blur-md shadow-sm transition-all duration-300 hover:border-[var(--accent-gold)]"
       >
         {/* Unfiltered Option */}
         <button
@@ -30,11 +30,11 @@ export function FilterToggle() {
           aria-pressed={!isFiltered}
           className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer ${
             !isFiltered
-              ? "text-[#F5EFE8] font-semibold"
-              : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
+              ? "text-[var(--text-on-dark)] font-semibold"
+              : "text-[var(--text-primary)]/75 hover:text-[var(--text-primary)]"
           }`}
         >
-          <Sparkles className="w-3.5 h-3.5 text-[#D4AF7A]" />
+          <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
           <span>Unfiltered</span>
           <span className="text-[10px] opacity-70 hidden sm:inline">(Raw)</span>
 
@@ -42,7 +42,7 @@ export function FilterToggle() {
             <motion.div
               layoutId="filter-active-capsule"
               transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              className="absolute inset-0 bg-[#8B5FBF] rounded-full shadow-sm border border-[#D4AF7A]/40 -z-10"
+              className="absolute inset-0 bg-[var(--accent-primary)] rounded-full shadow-sm border border-[var(--accent-gold)]/40 -z-10"
             />
           )}
         </button>
@@ -57,11 +57,11 @@ export function FilterToggle() {
           aria-pressed={isFiltered}
           className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium tracking-wide transition-colors duration-200 cursor-pointer ${
             isFiltered
-              ? "text-[#F5EFE8] font-semibold"
-              : "text-[var(--text-primary)]/70 hover:text-[var(--text-primary)]"
+              ? "text-[var(--text-on-dark)] font-semibold"
+              : "text-[var(--text-primary)]/75 hover:text-[var(--text-primary)]"
           }`}
         >
-          <Terminal className="w-3.5 h-3.5" />
+          <Terminal className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
           <span>Filtered</span>
           <span className="text-[10px] opacity-70 hidden sm:inline">(Tech)</span>
 
@@ -69,7 +69,7 @@ export function FilterToggle() {
             <motion.div
               layoutId="filter-active-capsule"
               transition={{ type: "spring", stiffness: 450, damping: 32 }}
-              className="absolute inset-0 bg-[#3D2B52] rounded-full shadow-sm border border-[#8B5FBF]/50 -z-10"
+              className="absolute inset-0 bg-[var(--surface-navy)] rounded-full shadow-sm border border-[var(--accent-gold)]/50 -z-10"
             />
           )}
         </button>

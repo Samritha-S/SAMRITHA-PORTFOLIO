@@ -91,7 +91,7 @@ export function Navbar() {
             )}
           </div>
           <div>
-            <span className="font-serif text-lg sm:text-xl font-medium tracking-wide text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">
+            <span className="font-serif text-lg sm:text-xl font-medium tracking-wide text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors whitespace-nowrap">
               Samritha S
             </span>
             <span className={`hidden sm:block text-[9px] uppercase tracking-widest font-mono ${
@@ -115,7 +115,7 @@ export function Navbar() {
                 onClick={() => setActiveSection(link.href)}
                 className={`relative px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 rounded-full ${
                   isActive
-                    ? "text-[var(--text-primary)] font-semibold"
+                    ? "text-[var(--text-on-dark)] font-semibold"
                     : "text-[var(--text-primary)]/75 hover:text-[var(--text-primary)]"
                 }`}
               >
@@ -125,7 +125,7 @@ export function Navbar() {
                     layoutId="morphic-nav-pill"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     className={`absolute inset-0 rounded-full border -z-10 shadow-sm ${
-                      isFiltered ? "bg-[var(--bg-elevated)] border-[var(--border-subtle)]" : "bg-[var(--accent-primary)] border-[var(--accent-primary)]"
+                      isFiltered ? "bg-[var(--surface-navy)] border-[var(--accent-gold)]/40" : "bg-[var(--accent-primary)] border-[var(--accent-primary)]"
                     }`}
                   >
                     {/* Underline on active item */}

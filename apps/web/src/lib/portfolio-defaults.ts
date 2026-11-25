@@ -102,20 +102,20 @@ export interface PortfolioSections {
 
 export const DEFAULT_THEME: ThemeConfig = {
   unfiltered: {
-    bgBase: "#2E1F3D",
-    bgElevated: "#3D2B52",
-    accentPrimary: "#8B5FBF",
-    accentSecondary: "#C98FA0",
-    textPrimary: "#F5EFE8",
-    accentGold: "#D4AF7A",
+    bgBase: "#F0EFE6",
+    bgElevated: "#E1E7DC",
+    accentPrimary: "#344E41",
+    accentSecondary: "#D8C9E2",
+    textPrimary: "#29372F",
+    accentGold: "#B49A68",
   },
   filtered: {
-    bgBase: "#011627",
-    bgElevated: "#1F2F32",
-    accentPrimary: "#795663",
-    accentSecondary: "#8A9688",
-    textPrimary: "#D9BCAF",
-    accentGold: "#C9A24B",
+    bgBase: "#1E3152",
+    bgElevated: "#263B32",
+    accentPrimary: "#496B59",
+    accentSecondary: "#A58DB5",
+    textPrimary: "#EAE9DF",
+    accentGold: "#B49A68",
   },
 };
 

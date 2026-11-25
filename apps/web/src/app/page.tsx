@@ -29,7 +29,7 @@ export default function Home() {
   const { isFiltered } = useView();
 
   return (
-    <div className="relative min-h-screen selection:bg-[var(--accent-gold)] selection:text-[#011627] bg-[var(--bg-base)]">
+    <div className="relative min-h-screen selection:bg-[var(--accent-gold)] selection:text-[var(--text-dark)] bg-[var(--bg-base)]">
       {/* Top Fixed Header with Filter Toggle */}
       <Navbar />
 

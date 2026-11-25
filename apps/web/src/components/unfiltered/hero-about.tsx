@@ -32,29 +32,29 @@ export function UnfilteredHero() {
         {/* Subtle hairline under headline */}
         <div className="gold-hairline w-32 mx-auto mb-6" />
 
-        <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-secondary)] font-medium mb-6">
+        <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-primary)] font-medium mb-6">
           {subtitle}
         </p>
 
-        <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed max-w-2xl mx-auto mb-6">
+        <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-2xl mx-auto mb-6">
           Welcome to the part of the internet where I&apos;m not talking about projects, certifications, or deadlines.
         </p>
 
-        <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed max-w-2xl mx-auto mb-10">
+        <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-2xl mx-auto mb-10">
           {bio}
         </p>
 
         {/* Hero CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a href="#about">
-            <ParticleButton className="bg-[var(--accent-secondary)] text-[var(--bg-base)] font-semibold border-none hover:brightness-105 shadow-md">
+            <ParticleButton className="bg-[var(--accent-primary)] text-[var(--text-on-dark)] font-semibold border-none hover:brightness-105 shadow-md">
               Come stay a while
-              <Heart className="w-3.5 h-3.5 fill-current text-[var(--bg-base)]" />
+              <Heart className="w-3.5 h-3.5 fill-current text-[var(--accent-gold)]" />
             </ParticleButton>
           </a>
           <a
             href="#interests"
-            className="px-6 py-2.5 rounded-full border border-[var(--accent-primary)]/50 bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)] transition-all duration-300 flex items-center gap-2 shadow-md text-xs sm:text-sm font-medium"
+            className="px-6 py-2.5 rounded-full border border-[var(--accent-primary)]/40 bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-primary)] transition-all duration-300 flex items-center gap-2 shadow-sm text-xs sm:text-sm font-medium"
           >
             Explore Little Things
             <ArrowDown className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
@@ -86,7 +86,7 @@ export function UnfilteredAbout() {
         </div>
 
         <div className="space-y-6">
-          <p className="font-serif text-xl sm:text-2xl text-[var(--accent-secondary)] leading-snug">
+          <p className="font-serif text-xl sm:text-2xl text-[var(--accent-primary)] leading-snug font-medium">
             {about.tagline}
           </p>
 
@@ -96,12 +96,12 @@ export function UnfilteredAbout() {
             </p>
           ))}
 
-          {/* Pull-quote: Inset panel */}
-          <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/30 shadow-md">
+          {/* Pull-quote: Inset panel in Deep Plum */}
+          <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--surface-plum)] border border-[var(--accent-secondary)]/35 shadow-md">
             <span className="font-serif text-5xl text-[var(--accent-gold)] leading-none select-none block mb-2 opacity-90">
               &ldquo;
             </span>
-            <p className="italic font-serif text-lg sm:text-xl text-[var(--text-primary)] font-semibold -mt-3">
+            <p className="italic font-serif text-lg sm:text-xl text-[var(--text-on-dark)] font-semibold -mt-3">
               {about.quote}
             </p>
           </div>

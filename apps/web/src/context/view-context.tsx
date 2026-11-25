@@ -80,15 +80,16 @@ function applyPaletteToRoot(palette: PaletteTheme, mode: SiteView) {
   root.style.setProperty("--accent-gold", palette.accentGold);
 
   if (mode === "unfiltered") {
-    root.style.setProperty("--surface-amethyst", palette.bgElevated);
     root.style.setProperty("--surface-dusk", palette.bgElevated);
     root.style.setProperty("--surface-sage", palette.bgElevated);
     root.style.setProperty("--card-surface", palette.bgElevated);
     root.style.setProperty("--card-hover", palette.bgElevated);
+    root.style.setProperty("--border-subtle", "rgba(73, 107, 89, 0.22)");
   } else {
-    root.style.setProperty("--surface-dusk", palette.bgElevated);
+    root.style.setProperty("--surface-dusk", "#182844");
     root.style.setProperty("--surface-sage", palette.bgElevated);
     root.style.setProperty("--card-surface", palette.bgElevated);
+    root.style.setProperty("--border-subtle", "rgba(180, 154, 104, 0.26)");
   }
 }
 

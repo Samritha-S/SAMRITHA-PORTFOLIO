@@ -34,8 +34,8 @@ export interface ConstellationFieldProps {
 
 export default function ConstellationField({
   className,
-  backgroundColor = "#011627", // Blue Noir
-  nodeColor = "201, 162, 75", // antique gold, as an "r, g, b" triplet for rgba() use
+  backgroundColor = "#1E3152", // Midnight Navy
+  nodeColor = "180, 154, 104", // antique gold, as an "r, g, b" triplet for rgba() use
   density = 9000,
   connectionDistance = 140,
   speed = 0.12,
