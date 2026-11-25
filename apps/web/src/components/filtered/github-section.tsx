@@ -1,33 +1,182 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GithubIcon } from "@/components/shared/icons";
 import { BklitAreaChart } from "@/components/bklit/area-chart";
-import { BklitCommitGraph } from "@/components/bklit/commit-graph";
+import { BklitCommitGraph, CommitMetricCard } from "@/components/bklit/commit-graph";
 import ConstellationField from "@/components/kokonutui/constellation-field";
-import { Bug, Globe, ExternalLink } from "lucide-react";
+import {
+  Bug,
+  Globe,
+  ExternalLink,
+  GitCommit,
+  Star,
+  Terminal,
+  FolderGit2,
+  Code2,
+  Flame,
+  Trophy,
+  CheckCircle2,
+} from "lucide-react";
 import { KokonutCard } from "@/components/kokonutui/card";
 import { useView } from "@/context/view-context";
+import type { GitHubTelemetry, LeetCodeTelemetry, HeatmapCell } from "@/app/api/telemetry/route";
 
-const telemetryData = [
-  { label: "W1", value: 18 },
-  { label: "W2", value: 24 },
-  { label: "W3", value: 16 },
-  { label: "W4", value: 38 },
-  { label: "W5", value: 42 },
-  { label: "W6", value: 31 },
-  { label: "W7", value: 55 },
-  { label: "W8", value: 48 },
-  { label: "W9", value: 64 },
-  { label: "W10", value: 72 },
-  { label: "W11", value: 58 },
-  { label: "W12", value: 89 },
-];
+type TelemetryTab = "combined" | "github" | "leetcode";
+
+const fallbackVelocity = Array.from({ length: 12 }, (_, i) => ({
+  label: `W${i + 1}`,
+  value: 0,
+}));
 
 export function GitHubSection() {
   const { sections } = useView();
   const github = sections.github;
   const CARD_ICONS = [Bug, Globe];
+
+  const [tab, setTab] = useState<TelemetryTab>("combined");
+  const [ghData, setGhData] = useState<GitHubTelemetry | null>(null);
+  const [lcData, setLcData] = useState<LeetCodeTelemetry | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    const ghUser = encodeURIComponent(github.username || "Samritha-S");
+    const lcUser = encodeURIComponent(github.leetcodeUsername || github.username || "Samritha-S");
+
+    fetch(`/api/telemetry?github=${ghUser}&leetcode=${lcUser}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (!active || !json) return;
+        setGhData(json.github ?? null);
+        setLcData(json.leetcode ?? null);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [github.username, github.leetcodeUsername]);
+
+  const combinedHeatmap: HeatmapCell[][] | undefined = React.useMemo(() => {
+    if (!ghData?.heatmapWeeks) return lcData?.heatmapWeeks;
+    if (!lcData?.heatmapWeeks) return ghData.heatmapWeeks;
+    return ghData.heatmapWeeks.map((week, wIdx) =>
+      week.map((cell, dIdx) => ({
+        date: cell.date,
+        count: cell.count + (lcData.heatmapWeeks[wIdx]?.[dIdx]?.count ?? 0),
+      }))
+    );
+  }, [ghData, lcData]);
+
+  const combinedVelocity = React.useMemo(() => {
+    const ghVel = ghData?.weeklyVelocity ?? fallbackVelocity;
+    const lcVel = lcData?.weeklyVelocity ?? fallbackVelocity;
+    return ghVel.map((pt, idx) => ({
+      label: pt.label,
+      value: pt.value + (lcVel[idx]?.value ?? 0),
+    }));
+  }, [ghData, lcData]);
+
+  const activeMetrics: CommitMetricCard[] = React.useMemo(() => {
+    if (tab === "github") {
+      return [
+        {
+          label: "Contributions (1Y)",
+          value: loading ? "…" : ghData?.totalContributions ?? 0,
+          icon: <GitCommit className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+        {
+          label: "Public Repos",
+          value: loading ? "…" : ghData?.publicRepos ?? 0,
+          icon: <FolderGit2 className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+        {
+          label: "Total Stars",
+          value: loading ? "…" : ghData?.totalStars ?? 0,
+          icon: <Star className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+        {
+          label: "Active Streak",
+          value: loading ? "…" : `${ghData?.currentStreak ?? 0} Days`,
+          icon: <Terminal className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+      ];
+    }
+
+    if (tab === "leetcode") {
+      return [
+        {
+          label: "Problems Solved",
+          value: loading ? "…" : lcData?.totalSolved ?? 0,
+          icon: <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+        {
+          label: "Easy / Med / Hard",
+          value: loading
+            ? "…"
+            : `${lcData?.easySolved ?? 0} / ${lcData?.mediumSolved ?? 0} / ${lcData?.hardSolved ?? 0}`,
+          icon: <Code2 className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+        {
+          label: "Global Ranking",
+          value: loading ? "…" : lcData?.ranking ? `#${lcData.ranking.toLocaleString()}` : "—",
+          icon: <Trophy className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+        {
+          label: "LeetCode Streak",
+          value: loading ? "…" : `${lcData?.streak ?? 0} Days`,
+          icon: <Flame className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+        },
+      ];
+    }
+
+    return [
+      {
+        label: "GitHub (1Y)",
+        value: loading ? "…" : ghData?.totalContributions ?? 0,
+        icon: <GitCommit className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+      },
+      {
+        label: "LeetCode Solved",
+        value: loading ? "…" : lcData?.totalSolved ?? 0,
+        icon: <Code2 className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+      },
+      {
+        label: "Public Repos",
+        value: loading ? "…" : ghData?.publicRepos ?? 0,
+        icon: <FolderGit2 className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+      },
+      {
+        label: "Best Streak",
+        value: loading ? "…" : `${Math.max(ghData?.currentStreak ?? 0, lcData?.streak ?? 0)} Days`,
+        icon: <Flame className="w-3.5 h-3.5 text-[var(--accent-gold)]" />,
+      },
+    ];
+  }, [tab, loading, ghData, lcData]);
+
+  const activeVelocity =
+    tab === "github"
+      ? ghData?.weeklyVelocity ?? fallbackVelocity
+      : tab === "leetcode"
+        ? lcData?.weeklyVelocity ?? fallbackVelocity
+        : combinedVelocity;
+
+  const activeHeatmap =
+    tab === "github"
+      ? ghData?.heatmapWeeks
+      : tab === "leetcode"
+        ? lcData?.heatmapWeeks
+        : combinedHeatmap;
+
+  const isLive =
+    (tab === "github" && ghData?.source === "live") ||
+    (tab === "leetcode" && lcData?.source === "live") ||
+    (tab === "combined" && (ghData?.source === "live" || lcData?.source === "live"));
+
   return (
     <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
       <ConstellationField
@@ -41,13 +190,13 @@ export function GitHubSection() {
         <div className="text-center">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono flex items-center justify-center gap-1.5">
             <GithubIcon className="w-3.5 h-3.5" />
-            Engineering Activity &amp; Community
+            Engineering Activity &amp; Problem Solving
           </span>
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[var(--text-primary)] mt-3">
-            GitHub &amp; Open Source
+            GitHub, LeetCode &amp; Open Source
           </h2>
           <div className="gold-hairline w-24 mx-auto mt-4" />
-          <div className="mt-4">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
             <a
               href={github.url}
               target="_blank"
@@ -56,6 +205,16 @@ export function GitHubSection() {
             >
               <GithubIcon className="w-3.5 h-3.5" />
               {github.handle}
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <a
+              href={`https://leetcode.com/u/${encodeURIComponent(github.leetcodeUsername || github.username || "Samritha-S")}/`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-mono text-[var(--accent-gold)] hover:underline border border-[var(--accent-gold)]/40 px-3.5 py-1.5 rounded-full bg-[var(--bg-elevated)]"
+            >
+              <Code2 className="w-3.5 h-3.5" />
+              leetcode.com/u/{github.leetcodeUsername || github.username}
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -87,16 +246,72 @@ export function GitHubSection() {
           })}
         </div>
 
-        {/* Telemetry Charts */}
-        <div className="space-y-8">
+        {/* Telemetry Source Switcher */}
+        <div className="space-y-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="inline-flex items-center gap-1 p-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
+              {(
+                [
+                  { id: "combined", label: "Combined Activity" },
+                  { id: "github", label: "GitHub API" },
+                  { id: "leetcode", label: "LeetCode API" },
+                ] as const
+              ).map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setTab(item.id)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${
+                    tab === item.id
+                      ? "bg-[var(--accent-gold)] text-[#011627] font-semibold"
+                      : "text-[var(--text-primary)]/75 hover:text-[var(--text-primary)]"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[var(--text-primary)]/75 px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  loading ? "bg-amber-400 animate-pulse" : isLive ? "bg-emerald-400" : "bg-[var(--accent-gold)]"
+                }`}
+              />
+              {loading ? "Syncing live APIs…" : isLive ? "Live API Telemetry" : "Cached / Offline Fallback"}
+            </span>
+          </div>
+
           <BklitAreaChart
-            data={telemetryData}
-            title="Development Velocity &amp; Sprint Cadence"
-            description="Aggregated commit distribution, pull requests, and CI/CD runs"
+            data={activeVelocity}
+            title={
+              tab === "github"
+                ? "GitHub Weekly Commit & Contribution Velocity"
+                : tab === "leetcode"
+                  ? "LeetCode Weekly Problem-Solving Velocity"
+                  : "Combined Engineering & DSA Velocity (12 Weeks)"
+            }
+            description={
+              tab === "github"
+                ? `Live 12-week contribution cadence for @${github.username}`
+                : tab === "leetcode"
+                  ? `Live 12-week submission cadence for @${github.leetcodeUsername || github.username}`
+                  : "Merged weekly GitHub contributions and LeetCode submissions"
+            }
             height={240}
           />
 
-          <BklitCommitGraph />
+          <BklitCommitGraph
+            metrics={activeMetrics}
+            heatmapWeeks={activeHeatmap}
+            footerLabel={
+              tab === "github"
+                ? `24-week live GitHub contribution heatmap (@${github.username})`
+                : tab === "leetcode"
+                  ? `24-week live LeetCode submission heatmap (@${github.leetcodeUsername || github.username})`
+                  : "24-week combined GitHub & LeetCode activity heatmap"
+            }
+          />
         </div>
       </div>
     </section>

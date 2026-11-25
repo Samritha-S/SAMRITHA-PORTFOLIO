@@ -458,8 +458,28 @@ export function SectionsTab({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-5 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-3">
           <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-[#C9A24B]" /> GitHub &amp; Community
+            <Code2 className="w-4 h-4 text-[#C9A24B]" /> GitHub, LeetCode &amp; Community
           </h3>
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[10px] text-[#8b949e] mb-1">GitHub Username</label>
+              <input
+                value={form.github.username}
+                onChange={(e) => setForm({ ...form, github: { ...form.github, username: e.target.value } })}
+                className={inputCls}
+                placeholder="Samritha-S"
+              />
+            </div>
+            <div>
+              <label className="block text-[10px] text-[#8b949e] mb-1">LeetCode Username</label>
+              <input
+                value={form.github.leetcodeUsername}
+                onChange={(e) => setForm({ ...form, github: { ...form.github, leetcodeUsername: e.target.value } })}
+                className={inputCls}
+                placeholder="LeetCode handle"
+              />
+            </div>
+          </div>
           <input
             value={form.github.handle}
             onChange={(e) => setForm({ ...form, github: { ...form.github, handle: e.target.value } })}

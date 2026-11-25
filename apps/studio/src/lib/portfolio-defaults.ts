@@ -74,6 +74,8 @@ export interface GitHubCard {
 }
 
 export interface GitHubConfig {
+  username: string;
+  leetcodeUsername: string;
   handle: string;
   url: string;
   cards: GitHubCard[];
@@ -204,6 +206,8 @@ export const DEFAULT_SECTIONS: PortfolioSections = {
     },
   },
   github: {
+    username: "Samritha-S",
+    leetcodeUsername: "Samritha-S",
     handle: "github.com/Samritha-S",
     url: "https://github.com/Samritha-S",
     cards: [

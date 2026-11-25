@@ -1,36 +1,44 @@
 "use client";
 
 import React, { useState } from "react";
-import { GitCommit, GitPullRequest, Star, Terminal } from "lucide-react";
 
-export function BklitCommitGraph() {
-  const [hoveredCell, setHoveredCell] = useState<{
-    date: string;
-    count: number;
-  } | null>(null);
+export interface CommitMetricCard {
+  label: string;
+  value: string | number;
+  icon: React.ReactNode;
+}
 
-  // Generate 26 weeks of commit blocks (182 days)
+export interface CommitCell {
+  date: string;
+  count: number;
+}
+
+interface BklitCommitGraphProps {
+  metrics?: CommitMetricCard[];
+  heatmapWeeks?: CommitCell[][];
+  footerLabel?: string;
+}
+
+export function BklitCommitGraph({
+  metrics = [],
+  heatmapWeeks,
+  footerLabel = "Continuous open source & engineering telemetry",
+}: BklitCommitGraphProps) {
+  const [hoveredCell, setHoveredCell] = useState<CommitCell | null>(null);
+
   const weeks = 24;
   const daysPerWeek = 7;
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // Seed realistic commit activity distribution
-  const grid = Array.from({ length: weeks }).map((_, weekIndex) =>
-    Array.from({ length: daysPerWeek }).map((_, dayIndex) => {
-      // Deterministic pseudo-random based on indices for consistent SSR
-      const seed = (weekIndex * 7 + dayIndex * 13) % 29;
-      let count = 0;
-      if (seed > 22) count = 8;
-      else if (seed > 15) count = 5;
-      else if (seed > 8) count = 2;
-      else if (seed > 4) count = 1;
-
-      return {
-        date: `Week ${weekIndex + 1}, Day ${days[dayIndex]}`,
-        count,
-      };
-    })
-  );
+  const grid: CommitCell[][] =
+    heatmapWeeks && heatmapWeeks.length > 0
+      ? heatmapWeeks
+      : Array.from({ length: weeks }).map((_, weekIndex) =>
+          Array.from({ length: daysPerWeek }).map((__, dayIndex) => ({
+            date: `Week ${weekIndex + 1}, ${days[dayIndex]}`,
+            count: 0,
+          }))
+        );
 
   const getColor = (count: number) => {
     if (count === 0) return "rgba(138, 150, 136, 0.12)";
@@ -42,47 +50,24 @@ export function BklitCommitGraph() {
   return (
     <div className="w-full rounded-2xl bg-[var(--card-surface)] border border-[var(--border-subtle)] p-6 backdrop-blur-md">
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <div className="p-3 rounded-xl bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-primary)]/70">
-            <GitCommit className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-            Total Commits
-          </div>
-          <div className="text-xl font-semibold text-[var(--text-primary)] mt-1">
-            842+
-          </div>
+      {metrics.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          {metrics.map((metric) => (
+            <div
+              key={metric.label}
+              className="p-3 rounded-xl bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]"
+            >
+              <div className="flex items-center gap-2 text-xs text-[var(--text-primary)]/70">
+                {metric.icon}
+                {metric.label}
+              </div>
+              <div className="text-xl font-semibold text-[var(--text-primary)] mt-1">
+                {metric.value}
+              </div>
+            </div>
+          ))}
         </div>
-
-        <div className="p-3 rounded-xl bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-primary)]/70">
-            <GitPullRequest className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-            Pull Requests
-          </div>
-          <div className="text-xl font-semibold text-[var(--text-primary)] mt-1">
-            124
-          </div>
-        </div>
-
-        <div className="p-3 rounded-xl bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-primary)]/70">
-            <Star className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-            Repositories
-          </div>
-          <div className="text-xl font-semibold text-[var(--text-primary)] mt-1">
-            18
-          </div>
-        </div>
-
-        <div className="p-3 rounded-xl bg-[var(--bg-base)]/60 border border-[var(--border-subtle)]">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-primary)]/70">
-            <Terminal className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-            Active Streak
-          </div>
-          <div className="text-xl font-semibold text-[var(--text-primary)] mt-1">
-            48 Days
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* Grid Display */}
       <div className="overflow-x-auto pb-2">
@@ -113,17 +98,20 @@ export function BklitCommitGraph() {
               {hoveredCell.count} contributions on {hoveredCell.date}
             </span>
           ) : (
-            <span>Continuous open source & engineering telemetry</span>
+            <span>{footerLabel}</span>
           )}
         </div>
 
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px]">Less</span>
-          <div className="w-2.5 h-2.5 rounded-[2px] bg-[rgba(138,150,136,0.15)]" />
-          <div className="w-2.5 h-2.5 rounded-[2px] bg-[rgba(201,162,75,0.35)]" />
-          <div className="w-2.5 h-2.5 rounded-[2px] bg-[rgba(201,162,75,0.65)]" />
-          <div className="w-2.5 h-2.5 rounded-[2px] bg-[var(--accent-gold)]" />
-          <span className="text-[10px]">More</span>
+          <span>Less</span>
+          {[0, 1, 4, 8].map((val) => (
+            <div
+              key={val}
+              style={{ backgroundColor: getColor(val) }}
+              className="w-2.5 h-2.5 rounded-[2px]"
+            />
+          ))}
+          <span>More</span>
         </div>
       </div>
     </div>
