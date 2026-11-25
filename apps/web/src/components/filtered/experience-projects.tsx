@@ -266,7 +266,6 @@ export function ExperienceProjects() {
               <ul className="space-y-1.5 text-xs sm:text-sm text-[var(--text-primary)]/90 leading-relaxed list-disc list-inside">
                 <li>Led user research that surfaced four structural gaps.</li>
                 <li>Participated in core business strategy discussions.</li>
-                <li>Communicated with an international client in Dubai.</li>
               </ul>
             </div>
           </div>
