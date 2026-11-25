@@ -27,13 +27,13 @@
   }
 
   [data-view="filtered"] {
-    --bg-base: #1E3152;
-    --bg-elevated: #263B32;
+    --bg-base: #011627;
+    --bg-elevated: #1F2F32;
     --surface-amethyst: #3D2B52;
     --surface-plum: #3D2B52;
     --surface-forest: #263B32;
-    --surface-navy: #1E3152;
-    --surface-dusk: #182844;
+    --surface-navy: #011627;
+    --surface-dusk: #0B2034;
     --surface-sage: #263B32;
     --surface-muted-sage: #A9B9A5;
     --accent-primary: #496B59;

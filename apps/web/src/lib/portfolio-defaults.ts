@@ -110,8 +110,8 @@ export const DEFAULT_THEME: ThemeConfig = {
     accentGold: "#B49A68",
   },
   filtered: {
-    bgBase: "#1E3152",
-    bgElevated: "#263B32",
+    bgBase: "#011627",
+    bgElevated: "#1F2F32",
     accentPrimary: "#496B59",
     accentSecondary: "#A58DB5",
     textPrimary: "#EAE9DF",
