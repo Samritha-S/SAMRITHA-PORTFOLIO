@@ -51,22 +51,7 @@ export async function POST(req: NextRequest) {
     const createdAt = new Date().toISOString();
     const insertedId = `note_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 
-    let savedToSupabase = false;
-    try {
-      const { error } = await supabase
-        .from("wall_notes")
-        .insert({
-          name: cleanName,
-          message: cleanMessage,
-          approved: false,
-        });
-      if (!error) {
-        savedToSupabase = true;
-      }
-    } catch {
-      // Continue to local store fallback
-    }
-
+    // Persist locally immediately so Studio sees it without waiting on network timeouts
     writeContentStore<{ notes?: StoredNote[] }>((store) => ({
       ...store,
       notes: [
@@ -80,6 +65,24 @@ export async function POST(req: NextRequest) {
         ...(store.notes ?? []),
       ],
     }));
+
+    let savedToSupabase = false;
+    try {
+      const insertPromise = supabase.from("wall_notes").insert({
+        name: cleanName,
+        message: cleanMessage,
+        approved: false,
+      });
+      const timeoutPromise = new Promise<{ error: Error }>((resolve) =>
+        setTimeout(() => resolve({ error: new Error("Supabase timeout") }), 1500)
+      );
+      const { error } = await Promise.race([insertPromise, timeoutPromise]);
+      if (!error) {
+        savedToSupabase = true;
+      }
+    } catch {
+      // Local store already persisted above
+    }
 
     return NextResponse.json({
       success: true,

@@ -5,7 +5,7 @@ import {
   Compass, CheckCircle2, Trash2, Plus, ShieldCheck, Clock,
   Layers, FileText, MessageSquare, Sparkles, Terminal, ExternalLink,
   Edit2, Save, X, Image, BookOpen, LogOut, Upload, Eye, EyeOff,
-  Sliders, ToggleLeft, ToggleRight, LayoutTemplate, Palette
+  Sliders, ToggleLeft, ToggleRight, LayoutTemplate, Palette, RefreshCw
 } from "lucide-react";
 import { ThemeTab } from "@/components/theme-tab";
 import { SectionsTab } from "@/components/sections-tab";
@@ -34,7 +34,7 @@ type Tab = "settings" | "theme" | "sections" | "milestones" | "projects" | "wall
 
 // ─── Helper fetch ─────────────────────────────────────────────────────────────
 async function api(path: string, opts?: RequestInit) {
-  const res = await fetch(path, opts);
+  const res = await fetch(path, { cache: "no-store", ...opts });
   if (!res.ok) throw new Error(await res.text());
   const data = await res.json();
   if (opts?.method && opts.method !== "GET" && typeof BroadcastChannel !== "undefined") {
@@ -731,7 +731,27 @@ function MilestonesTab({ milestones, onRefresh }: { milestones: Milestone[]; onR
 }
 
 // ─── Wall Tab ─────────────────────────────────────────────────────────────────
-function WallTab({ notes, onRefresh }: { notes: WallNote[]; onRefresh: () => void }) {
+function WallTab({ notes, onRefresh }: { notes: WallNote[]; onRefresh: () => Promise<void> | void }) {
+  const [refreshing, setRefreshing] = useState(false);
+  const [elapsedMs, setElapsedMs] = useState<number | null>(null);
+  const [liveMs, setLiveMs] = useState(0);
+
+  const handleManualRefresh = async () => {
+    setRefreshing(true);
+    setLiveMs(0);
+    const start = performance.now();
+    const timer = setInterval(() => {
+      setLiveMs(Math.round(performance.now() - start));
+    }, 50);
+    try {
+      await onRefresh();
+    } finally {
+      clearInterval(timer);
+      setElapsedMs(Math.round(performance.now() - start));
+      setRefreshing(false);
+    }
+  };
+
   const handleApprove = async (id: string, approved: boolean) => {
     await api("/api/notes", {
       method: "PATCH",
@@ -754,18 +774,29 @@ function WallTab({ notes, onRefresh }: { notes: WallNote[]; onRefresh: () => voi
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-4 pb-5 border-b border-[#21262d] mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[#21262d] mb-6">
         <div>
           <h2 className="text-lg font-semibold text-white">Wall Moderation</h2>
           <p className="text-xs text-[#8b949e] mt-0.5">Approve visitor notes before they appear on the public wall.</p>
         </div>
-        <button
-          type="button"
-          onClick={onRefresh}
-          className="px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] hover:border-[#C9A24B]/60 cursor-pointer"
-        >
-          Refresh Queue
-        </button>
+        <div className="flex items-center gap-3">
+          {(refreshing || elapsedMs !== null) && (
+            <span className="text-[11px] font-mono text-[#8b949e]">
+              {refreshing
+                ? `${(liveMs / 1000).toFixed(2)}s`
+                : `Last sync: ${elapsedMs! >= 1000 ? `${(elapsedMs! / 1000).toFixed(2)}s` : `${elapsedMs}ms`}`}
+            </span>
+          )}
+          <button
+            type="button"
+            onClick={handleManualRefresh}
+            disabled={refreshing}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] hover:border-[#C9A24B]/60 cursor-pointer disabled:opacity-60"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 text-[#C9A24B] ${refreshing ? "animate-spin" : ""}`} />
+            {refreshing ? "Refreshing…" : "Refresh Queue"}
+          </button>
+        </div>
       </div>
 
       <div className="mb-8">
