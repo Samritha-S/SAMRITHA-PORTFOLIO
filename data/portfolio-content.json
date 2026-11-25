@@ -115,38 +115,12 @@
       "display_order": 2
     },
     {
-      "id": "identimatch",
-      "title": "IdentiMatch",
-      "category": "Data & ML",
-      "description": "For India.Runs, Track 3. Aadhaar/PAN identity mismatch detection with fuzzy matching and auto-fill correction routing.",
-      "tags": "Fuzzy Matching, India.Runs Track 3, Identity Verification, Routing",
-      "award": "India.Runs Track 3",
-      "display_order": 3
-    },
-    {
-      "id": "carbontrace",
-      "title": "CarbonTrace",
-      "category": "Hardware & IoT",
-      "description": "HackFusion 2026, Team TypeZ, Samritha was team lead. IoT-enabled household carbon footprint tracker. Prototype used OCR-based bill reading; full hardware integration was planned live during the hackathon.",
-      "tags": "HackFusion 2026, IoT, OCR, Team Lead",
-      "award": "Team Lead • HackFusion 2026",
-      "display_order": 4
-    },
-    {
       "id": "imprint",
       "title": "Imprint",
       "category": "GenAI & Web",
       "description": "Carbon footprint awareness web app for a separate hackathon, built using Antigravity. Bill/receipt OCR and hyperlocal leaderboards.",
       "tags": "Antigravity, OCR, Leaderboards, Web App",
-      "display_order": 5
-    },
-    {
-      "id": "learnar",
-      "title": "LearnAR / SONA FORGE",
-      "category": "GenAI & Web",
-      "description": "Browser-based AR science education platform for Indian school students, Class 8 to 12. Stack: Three.js, AR.js, Gemini AI tutor.",
-      "tags": "Three.js, AR.js, Gemini AI Tutor, EdTech",
-      "display_order": 6
+      "display_order": 3
     },
     {
       "id": "sona-powerpredict",
@@ -155,16 +129,7 @@
       "description": "IPL powerplay score prediction competition entry, team 'Byte Bouncers'. Python MyModel class iterated through versions v4 to v11. Constraints: zero hardcoded values, runtime under 10 to 20 seconds, memory under 512 MB (Docker), fully vectorized pandas/numpy. Techniques: era-decay weighting, percentile-based venue/team routing (highway/trap venue detection), five-tier wicket-bracket scoring, player intent signals from delivery data, one unified _norm() string normalization function to prevent key-matching failures.",
       "tags": "Python, Pandas, NumPy, Docker, Vectorized ML",
       "award": "Team Byte Bouncers",
-      "display_order": 7
-    },
-    {
-      "id": "fensesense",
-      "title": "FenceSense",
-      "category": "Hardware & IoT",
-      "description": "Smart India Hackathon 2026 hardware-track submission. Intelligent electric fence monitoring system targeting Kerala's illegal electric fence crisis.",
-      "tags": "Smart India Hackathon 2026, Hardware Track, Electric Fence Monitoring",
-      "award": "SIH 2026 Hardware Track",
-      "display_order": 8
+      "display_order": 4
     },
     {
       "id": "abtalks-redesign",
@@ -173,33 +138,7 @@
       "description": "ABTalks Vicodathon: Built solo with Antigravity + Vite/React/Tailwind. Redesigned the ABTalks platform across three mobile-first screens.",
       "tags": "Antigravity, Vite, React, Tailwind CSS, Vicodathon Solo",
       "award": "Vicodathon",
-      "display_order": 9
-    },
-    {
-      "id": "clauseclash",
-      "title": "ClauseClash (Concept)",
-      "category": "Strategy & Design",
-      "description": "SheBuilds Chennai x CCCL Hack (Code & Challenge 3.0), with teammate Bavadharshana, team 'ctrl+she'. Concept: AI-powered semantic contract conflict detection (Sentence Transformers, FAISS, Neo4j, Llama 3/GPT-4.1). Note: Concept stage exploration; not a working product.",
-      "tags": "Concept Only, SheBuilds Chennai, CCCL Hack 3.0, ctrl+she",
-      "award": "Concept Stage Only",
-      "display_order": 10
-    },
-    {
-      "id": "nextgen-os",
-      "title": "NextGen OS Pitch Deck",
-      "category": "Strategy & Design",
-      "description": "15-slide pitch deck, built programmatically, for a unified business OS platform targeting Indian MSMEs.",
-      "tags": "MSME Strategy, Pitch Deck, Business OS",
-      "display_order": 11
-    },
-    {
-      "id": "nit-trichy",
-      "title": "NIT Tiruchirappalli Hackathon",
-      "category": "GenAI & Web",
-      "description": "Problem statement: AI-based subjective answer auto-grading, motivated by the CBSE On-Screen Marking re-evaluation crisis. Locked stack: LLM API with prompt caching, FastAPI, Celery, Redis, Supabase, React dashboard.",
-      "tags": "LLM API, FastAPI, Celery, Redis, Supabase, React",
-      "award": "NIT Trichy Hackathon",
-      "display_order": 12
+      "display_order": 5
     },
     {
       "id": "ieee-hb26",
