@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { GithubIcon } from "@/components/shared/icons";
 import { BklitAreaChart } from "@/components/bklit/area-chart";
 import { BklitCommitGraph, CommitMetricCard } from "@/components/bklit/commit-graph";
-import ConstellationField from "@/components/kokonutui/constellation-field";
 import {
   Bug,
   Globe,
@@ -174,13 +173,6 @@ export function GitHubSection() {
 
   return (
     <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
-      <ConstellationField
-        className="absolute inset-0 pointer-events-none"
-        backgroundColor="transparent"
-        density={12000}
-        connectionDistance={135}
-        speed={0.10}
-      />
       <div className="max-w-6xl mx-auto relative z-10 space-y-16">
         <div className="text-center">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono flex items-center justify-center gap-1.5">

@@ -5,7 +5,6 @@ import { useView } from "@/context/view-context";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Carousel_003 } from "@/components/ui/skiper-ui/skiper49";
-import ConstellationField from "@/components/kokonutui/constellation-field";
 import { supabase } from "@/lib/supabase";
 
 interface GalleryItem {
@@ -208,15 +207,6 @@ export function PhotoGallery() {
 
   return (
     <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
-      {isFiltered && (
-        <ConstellationField
-          className="absolute inset-0 pointer-events-none"
-          backgroundColor="transparent"
-          density={12000}
-          connectionDistance={135}
-          speed={0.10}
-        />
-      )}
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-10">

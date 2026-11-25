@@ -3,8 +3,6 @@
 import React from "react";
 import { Terminal, Code2, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
-import FlowField from "@/components/kokonutui/flow-field";
-import ConstellationField from "@/components/kokonutui/constellation-field";
 import { useView } from "@/context/view-context";
 
 export function FilteredHeroAbout() {
@@ -21,11 +19,9 @@ export function FilteredHeroAbout() {
 
   return (
     <>
-      {/* 1. Hero Section: FlowField noir theme */}
-      <FlowField
-        theme="noir"
-        density="whisper"
-        className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base"
+      {/* 1. Hero Section */}
+      <section
+        className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base flex items-center justify-center relative"
       >
         <div className="max-w-3xl mx-auto text-center relative z-10">
           {/* Engineering Pill */}
@@ -70,17 +66,10 @@ export function FilteredHeroAbout() {
             </a>
           </div>
         </div>
-      </FlowField>
+      </section>
 
       {/* 2. About Section: On Blue Noir (section-base) */}
       <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative border-t border-[var(--border-subtle)]/40 overflow-hidden">
-        <ConstellationField
-          className="absolute inset-0 pointer-events-none"
-          backgroundColor="transparent"
-          density={10000}
-          connectionDistance={130}
-          speed={0.12}
-        />
         <div className="max-w-3xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">

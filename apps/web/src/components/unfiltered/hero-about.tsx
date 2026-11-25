@@ -3,7 +3,6 @@
 import React from "react";
 import { Sparkles, Heart, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
-import BackgroundPaths from "@/components/kokonutui/background-paths";
 import { useView } from "@/context/view-context";
 
 export function UnfilteredHero() {
@@ -15,8 +14,8 @@ export function UnfilteredHero() {
   const pill = sections.about.unfiltered.pill;
 
   return (
-    <BackgroundPaths
-      className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base"
+    <section
+      className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base flex items-center justify-center relative"
     >
       <div className="max-w-3xl mx-auto text-center relative z-10">
         {/* Gentle Pill */}
@@ -62,7 +61,7 @@ export function UnfilteredHero() {
           </a>
         </div>
       </div>
-    </BackgroundPaths>
+    </section>
   );
 }
 
