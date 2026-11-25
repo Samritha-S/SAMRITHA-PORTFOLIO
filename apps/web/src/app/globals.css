@@ -3,25 +3,25 @@
 @layer base {
   :root,
   [data-view="unfiltered"] {
-    --bg-base: #F0EFE6;
+    --bg-base: #F3F1E8;
     --bg-elevated: #E1E7DC;
     --surface-amethyst: #3D2B52;
     --surface-plum: #3D2B52;
-    --surface-lavender: #D8C9E2;
+    --surface-lavender: #8986B8;
     --surface-forest: #263B32;
     --surface-navy: #1E3152;
     --surface-dusk: #E1E7DC;
     --surface-sage: #E1E7DC;
     --surface-muted-sage: #A9B9A5;
-    --accent-primary: #344E41;
-    --accent-secondary: #A58DB5;
+    --accent-primary: #263B32;
+    --accent-secondary: #8986B8;
     --text-primary: #29372F;
-    --text-light: #F0EFE6;
+    --text-light: #F3F1E8;
     --text-on-dark: #F5EFE8;
     --text-dark: #263B32;
     --accent-gold: #B49A68;
     --gold-glow: rgba(180, 154, 104, 0.35);
-    --border-subtle: rgba(52, 78, 65, 0.22);
+    --border-subtle: rgba(38, 59, 50, 0.22);
     --card-surface: #E1E7DC;
     --card-hover: #D4DFD0;
   }

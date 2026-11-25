@@ -139,30 +139,30 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Message Form: Deep Plum panel on unfiltered, Midnight Navy on filtered */}
+        {/* Message Form: Warm Ivory panel on unfiltered with Deep Purple heading, Midnight Navy on filtered */}
         <div className="md:col-span-7">
           <div className={`p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] shadow-md ${
-            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[var(--surface-plum)] text-[var(--text-on-dark)]"
+            isFiltered ? "bg-[var(--surface-dusk)]" : "bg-[var(--bg-base)] text-[var(--text-primary)]"
           }`}>
-            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[var(--text-on-dark)]"}`}>
+            <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[var(--surface-plum)]"}`}>
               Send a Direct Message
             </h3>
 
             {submitted ? (
               <div className={`p-6 rounded-xl text-center border ${
-                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[var(--surface-forest)] border-[var(--accent-gold)]/50 text-[var(--text-on-dark)]"
+                isFiltered ? "bg-[var(--bg-base)] border-[var(--accent-gold)]/50" : "bg-[var(--bg-elevated)] border-[var(--accent-gold)]/50 text-[var(--text-primary)]"
               }`}>
                 <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-[var(--accent-gold)]" />
-                <h4 className="font-serif text-lg font-medium">
+                <h4 className={`font-serif text-lg font-medium ${isFiltered ? "" : "text-[var(--surface-plum)]"}`}>
                   Message Sent
                 </h4>
-                <p className={`text-xs mt-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/85"}`}>
+                <p className="text-xs mt-1 text-[var(--text-primary)]/80">
                   Thank you for reaching out. I&apos;ll get back to you as soon as I can!
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   suppressHydrationWarning
-                  className="mt-4 text-xs underline cursor-pointer text-[var(--accent-gold)]"
+                  className={`mt-4 text-xs underline cursor-pointer ${isFiltered ? "text-[var(--accent-gold)]" : "text-[var(--surface-plum)] font-medium"}`}
                 >
                   Send another message
                 </button>
@@ -170,7 +170,7 @@ export function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/90"}`}>
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--surface-plum)]"}`}>
                     Your Name *
                   </label>
                   <input
@@ -183,13 +183,13 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[var(--surface-forest)]/80 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:border-[var(--accent-gold)]"
+                        : "bg-[var(--bg-elevated)]/70 text-[var(--text-primary)] placeholder-[var(--text-primary)]/45 focus:outline-none focus:border-[var(--surface-plum)]"
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/90"}`}>
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--surface-plum)]"}`}>
                     Your Email *
                   </label>
                   <input
@@ -202,13 +202,13 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[var(--surface-forest)]/80 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:border-[var(--accent-gold)]"
+                        : "bg-[var(--bg-elevated)]/70 text-[var(--text-primary)] placeholder-[var(--text-primary)]/45 focus:outline-none focus:border-[var(--surface-plum)]"
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--text-on-dark)]/90"}`}>
+                  <label className={`block text-xs font-medium mb-1 ${isFiltered ? "text-[var(--text-primary)]/80" : "text-[var(--surface-plum)]"}`}>
                     Your Message *
                   </label>
                   <textarea
@@ -221,7 +221,7 @@ export function ContactSection() {
                     className={`w-full px-4 py-2.5 text-sm rounded-xl border border-[var(--border-subtle)] transition-colors resize-none ${
                       isFiltered
                         ? "bg-[var(--bg-base)] text-[var(--text-primary)] placeholder-[var(--text-primary)]/40 focus:border-[var(--accent-gold)]"
-                        : "bg-[var(--surface-forest)]/80 text-[var(--text-on-dark)] placeholder-[var(--text-on-dark)]/45 focus:border-[var(--accent-gold)]"
+                        : "bg-[var(--bg-elevated)]/70 text-[var(--text-primary)] placeholder-[var(--text-primary)]/45 focus:outline-none focus:border-[var(--surface-plum)]"
                     }`}
                   />
                 </div>
@@ -235,7 +235,7 @@ export function ContactSection() {
                 <ParticleButton
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full ${isFiltered ? "" : "bg-[var(--accent-primary)] text-[var(--text-on-dark)] border-none hover:brightness-105"}`}
+                  className={`w-full ${isFiltered ? "" : "bg-[var(--surface-forest)] text-[var(--text-on-dark)] border-none hover:brightness-110"}`}
                 >
                   <Send className="w-4 h-4" />
                   {isSubmitting ? "Transmitting..." : "Send Message"}

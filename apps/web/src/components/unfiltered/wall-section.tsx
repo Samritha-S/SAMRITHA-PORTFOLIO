@@ -207,33 +207,44 @@ export function WallSection() {
             )}
           </div>
 
-          {/* Organic Pinboard Staggered Notes Column: Retained Deep Plum & Deep Forest cards */}
+          {/* Organic Pinboard Staggered Notes Column: Thoughtful distribution of Forest Green, Warm Ivory, Periwinkle & Deep Purple */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
-            {notes.map((note, idx) => (
+            {notes.map((note, idx) => {
+              const mod = idx % 4;
+              const isLight = mod === 1 || mod === 2;
+              const cardSurface =
+                mod === 0
+                  ? "bg-[var(--surface-forest)] text-[var(--text-on-dark)] border-[var(--accent-gold)]/30"
+                  : mod === 1
+                    ? "bg-[var(--bg-base)] text-[var(--text-primary)] border-[var(--border-subtle)]"
+                    : mod === 2
+                      ? "bg-[var(--surface-lavender)] text-[var(--text-primary)] border-[var(--accent-primary)]/25"
+                      : "bg-[var(--surface-plum)] text-[var(--text-on-dark)] border-[var(--accent-secondary)]/35";
+
+              return (
               <motion.div
                 key={note.id}
                 whileHover={{ scale: 1.03, rotate: 0, zIndex: 20 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`p-6 rounded-xl ${
-                  idx % 2 === 0 ? "bg-[var(--surface-plum)]" : "bg-[var(--surface-forest)]"
-                } border border-[var(--accent-secondary)]/35 shadow-md hover:border-[var(--accent-gold)] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
+                className={`p-6 rounded-xl ${cardSurface} border shadow-md hover:border-[var(--accent-gold)] hover:shadow-xl transition-all duration-300 relative group cursor-default transform ${note.tilt}`}
               >
                 {/* Antique Gold Pushpin Header Dot */}
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--accent-gold)] shadow-md border-2 border-[var(--bg-base)]" />
 
                 <div className="flex justify-between items-center mb-3 pt-1">
-                  <span className="text-xs font-semibold text-[var(--accent-gold)] font-mono">
+                  <span className={`text-xs font-semibold font-mono ${isLight ? "text-[var(--surface-plum)]" : "text-[var(--accent-gold)]"}`}>
                     {note.name ? note.name : "Anonymous Wanderer"}
                   </span>
-                  <span className="text-[10px] text-[var(--text-on-dark)]/60 font-medium">
+                  <span className={`text-[10px] font-medium ${isLight ? "text-[var(--text-primary)]/65" : "text-[var(--text-on-dark)]/60"}`}>
                     {note.createdAt}
                   </span>
                 </div>
-                <p className="font-serif text-sm sm:text-base text-[var(--text-on-dark)] leading-relaxed italic">
+                <p className={`font-serif text-sm sm:text-base leading-relaxed italic ${isLight ? "text-[var(--text-primary)]" : "text-[var(--text-on-dark)]"}`}>
                   &ldquo;{note.message}&rdquo;
                 </p>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

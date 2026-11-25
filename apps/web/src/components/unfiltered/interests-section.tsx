@@ -140,21 +140,21 @@ function MintChocChipModule() {
   return (
     <div
       onClick={() => setBites((b) => (b + 1) % 5)}
-      className="rounded-[28px] p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
+      className="rounded-[28px] p-6 bg-[var(--surface-forest)] text-[var(--text-on-dark)] border border-[var(--accent-gold)]/30 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
         <span className="text-xs uppercase tracking-wider font-semibold text-[var(--accent-secondary)]">
           Guilty Pleasure
         </span>
-        <span className="text-xs text-[var(--accent-gold)] font-mono px-2 py-0.5 rounded-full bg-[var(--bg-elevated)]">
+        <span className="text-xs text-[var(--accent-gold)] font-mono px-2 py-0.5 rounded-full bg-[var(--bg-base)]/15">
           Bite {bites}/4
         </span>
       </div>
 
-      <h3 className="font-serif text-xl font-medium text-[var(--text-primary)] mb-2">
+      <h3 className="font-serif text-xl font-medium text-[var(--text-on-dark)] mb-2">
         Mint Chocolate Chip
       </h3>
-      <p className="text-xs text-[var(--text-primary)]/75 leading-relaxed mb-4">
+      <p className="text-xs text-[var(--text-on-dark)]/80 leading-relaxed mb-4">
         Superior flavor debate settled. Crisp, refreshing cooling mint studded with bittersweet chocolate flakes. Pure joy.
       </p>
 
@@ -380,7 +380,7 @@ function PoetryModule() {
   return (
     <div
       onClick={() => setVerseIdx((v) => (v + 1) % verses.length)}
-      className="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
+      className="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm p-6 bg-[var(--bg-base)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer select-none group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 text-[var(--accent-secondary)]">

@@ -102,10 +102,10 @@ export interface PortfolioSections {
 
 export const DEFAULT_THEME: ThemeConfig = {
   unfiltered: {
-    bgBase: "#F0EFE6",
+    bgBase: "#F3F1E8",
     bgElevated: "#E1E7DC",
-    accentPrimary: "#344E41",
-    accentSecondary: "#D8C9E2",
+    accentPrimary: "#263B32",
+    accentSecondary: "#8986B8",
     textPrimary: "#29372F",
     accentGold: "#B49A68",
   },
