@@ -4,6 +4,7 @@ import React from "react";
 import { Download, FileText, ArrowRight } from "lucide-react";
 import { KokonutCard } from "@/components/kokonutui/card";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 export function ResumeSection({
   resumeUrl = "/Samritha_S_Resume.pdf",
@@ -12,6 +13,13 @@ export function ResumeSection({
 }) {
   return (
     <section id="resume" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative overflow-hidden">
+      <ConstellationField
+        className="absolute inset-0 pointer-events-none"
+        backgroundColor="transparent"
+        density={8500}
+        connectionDistance={140}
+        speed={0.12}
+      />
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">

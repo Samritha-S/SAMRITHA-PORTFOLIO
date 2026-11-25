@@ -3,6 +3,7 @@
 import React from "react";
 import { Trophy, Award, BookCheck, Flame, Users } from "lucide-react";
 import { KokonutCard } from "@/components/kokonutui/card";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 import { useView } from "@/context/view-context";
 
@@ -16,6 +17,14 @@ export function CompetitiveProgrammingSection() {
     <section id="competitions" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative overflow-hidden">
       {/* Anchor shim for legacy #competitive links */}
       <span id="competitive" className="absolute top-0 pointer-events-none" />
+
+      <ConstellationField
+        className="absolute inset-0 pointer-events-none"
+        backgroundColor="transparent"
+        density={11000}
+        connectionDistance={135}
+        speed={0.10}
+      />
       <div className="max-w-6xl mx-auto relative z-10 space-y-16">
         <div className="text-center">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
