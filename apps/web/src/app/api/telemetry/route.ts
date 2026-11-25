@@ -206,7 +206,7 @@ async function fetchLeetCodeTelemetry(username: string): Promise<LeetCodeTelemet
       headers: {
         "Content-Type": "application/json",
         Referer: "https://leetcode.com",
-        "User-Agent": "samritha-portfolio-telemetry",
+        "User-Agent": "Mozilla/5.0",
       },
       body: JSON.stringify({ query, variables: { username } }),
       next: { revalidate: 300 },
@@ -286,7 +286,7 @@ export async function GET(req: NextRequest) {
   const leetcodeUsername =
     req.nextUrl.searchParams.get("leetcode")?.trim() ||
     sections.github.leetcodeUsername ||
-    githubUsername;
+    "sam0mega404";
 
   const [github, leetcode] = await Promise.all([
     fetchGitHubTelemetry(githubUsername),

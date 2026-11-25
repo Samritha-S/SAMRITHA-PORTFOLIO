@@ -207,7 +207,7 @@ export const DEFAULT_SECTIONS: PortfolioSections = {
   },
   github: {
     username: "Samritha-S",
-    leetcodeUsername: "Samritha-S",
+    leetcodeUsername: "sam0mega404",
     handle: "github.com/Samritha-S",
     url: "https://github.com/Samritha-S",
     cards: [

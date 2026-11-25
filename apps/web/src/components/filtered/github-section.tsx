@@ -42,7 +42,7 @@ export function GitHubSection() {
   useEffect(() => {
     let active = true;
     const ghUser = encodeURIComponent(github.username || "Samritha-S");
-    const lcUser = encodeURIComponent(github.leetcodeUsername || github.username || "Samritha-S");
+    const lcUser = encodeURIComponent(github.leetcodeUsername || "sam0mega404");
 
     fetch(`/api/telemetry?github=${ghUser}&leetcode=${lcUser}`)
       .then((res) => (res.ok ? res.json() : null))
@@ -172,11 +172,6 @@ export function GitHubSection() {
         ? lcData?.heatmapWeeks
         : combinedHeatmap;
 
-  const isLive =
-    (tab === "github" && ghData?.source === "live") ||
-    (tab === "leetcode" && lcData?.source === "live") ||
-    (tab === "combined" && (ghData?.source === "live" || lcData?.source === "live"));
-
   return (
     <section id="github" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
       <ConstellationField
@@ -208,13 +203,13 @@ export function GitHubSection() {
               <ExternalLink className="w-3 h-3" />
             </a>
             <a
-              href={`https://leetcode.com/u/${encodeURIComponent(github.leetcodeUsername || github.username || "Samritha-S")}/`}
+              href={`https://leetcode.com/u/${encodeURIComponent(github.leetcodeUsername || "sam0mega404")}/`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 text-xs font-mono text-[var(--accent-gold)] hover:underline border border-[var(--accent-gold)]/40 px-3.5 py-1.5 rounded-full bg-[var(--bg-elevated)]"
             >
               <Code2 className="w-3.5 h-3.5" />
-              leetcode.com/u/{github.leetcodeUsername || github.username}
+              leetcode.com/u/{github.leetcodeUsername || "sam0mega404"}
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -252,9 +247,9 @@ export function GitHubSection() {
             <div className="inline-flex items-center gap-1 p-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
               {(
                 [
-                  { id: "combined", label: "Combined Activity" },
-                  { id: "github", label: "GitHub API" },
-                  { id: "leetcode", label: "LeetCode API" },
+                  { id: "combined", label: "All Activity" },
+                  { id: "github", label: "GitHub" },
+                  { id: "leetcode", label: "LeetCode" },
                 ] as const
               ).map((item) => (
                 <button
@@ -271,15 +266,6 @@ export function GitHubSection() {
                 </button>
               ))}
             </div>
-
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[var(--text-primary)]/75 px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  loading ? "bg-amber-400 animate-pulse" : isLive ? "bg-emerald-400" : "bg-[var(--accent-gold)]"
-                }`}
-              />
-              {loading ? "Syncing live APIs…" : isLive ? "Live API Telemetry" : "Cached / Offline Fallback"}
-            </span>
           </div>
 
           <BklitAreaChart
