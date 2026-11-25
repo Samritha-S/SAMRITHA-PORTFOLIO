@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useView } from "@/context/view-context";
 import { Calendar, ArrowRight, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 interface BlogPostItem {
   id: string;
@@ -121,8 +122,17 @@ export function BlogSection() {
     : (isFiltered ? technicalPosts : personalPosts);
 
   return (
-    <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
-      <div className="max-w-6xl mx-auto">
+    <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
+      {isFiltered && (
+        <ConstellationField
+          className="absolute inset-0 pointer-events-none"
+          backgroundColor="transparent"
+          density={12000}
+          connectionDistance={135}
+          speed={0.10}
+        />
+      )}
+      <div className="max-w-6xl mx-auto relative z-10">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           {isFiltered ? "Engineering Logs & Thoughts" : "Stories & Reflections"}

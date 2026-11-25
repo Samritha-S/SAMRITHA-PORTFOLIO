@@ -145,6 +145,7 @@ const projects: ProjectItem[] = [
 ];
 
 import { useView } from "@/context/view-context";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 interface RawProject {
   id: string;
@@ -189,8 +190,15 @@ export function ExperienceProjects() {
       : projectList.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative">
-      <div className="max-w-6xl mx-auto space-y-20">
+    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative overflow-hidden">
+      <ConstellationField
+        className="absolute inset-0 pointer-events-none"
+        backgroundColor="transparent"
+        density={12000}
+        connectionDistance={135}
+        speed={0.10}
+      />
+      <div className="max-w-6xl mx-auto space-y-20 relative z-10">
         {/* ================= EXPERIENCE SECTION ================= */}
         <div>
           <div className="text-center mb-14">

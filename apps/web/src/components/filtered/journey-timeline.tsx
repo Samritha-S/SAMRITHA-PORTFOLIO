@@ -58,6 +58,7 @@ const defaultFilteredMilestones: TechMilestone[] = [
 ];
 
 import { useView } from "@/context/view-context";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 export function FilteredJourneyTimeline({
   milestones: propMilestones = defaultFilteredMilestones,
@@ -89,8 +90,15 @@ export function FilteredJourneyTimeline({
   }, []);
 
   return (
-    <section id="journey-tech" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
-      <div className="max-w-4xl mx-auto">
+    <section id="journey-tech" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
+      <ConstellationField
+        className="absolute inset-0 pointer-events-none"
+        backgroundColor="transparent"
+        density={11000}
+        connectionDistance={135}
+        speed={0.10}
+      />
+      <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
             Engineering Evolution

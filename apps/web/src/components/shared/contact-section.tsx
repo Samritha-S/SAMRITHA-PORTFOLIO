@@ -5,6 +5,7 @@ import { useView } from "@/context/view-context";
 import { Mail, Send, CheckCircle2 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from "@/components/shared/icons";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
+import ConstellationField from "@/components/kokonutui/constellation-field";
 
 export function ContactSection() {
   const { isFiltered, sections } = useView();
@@ -42,8 +43,17 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative">
-      <div className="max-w-5xl mx-auto">
+    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
+      {isFiltered && (
+        <ConstellationField
+          className="absolute inset-0 pointer-events-none"
+          backgroundColor="transparent"
+          density={12000}
+          connectionDistance={135}
+          speed={0.10}
+        />
+      )}
+      <div className="max-w-5xl mx-auto relative z-10">
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono">
           {isFiltered ? "Initiate Communication" : "Say Hello"}
