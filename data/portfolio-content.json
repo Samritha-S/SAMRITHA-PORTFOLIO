@@ -1,217 +1,221 @@
-{
-  "settings": {
-    "id": "global",
-    "default_view": "unfiltered",
-    "allow_toggle": true,
-    "site_title": "Samritha S",
-    "unfiltered_hero_title": "Hi, I'm Samritha.",
-    "unfiltered_hero_subtitle": "A little curious, a little chaotic, and always finding something new to love.",
-    "unfiltered_hero_bio": "Here, you'll find the things that make me me — the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.",
-    "filtered_hero_title": "Samritha S",
-    "filtered_hero_subtitle": "Computer Science Engineering student at Sona College of Technology, Salem, Tamil Nadu. Expected graduation 2029.",
-    "filtered_hero_bio": "Builds GenAI, web and data projects, mostly at hackathons, using Antigravity, Next.js/React, FastAPI and Gemini. Interested in entrepreneurship around MSME-scale problems. GSSoC Campus Ambassador, Google Student Ambassador.",
-    "resume_url": "/Samritha_S_Resume.pdf"
-  },
-  "milestones": [
-    {
-      "id": "f1",
-      "view": "filtered",
-      "year": "2026",
-      "title": "Research Abstract Published at ICSHI 2026",
-      "story": "Sole author of an AICTE-sponsored research abstract on Digital Twins in Healthcare.",
-      "display_order": 1
-    },
-    {
-      "id": "f2",
-      "view": "filtered",
-      "year": "2026",
-      "title": "IEEE Computer Society Hack Battle (HB-26)",
-      "story": "36-hour hackathon participant on Developer Tooling; led ingestion and chunking for codebase intelligence.",
-      "display_order": 2
-    },
-    {
-      "id": "f3",
-      "view": "filtered",
-      "year": "2026",
-      "title": "Smart India Hackathon 2026",
-      "story": "Hardware-track submission for FenceSense, an intelligent electric fence monitoring system.",
-      "display_order": 3
-    },
-    {
-      "id": "f4",
-      "view": "filtered",
-      "year": "2026",
-      "title": "PromptWars Virtual (StadiumPulse)",
-      "story": "Five challenges completed; engineered StadiumPulse, a GenAI crowd safety and stadium operations system.",
-      "display_order": 4
-    },
-    {
-      "id": "f5",
-      "view": "filtered",
-      "year": "2026",
-      "title": "Founder's Office Intern — Imagivite Technology Pvt. Ltd.",
-      "story": "Bookymet QA testing and authored BRDs/PRDs for a regional ride-hailing venture.",
-      "display_order": 5
-    },
-    {
-      "id": "f6",
-      "view": "filtered",
-      "year": "2026",
-      "title": "ABTalks Vicodathon",
-      "story": "Solo redesign of the ABTalks platform across three mobile-first screens using Antigravity and Vite/React/Tailwind.",
-      "display_order": 6
-    },
-    {
-      "id": "u1",
-      "view": "unfiltered",
-      "year": "2024",
-      "title": "Learning to Slow Down & Listen",
-      "story": "Began spending hours taking long walks with no destination, discovering that the thoughts that arrive in stillness are often the ones worth keeping.",
-      "display_order": 7
-    },
-    {
-      "id": "u2",
-      "view": "unfiltered",
-      "year": "2023",
-      "title": "The Year of Ink & Cinema",
-      "story": "Filled journals with half-written poems, late-night character sketches, and rewatching Captain America until I could recite Steve's lines by heart.",
-      "display_order": 8
-    },
-    {
-      "id": "u3",
-      "view": "unfiltered",
-      "year": "2022",
-      "title": "Curiosity Takes Root",
-      "story": "Discovered how thrilling it is to take something complex apart just to understand how ordinary people make extraordinary things work.",
-      "display_order": 9
-    },
-    {
-      "id": "u4",
-      "view": "unfiltered",
-      "year": "Earlier Days",
-      "title": "The Habit of Observing",
-      "story": "Turned small moments into full narratives in my head, finding beauty in rainy windows, stray dogs, and quiet library corners.",
-      "display_order": 10
-    }
-  ],
-  "projects": [
-    {
-      "id": "stadiumpulse",
-      "title": "StadiumPulse",
-      "category": "GenAI & Web",
-      "description": "For PromptWars Virtual (Google for Developers x H2S). GenAI crowd safety and stadium operations system. Stack: Gemini 2.5 Flash, FastAPI, three role-based frontend portals, deployed on Vercel. Vercel serverless is stateless, so a deterministic simulation was used as the workaround.",
-      "tags": "Gemini 2.5 Flash, FastAPI, Vercel, Deterministic Simulation",
-      "award": "PromptWars Virtual",
-      "display_order": 1
-    },
-    {
-      "id": "utsav-planner",
-      "title": "Utsav Planner",
-      "category": "GenAI & Web",
-      "description": "Hack2skill PromptWars challenge: GenAI planning assistant for weddings, birthdays and community events/festivals, with an Indian angle. Web application built in Antigravity. Generates budgets, timelines, vendor checklists and personalized ideas. Build: engines, Gemini ideas layer, API, frontend, README, CI. Live Gemini test passed, CI green, multi-screen UI redesign done.",
-      "tags": "Antigravity, Gemini, Next.js, React, FastAPI, CI/CD",
-      "repo_url": "https://github.com/Samritha-S/UTSAV",
-      "award": "Hack2skill PromptWars",
-      "display_order": 2
-    },
-    {
-      "id": "imprint",
-      "title": "Imprint",
-      "category": "GenAI & Web",
-      "description": "Carbon footprint awareness web app for a separate hackathon, built using Antigravity. Bill/receipt OCR and hyperlocal leaderboards.",
-      "tags": "Antigravity, OCR, Leaderboards, Web App",
-      "display_order": 3
-    },
-    {
-      "id": "sona-powerpredict",
-      "title": "Sona PowerPredict",
-      "category": "Data & ML",
-      "description": "IPL powerplay score prediction competition entry, team 'Byte Bouncers'. Python MyModel class iterated through versions v4 to v11. Constraints: zero hardcoded values, runtime under 10 to 20 seconds, memory under 512 MB (Docker), fully vectorized pandas/numpy. Techniques: era-decay weighting, percentile-based venue/team routing (highway/trap venue detection), five-tier wicket-bracket scoring, player intent signals from delivery data, one unified _norm() string normalization function to prevent key-matching failures.",
-      "tags": "Python, Pandas, NumPy, Docker, Vectorized ML",
-      "award": "Team Byte Bouncers",
-      "display_order": 4
-    },
-    {
-      "id": "abtalks-redesign",
-      "title": "ABTalks Redesign",
-      "category": "GenAI & Web",
-      "description": "ABTalks Vicodathon: Built solo with Antigravity + Vite/React/Tailwind. Redesigned the ABTalks platform across three mobile-first screens.",
-      "tags": "Antigravity, Vite, React, Tailwind CSS, Vicodathon Solo",
-      "award": "Vicodathon",
-      "display_order": 5
-    },
-    {
-      "id": "ieee-hb26",
-      "title": "IEEE CS Hack Battle (HB-26)",
-      "category": "Data & ML",
-      "description": "36-hour hackathon, team of 4. Track 3: Developer Tooling, subtrack Codebase Intelligence & Navigation. Samritha took the Ingestion & Chunking role. The team used open source libraries and frameworks rather than building everything from scratch.",
-      "tags": "Ingestion & Chunking, Developer Tooling, 36-Hour Hackathon",
-      "award": "HB-26 Participant",
-      "display_order": 13
-    },
-    {
-      "id": "libre-portal",
-      "title": "Libre (Smart Library Portal)",
-      "category": "Strategy & Design",
-      "description": "Smart Library Book Availability Portal (design stage). Students search books by title/author/subject and see availability; librarians update records. Four access levels (student, librarian, head librarian, super admin); students pre-imported from the college database and log in with registration id. QR-based issue with student photo and details on the librarian screen; edition grouping with total availability; per-copy status; shelf location and reference-only flag; bulk CSV import with ISBN auto-fill. Fines count working days (Mon to Sat) with holidays set by the head librarian; warning notice and appeal before any letter to the HOD. Note: Design and research only; not built or deployed.",
-      "tags": "Design & Research Only, RBAC, QR Issue, System Design",
-      "award": "Design & Research Only",
-      "display_order": 14
-    }
-  ],
-  "notes": [],
-  "posts": [
-    {
-      "id": "p1",
-      "title": "On Wandering and Quiet Windows",
-      "excerpt": "Why the best stories don't arrive when you're staring at a screen, but when you watch rain wash across afternoon street corners.",
-      "content": "There is an art to not hurrying. In a world calibrated for instant delivery, taking three hours to walk four kilometers feels like quiet rebellion. I notice how the shadows stretch under old banyan trees, how people clutch warm paper cups, and how ordinary conversations carry unintentional poetry. These are the moments that give us back our breath.",
-      "date_label": "Sep 2024",
-      "read_time": "4 min read",
-      "tag": "Essays",
-      "view": "unfiltered",
-      "published": true
-    },
-    {
-      "id": "p2",
-      "title": "The Songs We Replay Too Much",
-      "excerpt": "An exploration of acoustic memory and why certain songs feel like small rooms where we kept our favorite versions of ourselves.",
-      "content": "Music has an unfair advantage over visual memory. A single chord progression can resurrect an exact temperature, the smell of roasted coffee, and an old emotion you thought you outgrew. When I keep a song on repeat for forty listens, I'm not just listening to sound — I'm trying to inhabit a particular state of grace.",
-      "date_label": "Aug 2024",
-      "read_time": "3 min read",
-      "tag": "Soundtracks",
-      "view": "unfiltered",
-      "published": true
-    },
-    {
-      "id": "p3",
-      "title": "Why Mint Chocolate Chip is Undefeated",
-      "excerpt": "A lighthearted defense of refreshing herbal notes in frozen confectionery and why controversy is the hallmark of great taste.",
-      "content": "People who compare mint chocolate chip to toothpaste have surrendered their palate to convention. The initial herbal chill, followed by the slow melting warmth of dark cocoa shards, creates dynamic contrast. Great flavor, just like great life, requires a touch of contradiction.",
-      "date_label": "Jul 2024",
-      "read_time": "2 min read",
-      "tag": "Pleasures",
-      "view": "unfiltered",
-      "published": true
-    }
-  ],
-  "photos": [],
-  "theme": {
-    "unfiltered": {
-      "bgBase": "#F5F3EB",
-      "bgElevated": "#E5EBE3",
-      "accentPrimary": "#496B59",
-      "accentSecondary": "#A7B8A4",
-      "textPrimary": "#24342C",
-      "accentGold": "#B49A68"
-    },
-    "filtered": {
-      "bgBase": "#011627",
-      "bgElevated": "#1F2F32",
-      "accentPrimary": "#795663",
-      "accentSecondary": "#8A9688",
-      "textPrimary": "#D9BCAF",
-      "accentGold": "#C9A24B"
-    }
-  }
+﻿{
+    "settings":  {
+                     "id":  "global",
+                     "default_view":  "unfiltered",
+                     "allow_toggle":  true,
+                     "site_title":  "Samritha S",
+                     "unfiltered_hero_title":  "Hi, I\u0027m Samritha.",
+                     "unfiltered_hero_subtitle":  "A little curious, a little chaotic, and always finding something new to love.",
+                     "unfiltered_hero_bio":  "Here, you\u0027ll find the things that make me me â€” the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.",
+                     "filtered_hero_title":  "Samritha S",
+                     "filtered_hero_subtitle":  "Computer Science Engineering student at Sona College of Technology, Salem, Tamil Nadu. Expected graduation 2029.",
+                     "filtered_hero_bio":  "Builds GenAI, web and data projects, mostly at hackathons, using Antigravity, Next.js/React, FastAPI and Gemini. Interested in entrepreneurship around MSME-scale problems. GSSoC Campus Ambassador, Google Student Ambassador.",
+                     "resume_url":  "/Samritha_S_Resume.pdf"
+                 },
+    "milestones":  [
+                       {
+                           "id":  "f1",
+                           "view":  "filtered",
+                           "year":  "2026",
+                           "title":  "Research Abstract Published at ICSHI 2026",
+                           "story":  "Sole author of an AICTE-sponsored research abstract on Digital Twins in Healthcare.",
+                           "display_order":  1
+                       },
+                       {
+                           "id":  "f2",
+                           "view":  "filtered",
+                           "year":  "2026",
+                           "title":  "IEEE Computer Society Hack Battle (HB-26)",
+                           "story":  "36-hour hackathon participant on Developer Tooling; led ingestion and chunking for codebase intelligence.",
+                           "display_order":  2
+                       },
+                       {
+                           "id":  "f3",
+                           "view":  "filtered",
+                           "year":  "2026",
+                           "title":  "Smart India Hackathon 2026",
+                           "story":  "Hardware-track submission for FenceSense, an intelligent electric fence monitoring system.",
+                           "display_order":  3
+                       },
+                       {
+                           "id":  "f4",
+                           "view":  "filtered",
+                           "year":  "2026",
+                           "title":  "PromptWars Virtual (StadiumPulse)",
+                           "story":  "Five challenges completed; engineered StadiumPulse, a GenAI crowd safety and stadium operations system.",
+                           "display_order":  4
+                       },
+                       {
+                           "id":  "f5",
+                           "view":  "filtered",
+                           "year":  "2026",
+                           "title":  "Founder\u0027s Office Intern â€” Imagivite Technology Pvt. Ltd.",
+                           "story":  "Bookymet QA testing and authored BRDs/PRDs for a regional ride-hailing venture.",
+                           "display_order":  5
+                       },
+                       {
+                           "id":  "f6",
+                           "view":  "filtered",
+                           "year":  "2026",
+                           "title":  "ABTalks Vicodathon",
+                           "story":  "Solo redesign of the ABTalks platform across three mobile-first screens using Antigravity and Vite/React/Tailwind.",
+                           "display_order":  6
+                       },
+                       {
+                           "id":  "u1",
+                           "view":  "unfiltered",
+                           "year":  "2024",
+                           "title":  "Learning to Slow Down \u0026 Listen",
+                           "story":  "Began spending hours taking long walks with no destination, discovering that the thoughts that arrive in stillness are often the ones worth keeping.",
+                           "display_order":  7
+                       },
+                       {
+                           "id":  "u2",
+                           "view":  "unfiltered",
+                           "year":  "2023",
+                           "title":  "The Year of Ink \u0026 Cinema",
+                           "story":  "Filled journals with half-written poems, late-night character sketches, and rewatching Captain America until I could recite Steve\u0027s lines by heart.",
+                           "display_order":  8
+                       },
+                       {
+                           "id":  "u3",
+                           "view":  "unfiltered",
+                           "year":  "2022",
+                           "title":  "Curiosity Takes Root",
+                           "story":  "Discovered how thrilling it is to take something complex apart just to understand how ordinary people make extraordinary things work.",
+                           "display_order":  9
+                       },
+                       {
+                           "id":  "u4",
+                           "view":  "unfiltered",
+                           "year":  "Earlier Days",
+                           "title":  "The Habit of Observing",
+                           "story":  "Turned small moments into full narratives in my head, finding beauty in rainy windows, stray dogs, and quiet library corners.",
+                           "display_order":  10
+                       }
+                   ],
+    "projects":  [
+                     {
+                         "id":  "stadiumpulse",
+                         "title":  "StadiumPulse",
+                         "category":  "GenAI \u0026 Web",
+                         "description":  "For PromptWars Virtual (Google for Developers x H2S). GenAI crowd safety and stadium operations system. Stack: Gemini 2.5 Flash, FastAPI, three role-based frontend portals, deployed on Vercel. Vercel serverless is stateless, so a deterministic simulation was used as the workaround.",
+                         "tags":  "Gemini 2.5 Flash, FastAPI, Vercel, Deterministic Simulation",
+                         "award":  "PromptWars Virtual",
+                         "display_order":  1
+                     },
+                     {
+                         "id":  "utsav-planner",
+                         "title":  "Utsav Planner",
+                         "category":  "GenAI \u0026 Web",
+                         "description":  "Hack2skill PromptWars challenge: GenAI planning assistant for weddings, birthdays and community events/festivals, with an Indian angle. Web application built in Antigravity. Generates budgets, timelines, vendor checklists and personalized ideas. Build: engines, Gemini ideas layer, API, frontend, README, CI. Live Gemini test passed, CI green, multi-screen UI redesign done.",
+                         "tags":  "Antigravity, Gemini, Next.js, React, FastAPI, CI/CD",
+                         "repo_url":  "https://github.com/Samritha-S/UTSAV",
+                         "award":  "Hack2skill PromptWars",
+                         "display_order":  2
+                     },
+                     {
+                         "id":  "imprint",
+                         "title":  "Imprint",
+                         "category":  "GenAI \u0026 Web",
+                         "description":  "Carbon footprint awareness web app for a separate hackathon, built using Antigravity. Bill/receipt OCR and hyperlocal leaderboards.",
+                         "tags":  "Antigravity, OCR, Leaderboards, Web App",
+                         "display_order":  3
+                     },
+                     {
+                         "id":  "sona-powerpredict",
+                         "title":  "Sona PowerPredict",
+                         "category":  "Data \u0026 ML",
+                         "description":  "IPL powerplay score prediction competition entry, team \u0027Byte Bouncers\u0027. Python MyModel class iterated through versions v4 to v11. Constraints: zero hardcoded values, runtime under 10 to 20 seconds, memory under 512 MB (Docker), fully vectorized pandas/numpy. Techniques: era-decay weighting, percentile-based venue/team routing (highway/trap venue detection), five-tier wicket-bracket scoring, player intent signals from delivery data, one unified _norm() string normalization function to prevent key-matching failures.",
+                         "tags":  "Python, Pandas, NumPy, Docker, Vectorized ML",
+                         "award":  "Team Byte Bouncers",
+                         "display_order":  4
+                     },
+                     {
+                         "id":  "abtalks-redesign",
+                         "title":  "ABTalks Redesign",
+                         "category":  "GenAI \u0026 Web",
+                         "description":  "ABTalks Vicodathon: Built solo with Antigravity + Vite/React/Tailwind. Redesigned the ABTalks platform across three mobile-first screens.",
+                         "tags":  "Antigravity, Vite, React, Tailwind CSS, Vicodathon Solo",
+                         "award":  "Vicodathon",
+                         "display_order":  5
+                     },
+                     {
+                         "id":  "ieee-hb26",
+                         "title":  "IEEE CS Hack Battle (HB-26)",
+                         "category":  "Data \u0026 ML",
+                         "description":  "36-hour hackathon, team of 4. Track 3: Developer Tooling, subtrack Codebase Intelligence \u0026 Navigation. Samritha took the Ingestion \u0026 Chunking role. The team used open source libraries and frameworks rather than building everything from scratch.",
+                         "tags":  "Ingestion \u0026 Chunking, Developer Tooling, 36-Hour Hackathon",
+                         "award":  "HB-26 Participant",
+                         "display_order":  13
+                     },
+                     {
+                         "id":  "libre-portal",
+                         "title":  "Libre (Smart Library Portal)",
+                         "category":  "Strategy \u0026 Design",
+                         "description":  "Smart Library Book Availability Portal (design stage). Students search books by title/author/subject and see availability; librarians update records. Four access levels (student, librarian, head librarian, super admin); students pre-imported from the college database and log in with registration id. QR-based issue with student photo and details on the librarian screen; edition grouping with total availability; per-copy status; shelf location and reference-only flag; bulk CSV import with ISBN auto-fill. Fines count working days (Mon to Sat) with holidays set by the head librarian; warning notice and appeal before any letter to the HOD. Note: Design and research only; not built or deployed.",
+                         "tags":  "Design \u0026 Research Only, RBAC, QR Issue, System Design",
+                         "award":  "Design \u0026 Research Only",
+                         "display_order":  14
+                     }
+                 ],
+    "notes":  [
+
+              ],
+    "posts":  [
+                  {
+                      "id":  "p1",
+                      "title":  "On Wandering and Quiet Windows",
+                      "excerpt":  "Why the best stories don\u0027t arrive when you\u0027re staring at a screen, but when you watch rain wash across afternoon street corners.",
+                      "content":  "There is an art to not hurrying. In a world calibrated for instant delivery, taking three hours to walk four kilometers feels like quiet rebellion. I notice how the shadows stretch under old banyan trees, how people clutch warm paper cups, and how ordinary conversations carry unintentional poetry. These are the moments that give us back our breath.",
+                      "date_label":  "Sep 2024",
+                      "read_time":  "4 min read",
+                      "tag":  "Essays",
+                      "view":  "unfiltered",
+                      "published":  true
+                  },
+                  {
+                      "id":  "p2",
+                      "title":  "The Songs We Replay Too Much",
+                      "excerpt":  "An exploration of acoustic memory and why certain songs feel like small rooms where we kept our favorite versions of ourselves.",
+                      "content":  "Music has an unfair advantage over visual memory. A single chord progression can resurrect an exact temperature, the smell of roasted coffee, and an old emotion you thought you outgrew. When I keep a song on repeat for forty listens, I\u0027m not just listening to sound â€” I\u0027m trying to inhabit a particular state of grace.",
+                      "date_label":  "Aug 2024",
+                      "read_time":  "3 min read",
+                      "tag":  "Soundtracks",
+                      "view":  "unfiltered",
+                      "published":  true
+                  },
+                  {
+                      "id":  "p3",
+                      "title":  "Why Mint Chocolate Chip is Undefeated",
+                      "excerpt":  "A lighthearted defense of refreshing herbal notes in frozen confectionery and why controversy is the hallmark of great taste.",
+                      "content":  "People who compare mint chocolate chip to toothpaste have surrendered their palate to convention. The initial herbal chill, followed by the slow melting warmth of dark cocoa shards, creates dynamic contrast. Great flavor, just like great life, requires a touch of contradiction.",
+                      "date_label":  "Jul 2024",
+                      "read_time":  "2 min read",
+                      "tag":  "Pleasures",
+                      "view":  "unfiltered",
+                      "published":  true
+                  }
+              ],
+    "photos":  [
+
+               ],
+    "theme":  {
+                  "unfiltered":  {
+                                     "bgBase":  "#F5F3EB",
+                                     "bgElevated":  "#E5EBE3",
+                                     "accentPrimary":  "#496B59",
+                                     "accentSecondary":  "#A7B8A4",
+                                     "textPrimary":  "#24342C",
+                                     "accentGold":  "#B49A68"
+                                 },
+                  "filtered":  {
+                                   "bgBase":  "#011627",
+                                   "bgElevated":  "#1F2F32",
+                                   "accentPrimary":  "#795663",
+                                   "accentSecondary":  "#8A9688",
+                                   "textPrimary":  "#D9BCAF",
+                                   "accentGold":  "#C9A24B"
+                               }
+              }
 }

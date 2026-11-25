@@ -49,21 +49,18 @@ export async function POST(req: NextRequest) {
     const cleanName = name ? String(name).trim().slice(0, 60) || null : null;
     const cleanMessage = String(message).trim().slice(0, 600);
     const createdAt = new Date().toISOString();
-    let insertedId = `note_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    const insertedId = `note_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 
     let savedToSupabase = false;
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("wall_notes")
         .insert({
           name: cleanName,
           message: cleanMessage,
           approved: false,
-        })
-        .select("id")
-        .single();
-      if (!error && data?.id) {
-        insertedId = data.id;
+        });
+      if (!error) {
         savedToSupabase = true;
       }
     } catch {
