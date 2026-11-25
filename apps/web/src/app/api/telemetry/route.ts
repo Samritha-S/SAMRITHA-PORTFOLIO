@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { readContentStore } from "@/lib/data-store";
 import { mergeWithDefaults } from "@/lib/portfolio-defaults";
 
+export const dynamic = "force-dynamic";
+
 export interface HeatmapCell {
   date: string;
   count: number;
@@ -108,14 +110,14 @@ async function fetchGitHubTelemetry(username: string): Promise<GitHubTelemetry> 
     const [userRes, reposRes, contribRes] = await Promise.all([
       fetch(`https://api.github.com/users/${encodeURIComponent(username)}`, {
         headers,
-        next: { revalidate: 300 },
+        cache: "no-store",
       }),
       fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=updated&per_page=100`, {
         headers,
-        next: { revalidate: 300 },
+        cache: "no-store",
       }),
       fetch(`https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last`, {
-        next: { revalidate: 300 },
+        cache: "no-store",
       }),
     ]);
 
@@ -209,35 +211,79 @@ async function fetchLeetCodeTelemetry(username: string): Promise<LeetCodeTelemet
         "User-Agent": "Mozilla/5.0",
       },
       body: JSON.stringify({ query, variables: { username } }),
-      next: { revalidate: 300 },
+      cache: "no-store",
     });
 
-    if (!res.ok) throw new Error(`LeetCode GraphQL failed: ${res.status}`);
-
-    const json = (await res.json()) as {
-      data?: {
-        matchedUser?: {
-          profile?: { ranking?: number };
-          submitStatsGlobal?: { acSubmissionNum?: Array<{ difficulty: string; count: number }> };
-          userCalendar?: {
-            streak?: number;
-            totalActiveDays?: number;
-            submissionCalendar?: string;
-          };
-        } | null;
+    if (res.ok) {
+      const json = (await res.json()) as {
+        data?: {
+          matchedUser?: {
+            profile?: { ranking?: number };
+            submitStatsGlobal?: { acSubmissionNum?: Array<{ difficulty: string; count: number }> };
+            userCalendar?: {
+              streak?: number;
+              totalActiveDays?: number;
+              submissionCalendar?: string;
+            };
+          } | null;
+        };
       };
+
+      const user = json.data?.matchedUser;
+      if (user) {
+        const stats = user.submitStatsGlobal?.acSubmissionNum ?? [];
+        const getCount = (diff: string) => stats.find((s) => s.difficulty === diff)?.count ?? 0;
+
+        const dailyMap = new Map<string, number>();
+        if (user.userCalendar?.submissionCalendar) {
+          const parsed = JSON.parse(user.userCalendar.submissionCalendar) as Record<string, number>;
+          for (const [ts, count] of Object.entries(parsed)) {
+            const date = new Date(Number(ts) * 1000).toISOString().slice(0, 10);
+            dailyMap.set(date, (dailyMap.get(date) ?? 0) + count);
+          }
+        }
+
+        const heatmapWeeks = mapDailyCountsToWeeks(dailyMap, 24);
+        const weeklyVelocity = computeWeeklyVelocity(heatmapWeeks, 12);
+
+        return {
+          source: "live",
+          username,
+          totalSolved: getCount("All"),
+          easySolved: getCount("Easy"),
+          mediumSolved: getCount("Medium"),
+          hardSolved: getCount("Hard"),
+          ranking: user.profile?.ranking ?? null,
+          streak: user.userCalendar?.streak ?? 0,
+          totalActiveDays: user.userCalendar?.totalActiveDays ?? 0,
+          heatmapWeeks,
+          weeklyVelocity,
+        };
+      }
+    }
+  } catch {
+    // Fall through to secondary public LeetCode stats API
+  }
+
+  try {
+    const altRes = await fetch(
+      `https://leetcode-api-faisalshohag.vercel.app/${encodeURIComponent(username)}`,
+      { cache: "no-store" }
+    );
+    if (!altRes.ok) throw new Error(`LeetCode alt API failed: ${altRes.status}`);
+
+    const altJson = (await altRes.json()) as {
+      totalSolved?: number;
+      easySolved?: number;
+      mediumSolved?: number;
+      hardSolved?: number;
+      ranking?: number;
+      submissionCalendar?: Record<string, number>;
     };
 
-    const user = json.data?.matchedUser;
-    if (!user) throw new Error("LeetCode user not found");
-
-    const stats = user.submitStatsGlobal?.acSubmissionNum ?? [];
-    const getCount = (diff: string) => stats.find((s) => s.difficulty === diff)?.count ?? 0;
-
     const dailyMap = new Map<string, number>();
-    if (user.userCalendar?.submissionCalendar) {
-      const parsed = JSON.parse(user.userCalendar.submissionCalendar) as Record<string, number>;
-      for (const [ts, count] of Object.entries(parsed)) {
+    if (altJson.submissionCalendar) {
+      for (const [ts, count] of Object.entries(altJson.submissionCalendar)) {
         const date = new Date(Number(ts) * 1000).toISOString().slice(0, 10);
         dailyMap.set(date, (dailyMap.get(date) ?? 0) + count);
       }
@@ -249,13 +295,13 @@ async function fetchLeetCodeTelemetry(username: string): Promise<LeetCodeTelemet
     return {
       source: "live",
       username,
-      totalSolved: getCount("All"),
-      easySolved: getCount("Easy"),
-      mediumSolved: getCount("Medium"),
-      hardSolved: getCount("Hard"),
-      ranking: user.profile?.ranking ?? null,
-      streak: user.userCalendar?.streak ?? 0,
-      totalActiveDays: user.userCalendar?.totalActiveDays ?? 0,
+      totalSolved: altJson.totalSolved ?? 0,
+      easySolved: altJson.easySolved ?? 0,
+      mediumSolved: altJson.mediumSolved ?? 0,
+      hardSolved: altJson.hardSolved ?? 0,
+      ranking: altJson.ranking ?? null,
+      streak: computeStreak(dailyMap),
+      totalActiveDays: dailyMap.size,
       heatmapWeeks,
       weeklyVelocity,
     };
@@ -293,9 +339,16 @@ export async function GET(req: NextRequest) {
     fetchLeetCodeTelemetry(leetcodeUsername),
   ]);
 
-  return NextResponse.json({
-    github,
-    leetcode,
-    fetchedAt: new Date().toISOString(),
-  });
+  return NextResponse.json(
+    {
+      github,
+      leetcode,
+      fetchedAt: new Date().toISOString(),
+    },
+    {
+      headers: {
+        "Cache-Control": "no-store, max-age=0",
+      },
+    }
+  );
 }
