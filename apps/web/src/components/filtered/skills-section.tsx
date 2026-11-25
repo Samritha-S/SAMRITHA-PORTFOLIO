@@ -5,53 +5,21 @@ import { Sparkles, Terminal, Code, Database, Cpu, Wrench, Layers, BookOpen, Grad
 import { KokonutCard } from "@/components/kokonutui/card";
 import ConstellationField from "@/components/kokonutui/constellation-field";
 
-export function SkillsSection() {
-  const skillGroups = [
-    {
-      category: "Languages",
-      icon: Code,
-      items: ["Java", "Python", "C", "JavaScript", "TypeScript"],
-    },
-    {
-      category: "Frontend",
-      icon: Sparkles,
-      items: ["React", "Next.js", "React Native", "Redux Toolkit", "Tailwind CSS"],
-    },
-    {
-      category: "Backend",
-      icon: Terminal,
-      items: ["Node.js", "Express", "Fastify", "FastAPI"],
-    },
-    {
-      category: "Databases & Infra",
-      icon: Database,
-      items: ["PostgreSQL", "MongoDB", "AWS S3", "Pinecone"],
-    },
-    {
-      category: "AI & CV",
-      icon: Cpu,
-      items: ["GPT APIs", "Claude", "CLIP", "OpenCV", "FFmpeg"],
-    },
-    {
-      category: "Tools",
-      icon: Wrench,
-      items: ["Git", "GitHub", "VS Code", "REST APIs", "WebSockets"],
-    },
-    {
-      category: "Also",
-      icon: Layers,
-      items: ["Antigravity", "Vite"],
-    },
-  ];
+import { useView } from "@/context/view-context";
 
-  const coursework = [
-    { code: "U23CS301", title: "Data Structures" },
-    { code: "U23CS302", title: "Computer Architecture" },
-    { code: "U23CS303", title: "Java" },
-    { code: "U23CS304", title: "Operating Systems" },
-    { code: "U23CS305", title: "Computer and Information Ethics" },
-    { code: "U23MAT301D", title: "Probability and Statistics" },
-  ];
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Languages: Code,
+  Frontend: Sparkles,
+  Backend: Terminal,
+  "Databases & Infra": Database,
+  "AI & CV": Cpu,
+  Tools: Wrench,
+  Also: Layers,
+};
+
+export function SkillsSection() {
+  const { sections } = useView();
+  const { currentlyLearning, groups, courseworkTitle, coursework } = sections.skills;
 
   return (
     <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 section-base relative overflow-hidden">
@@ -82,8 +50,9 @@ export function SkillsSection() {
                 Currently Learning
               </span>
               <ul className="space-y-1 text-sm sm:text-base font-serif text-[var(--text-primary)]">
-                <li>• Java, via IntelliJ IDEA</li>
-                <li>• NPTEL course: &ldquo;Design Thinking - A Primer&rdquo;</li>
+                {currentlyLearning.map((item, idx) => (
+                  <li key={idx}>• {item}</li>
+                ))}
               </ul>
             </div>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[var(--bg-base)] border border-[var(--accent-gold)]/40 text-[var(--accent-gold)] shrink-0 self-start sm:self-auto font-mono">
@@ -96,8 +65,8 @@ export function SkillsSection() {
         {/* What I Know Grid */}
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skillGroups.map((group) => {
-              const Icon = group.icon;
+            {groups.map((group) => {
+              const Icon = ICON_MAP[group.category] ?? Code;
               return (
                 <KokonutCard key={group.category} glow className="p-6">
                   <div className="flex items-center gap-2.5 mb-4 text-[var(--accent-gold)]">
@@ -127,7 +96,7 @@ export function SkillsSection() {
           <div className="flex items-center gap-2 mb-6">
             <GraduationCap className="w-5 h-5 text-[var(--accent-gold)]" />
             <h3 className="font-serif text-xl sm:text-2xl font-medium text-[var(--text-primary)]">
-              Coursework (Semester 3)
+              {courseworkTitle}
             </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

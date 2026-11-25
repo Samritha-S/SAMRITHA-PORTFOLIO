@@ -7,7 +7,8 @@ import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from "@/componen
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 
 export function ContactSection() {
-  const { isFiltered } = useView();
+  const { isFiltered, sections } = useView();
+  const contact = sections.contact;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -67,10 +68,8 @@ export function ContactSection() {
             <h3 className={`font-serif text-xl font-medium mb-4 ${isFiltered ? "text-[var(--text-primary)]" : "text-[#F5EFE8]"}`}>
               Direct Channels
             </h3>
-            <p className={`text-xs leading-relaxed mb-6 ${isFiltered ? "text-[var(--text-primary)]/75" : "text-[#F5EFE8]/80"}`}>
-              {isFiltered
-                ? "Available for software engineering roles, hackathon collaborations, and tech discussions."
-                : "You can reach out through socials or send a direct note right here."}
+            <p className="text-xs leading-relaxed mb-6 text-[var(--text-primary)]/80">
+              {isFiltered ? contact.filteredNote : contact.unfilteredNote}
             </p>
 
             <div className="space-y-3">
@@ -78,36 +77,36 @@ export function ContactSection() {
               {!isFiltered ? (
                 <>
                   <a
-                    href="https://instagram.com"
+                    href={contact.instagram}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[#2E1F3D] border border-[#8B5FBF]/30 hover:border-[#D4AF7A] transition-colors text-xs text-[#F5EFE8] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
                   >
-                    <InstagramIcon className="w-4 h-4 text-[#D4AF7A] group-hover:scale-110 transition-all" />
-                    <span className="text-[#F5EFE8] group-hover:text-[#D4AF7A] transition-colors">Instagram • @samritha.s</span>
+                    <InstagramIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Instagram • @samritha.s</span>
                   </a>
                   <a
-                    href="https://x.com"
+                    href={contact.twitter}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[#2E1F3D] border border-[#8B5FBF]/30 hover:border-[#D4AF7A] transition-colors text-xs text-[#F5EFE8] group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-primary)] group"
                   >
-                    <TwitterIcon className="w-4 h-4 text-[#D4AF7A] group-hover:scale-110 transition-all" />
-                    <span className="text-[#F5EFE8] group-hover:text-[#D4AF7A] transition-colors">X (Twitter) • @samritha_s</span>
+                    <TwitterIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_s</span>
                   </a>
                 </>
               ) : (
                 /* Filtered Channels: Email, LinkedIn, GitHub */
                 <>
                   <a
-                    href="mailto:samritha.25cse@sonatech.ac.in"
+                    href={`mailto:${contact.email}`}
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
                   >
                     <Mail className="w-4 h-4 text-[var(--accent-primary)] group-hover:text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Email • samritha.25cse@sonatech.ac.in</span>
+                    <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">Email • {contact.email}</span>
                   </a>
                   <a
-                    href="https://linkedin.com/in/samritha-s/"
+                    href={contact.linkedin}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"
@@ -116,7 +115,7 @@ export function ContactSection() {
                     <span className="text-[var(--text-primary)] group-hover:text-[var(--accent-gold)] transition-colors">LinkedIn • in/samritha-s</span>
                   </a>
                   <a
-                    href="https://github.com/Samritha-S"
+                    href={contact.github}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--accent-primary)] hover:text-[var(--accent-gold)] group"

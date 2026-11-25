@@ -43,12 +43,22 @@ const defaultUnfilteredMilestones: JourneyMilestone[] = [
   },
 ];
 
+import { useView } from "@/context/view-context";
+
 export function UnfilteredJourneyTimeline({
   milestones: propMilestones = defaultUnfilteredMilestones,
 }: {
   milestones?: JourneyMilestone[];
 }) {
+  const { liveContent } = useView();
   const [milestones, setMilestones] = useState<JourneyMilestone[]>(propMilestones);
+
+  useEffect(() => {
+    if (liveContent.milestones.length > 0) {
+      const unfiltered = liveContent.milestones.filter((m) => m.view === "unfiltered");
+      if (unfiltered.length > 0) setMilestones(unfiltered);
+    }
+  }, [liveContent.milestones]);
 
   useEffect(() => {
     supabase

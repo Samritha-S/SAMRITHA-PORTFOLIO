@@ -144,6 +144,8 @@ const projects: ProjectItem[] = [
   },
 ];
 
+import { useView } from "@/context/view-context";
+
 interface RawProject {
   id: string;
   title: string;
@@ -157,31 +159,27 @@ interface RawProject {
 }
 
 export function ExperienceProjects() {
+  const { liveContent } = useView();
   const [filter, setFilter] = useState("All");
   const [projectList, setProjectList] = useState<ProjectItem[]>(projects);
 
   useEffect(() => {
-    fetch("/api/content")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && Array.isArray(data.projects) && data.projects.length > 0) {
-          setProjectList(
-            data.projects.map((p: RawProject) => ({
-              id: p.id,
-              title: p.title,
-              category: p.category,
-              description: p.description,
-              tags: typeof p.tags === "string" ? p.tags.split(",").map((t: string) => t.trim()) : p.tags,
-              demoUrl: p.demo_url || undefined,
-              repoUrl: p.repo_url || undefined,
-              award: p.award || undefined,
-              badge: p.badge || undefined,
-            }))
-          );
-        }
-      })
-      .catch(() => {});
-  }, []);
+    if (liveContent.projects.length > 0) {
+      setProjectList(
+        liveContent.projects.map((p: RawProject) => ({
+          id: p.id,
+          title: p.title,
+          category: p.category,
+          description: p.description,
+          tags: typeof p.tags === "string" ? p.tags.split(",").map((t: string) => t.trim()) : p.tags,
+          demoUrl: p.demo_url || undefined,
+          repoUrl: p.repo_url || undefined,
+          award: p.award || undefined,
+          badge: p.badge || undefined,
+        }))
+      );
+    }
+  }, [liveContent.projects]);
 
   const categories = ["All", "GenAI & Web", "Data & ML", "Hardware & IoT", "Strategy & Design"];
 

@@ -5,8 +5,11 @@ import {
   Compass, CheckCircle2, Trash2, Plus, ShieldCheck, Clock,
   Layers, FileText, MessageSquare, Sparkles, Terminal, ExternalLink,
   Edit2, Save, X, Image, BookOpen, LogOut, Upload, Eye, EyeOff,
-  Sliders, ToggleLeft, ToggleRight, LayoutTemplate
+  Sliders, ToggleLeft, ToggleRight, LayoutTemplate, Palette
 } from "lucide-react";
+import { ThemeTab } from "@/components/theme-tab";
+import { SectionsTab } from "@/components/sections-tab";
+import { DEFAULT_SECTIONS, PortfolioSections, ThemeConfig } from "@/lib/portfolio-defaults";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface Milestone { id: string; view: "unfiltered" | "filtered"; year: string; title: string; story: string; }
@@ -27,13 +30,21 @@ interface SiteSettings {
   resume_url: string;
 }
 
-type Tab = "settings" | "milestones" | "projects" | "wall" | "posts" | "photos" | "resume";
+type Tab = "settings" | "theme" | "sections" | "milestones" | "projects" | "wall" | "posts" | "photos" | "resume";
 
 // ─── Helper fetch ─────────────────────────────────────────────────────────────
 async function api(path: string, opts?: RequestInit) {
   const res = await fetch(path, opts);
   if (!res.ok) throw new Error(await res.text());
-  return res.json();
+  const data = await res.json();
+  if (opts?.method && opts.method !== "GET" && typeof BroadcastChannel !== "undefined") {
+    try {
+      const ch = new BroadcastChannel("samritha_portfolio_sync");
+      ch.postMessage({ type: "refresh", ts: Date.now() });
+      ch.close();
+    } catch {}
+  }
+  return data;
 }
 
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
@@ -41,6 +52,7 @@ export default function StudioDashboard() {
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("settings");
   const [settings, setSettings]     = useState<SiteSettings | null>(null);
+  const [sections, setSections]     = useState<PortfolioSections>(DEFAULT_SECTIONS);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [projects, setProjects]     = useState<Project[]>([]);
   const [notes, setNotes]           = useState<WallNote[]>([]);
@@ -50,9 +62,13 @@ export default function StudioDashboard() {
   // Load data
   const loadAll = useCallback(async () => {
     try {
-      const [s, m, pr, n, p, ph] = await Promise.all([
+      const [s, c, m, pr, n, p, ph] = await Promise.all([
         api("/api/settings").catch((err) => {
           console.warn("Failed to load settings:", err);
+          return null;
+        }),
+        api("/api/content").catch((err) => {
+          console.warn("Failed to load content:", err);
           return null;
         }),
         api("/api/milestones").catch((err) => {
@@ -77,6 +93,16 @@ export default function StudioDashboard() {
         }),
       ]);
       setSettings(s);
+      if (c) {
+        setSections({
+          theme: c.theme ?? DEFAULT_SECTIONS.theme,
+          about: c.about ?? DEFAULT_SECTIONS.about,
+          skills: c.skills ?? DEFAULT_SECTIONS.skills,
+          competitions: c.competitions ?? DEFAULT_SECTIONS.competitions,
+          github: c.github ?? DEFAULT_SECTIONS.github,
+          contact: c.contact ?? DEFAULT_SECTIONS.contact,
+        });
+      }
       setMilestones(m || []);
       setProjects(pr || []);
       setNotes(n || []);
@@ -125,7 +151,7 @@ export default function StudioDashboard() {
           <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 font-mono">
             <ShieldCheck className="w-3.5 h-3.5" /> Authenticated
           </span>
-          <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer"
+          <a href={process.env.NEXT_PUBLIC_WEB_URL || "http://localhost:3000"} target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-[#161b22] border border-[#30363d] text-[#8b949e] hover:text-white transition-colors">
             <ExternalLink className="w-3 h-3" /> <span className="hidden sm:inline">View Live Site</span>
           </a>
@@ -142,6 +168,8 @@ export default function StudioDashboard() {
           <div className="flex md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
             {([
               { id: "settings",   icon: Sliders,        label: "Site Mode & Hero",   count: null, badge: false },
+              { id: "theme",      icon: Palette,        label: "Theme & Colours",    count: null, badge: false },
+              { id: "sections",   icon: LayoutTemplate, label: "Portfolio Sections", count: null, badge: false },
               { id: "projects",   icon: Layers,         label: "Projects & Tech",    count: projects.length, badge: false },
               { id: "milestones", icon: Compass,        label: "Journey Milestones", count: milestones.length, badge: false },
               { id: "wall",       icon: MessageSquare,   label: "Wall Moderation",    count: pendingCount, badge: pendingCount > 0 },
@@ -178,6 +206,38 @@ export default function StudioDashboard() {
         {/* Content */}
         <main className="md:col-span-9 bg-[#161b22] border border-[#21262d] rounded-2xl p-6 sm:p-8 overflow-auto">
           {activeTab === "settings"   && <SettingsTab settings={settings} onRefresh={loadAll} />}
+          {activeTab === "theme"      && (
+            <ThemeTab
+              theme={sections.theme}
+              onSave={async (nextTheme: ThemeConfig) => {
+                await api("/api/content", {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ theme: nextTheme }),
+                });
+                await loadAll();
+              }}
+            />
+          )}
+          {activeTab === "sections"   && (
+            <SectionsTab
+              sections={{
+                about: sections.about,
+                skills: sections.skills,
+                competitions: sections.competitions,
+                github: sections.github,
+                contact: sections.contact,
+              }}
+              onSave={async (nextSections) => {
+                await api("/api/content", {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(nextSections),
+                });
+                await loadAll();
+              }}
+            />
+          )}
           {activeTab === "projects"   && <ProjectsTab projects={projects} onRefresh={loadAll} />}
           {activeTab === "milestones" && <MilestonesTab milestones={milestones} onRefresh={loadAll} />}
           {activeTab === "wall"       && <WallTab notes={notes} onRefresh={loadAll} />}

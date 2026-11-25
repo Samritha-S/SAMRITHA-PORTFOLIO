@@ -7,11 +7,12 @@ import BackgroundPaths from "@/components/kokonutui/background-paths";
 import { useView } from "@/context/view-context";
 
 export function UnfilteredHero() {
-  const { settings } = useView();
+  const { settings, sections } = useView();
 
   const title = settings?.unfiltered_hero_title || "Hi, I'm Samritha.";
   const subtitle = settings?.unfiltered_hero_subtitle || "A little curious, a little chaotic, and always finding something new to love.";
   const bio = settings?.unfiltered_hero_bio || "Here, you'll find the things that make me me — the songs I replay too much, places I want to wander through, stories I want to write, movies I can quote by heart, and all the little things that make ordinary days feel special.";
+  const pill = sections.about.unfiltered.pill;
 
   return (
     <BackgroundPaths
@@ -19,45 +20,45 @@ export function UnfilteredHero() {
     >
       <div className="max-w-3xl mx-auto text-center relative z-10">
         {/* Gentle Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3D2B52] border border-[#8B5FBF]/40 text-xs text-[#F5EFE8] mb-8 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-[#D4AF7A]" />
-          <span>Unfiltered Personal Space</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[var(--text-primary)] mb-8 shadow-sm">
+          <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+          <span>{pill}</span>
         </div>
 
         {/* Dynamic Title */}
-        <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[#F5EFE8] tracking-tight leading-[1.15] mb-6">
+        <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.15] mb-6">
           {title}
         </h1>
 
         {/* Subtle hairline under headline */}
         <div className="gold-hairline w-32 mx-auto mb-6" />
 
-        <p className="font-serif italic text-lg sm:text-2xl text-[#C98FA0] font-medium mb-6">
+        <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-secondary)] font-medium mb-6">
           {subtitle}
         </p>
 
-        <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed max-w-2xl mx-auto mb-6">
+        <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed max-w-2xl mx-auto mb-6">
           Welcome to the part of the internet where I&apos;m not talking about projects, certifications, or deadlines.
         </p>
 
-        <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed max-w-2xl mx-auto mb-10">
+        <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed max-w-2xl mx-auto mb-10">
           {bio}
         </p>
 
         {/* Hero CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a href="#about">
-            <ParticleButton className="bg-[#C98FA0] text-[#2E1F3D] font-semibold border-none hover:brightness-105 shadow-md">
+            <ParticleButton className="bg-[var(--accent-secondary)] text-[var(--bg-base)] font-semibold border-none hover:brightness-105 shadow-md">
               Come stay a while
-              <Heart className="w-3.5 h-3.5 fill-current text-[#2E1F3D]" />
+              <Heart className="w-3.5 h-3.5 fill-current text-[var(--bg-base)]" />
             </ParticleButton>
           </a>
           <a
             href="#interests"
-            className="px-6 py-2.5 rounded-full border border-[#8B5FBF]/50 bg-[#3D2B52] text-[#F5EFE8] hover:border-[#D4AF7A] hover:text-[#D4AF7A] transition-all duration-300 flex items-center gap-2 shadow-md text-xs sm:text-sm font-medium"
+            className="px-6 py-2.5 rounded-full border border-[var(--accent-primary)]/50 bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)] transition-all duration-300 flex items-center gap-2 shadow-md text-xs sm:text-sm font-medium"
           >
             Explore Little Things
-            <ArrowDown className="w-3.5 h-3.5 text-[#D4AF7A]" />
+            <ArrowDown className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
           </a>
         </div>
       </div>
@@ -66,6 +67,9 @@ export function UnfilteredHero() {
 }
 
 export function UnfilteredAbout() {
+  const { sections } = useView();
+  const about = sections.about.unfiltered;
+
   return (
     <section
       id="about"
@@ -73,44 +77,33 @@ export function UnfilteredAbout() {
     >
       <div className="max-w-3xl mx-auto relative z-10">
         <div className="text-center mb-12">
-          <span className="text-xs uppercase tracking-widest text-[#D4AF7A] font-medium">
+          <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-medium">
             A Quiet Introduction
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#F5EFE8] mt-3">
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[var(--text-primary)] mt-3">
             About Samritha
           </h2>
           <div className="gold-hairline w-24 mx-auto mt-4" />
         </div>
 
         <div className="space-y-6">
-          {/* Locked Copy §5.2 */}
-          <p className="font-serif text-xl sm:text-2xl text-[#C98FA0] leading-snug">
-            I&apos;m Samritha — but Sam works just fine.
+          <p className="font-serif text-xl sm:text-2xl text-[var(--accent-secondary)] leading-snug">
+            {about.tagline}
           </p>
 
-          <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed">
-            I&apos;m someone who&apos;s constantly observing, thinking, questioning, and imagining. I tend to notice little details that other people might overlook, and I have a habit of turning random thoughts into entire stories in my head.
-          </p>
+          {about.paragraphs.map((p, idx) => (
+            <p key={idx} className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed">
+              {p}
+            </p>
+          ))}
 
-          <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed">
-            I&apos;m drawn to things that have character — people with interesting stories, places that feel different, ideas that make me stop and think, and moments that somehow become memories.
-          </p>
-
-          <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed">
-            I&apos;m still figuring out who I&apos;m becoming, and I don&apos;t think I need to have the whole answer yet. There are plenty of things I want to experience, places I want to see, and versions of myself I haven&apos;t met yet.
-          </p>
-
-          <p className="text-sm sm:text-base text-[#F5EFE8]/90 leading-relaxed">
-            So this page is a small snapshot of me right now — not a finished version, just a work in progress.
-          </p>
-
-          {/* Pull-quote: Inset panel in lighter plum (#3D2B52) */}
-          <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[#3D2B52] border border-[#8B5FBF]/30 shadow-md">
-            <span className="font-serif text-5xl text-[#D4AF7A] leading-none select-none block mb-2 opacity-90">
+          {/* Pull-quote: Inset panel */}
+          <div className="rounded-xl p-6 sm:p-8 mt-8 relative overflow-hidden bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/30 shadow-md">
+            <span className="font-serif text-5xl text-[var(--accent-gold)] leading-none select-none block mb-2 opacity-90">
               &ldquo;
             </span>
-            <p className="italic font-serif text-lg sm:text-xl text-[#F5EFE8] font-semibold -mt-3">
-              And honestly, I think that&apos;s more interesting.
+            <p className="italic font-serif text-lg sm:text-xl text-[var(--text-primary)] font-semibold -mt-3">
+              {about.quote}
             </p>
           </div>
         </div>

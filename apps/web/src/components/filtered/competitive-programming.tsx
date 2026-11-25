@@ -5,39 +5,13 @@ import { Trophy, Award, BookCheck, Flame, Users } from "lucide-react";
 import { KokonutCard } from "@/components/kokonutui/card";
 import ConstellationField from "@/components/kokonutui/constellation-field";
 
+import { useView } from "@/context/view-context";
+
+const COMP_ICONS = [Flame, Trophy, Award, Users];
+
 export function CompetitiveProgrammingSection() {
-  const competitions = [
-    {
-      title: "PromptWars Virtual",
-      organization: "Google for Developers x H2S",
-      status: "4 Challenges Completed",
-      participants: "46,286 participants",
-      ranks: ["#114", "#604", "#832", "#1265"],
-      note: "Invited to PromptWars Exclusive Edition (invite-only, Top 400)",
-      icon: Flame,
-    },
-    {
-      title: "CodeWars v3.0",
-      organization: "Competitive Coding Championship",
-      status: "Grand Finalist",
-      ranks: ["Grand Finalist"],
-      icon: Trophy,
-    },
-    {
-      title: "Zayathon",
-      organization: "National Hackathon",
-      status: "Consolidation Prize",
-      ranks: ["Consolidation Prize"],
-      icon: Award,
-    },
-    {
-      title: "Google Build with AI Bootcamp",
-      organization: "Google Developer Groups • Coimbatore",
-      status: "Attended",
-      ranks: ["Participant"],
-      icon: Users,
-    },
-  ];
+  const { sections } = useView();
+  const { items: competitions, publication } = sections.competitions;
 
   return (
     <section id="competitions" className="py-24 px-4 sm:px-6 lg:px-8 section-elevated relative overflow-hidden">
@@ -64,8 +38,8 @@ export function CompetitiveProgrammingSection() {
 
         {/* Competitions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {competitions.map((item) => {
-            const Icon = item.icon;
+          {competitions.map((item, idx) => {
+            const Icon = COMP_ICONS[idx % COMP_ICONS.length];
             return (
               <KokonutCard key={item.title} glow className="p-6 flex flex-col justify-between">
                 <div>
@@ -122,27 +96,27 @@ export function CompetitiveProgrammingSection() {
               </div>
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-semibold">
-                  Accepted &amp; Published Research
+                  {publication.label}
                 </span>
                 <h3 className="font-serif text-xl sm:text-2xl font-medium text-[var(--text-primary)] mt-0.5">
-                  Research Abstract: Digital Twins in Healthcare
+                  {publication.title}
                 </h3>
               </div>
             </div>
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-[var(--bg-base)] border border-[var(--accent-gold)]/40 text-[var(--accent-gold)] self-start sm:self-auto">
-              2026
+              {publication.year}
             </span>
           </div>
 
           <div className="pt-4 space-y-2 text-xs sm:text-sm text-[var(--text-primary)]/85 leading-relaxed font-sans">
             <p>
-              <strong className="text-[var(--text-primary)]">Conference:</strong> ICSHI 2026 (AICTE-sponsored).
+              <strong className="text-[var(--text-primary)]">Conference:</strong> {publication.conference}
             </p>
             <p>
-              <strong className="text-[var(--text-primary)]">Authorship:</strong> Sole author of research abstract accepted and published at the conference.
+              <strong className="text-[var(--text-primary)]">Authorship:</strong> {publication.authorship}
             </p>
             <p>
-              <strong className="text-[var(--text-primary)]">Topic:</strong> Digital Twins in Healthcare.
+              <strong className="text-[var(--text-primary)]">Topic:</strong> {publication.topic}
             </p>
           </div>
         </div>

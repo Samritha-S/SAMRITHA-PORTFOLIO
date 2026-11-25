@@ -57,12 +57,22 @@ const defaultFilteredMilestones: TechMilestone[] = [
   },
 ];
 
+import { useView } from "@/context/view-context";
+
 export function FilteredJourneyTimeline({
   milestones: propMilestones = defaultFilteredMilestones,
 }: {
   milestones?: TechMilestone[];
 }) {
+  const { liveContent } = useView();
   const [milestones, setMilestones] = useState<TechMilestone[]>(propMilestones);
+
+  useEffect(() => {
+    if (liveContent.milestones.length > 0) {
+      const filtered = liveContent.milestones.filter((m) => m.view === "filtered");
+      if (filtered.length > 0) setMilestones(filtered);
+    }
+  }, [liveContent.milestones]);
 
   useEffect(() => {
     supabase
@@ -76,18 +86,6 @@ export function FilteredJourneyTimeline({
         },
         () => {}
       );
-
-    fetch("/api/content")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && Array.isArray(data.milestones) && data.milestones.length > 0) {
-          const filtered = (data.milestones as Array<TechMilestone & { view?: string }>).filter(
-            (m) => m.view === "filtered"
-          );
-          if (filtered.length > 0) setMilestones(filtered);
-        }
-      })
-      .catch(() => {});
   }, []);
 
   return (

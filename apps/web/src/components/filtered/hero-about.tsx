@@ -8,7 +8,7 @@ import ConstellationField from "@/components/kokonutui/constellation-field";
 import { useView } from "@/context/view-context";
 
 export function FilteredHeroAbout() {
-  const { settings } = useView();
+  const { settings, sections } = useView();
 
   const title = settings?.filtered_hero_title || "Samritha S";
   const subtitle =
@@ -17,6 +17,7 @@ export function FilteredHeroAbout() {
   const bio =
     settings?.filtered_hero_bio ||
     "Builds GenAI, web and data projects, mostly at hackathons, using Antigravity, Next.js/React, FastAPI and Gemini. Interested in entrepreneurship around MSME-scale problems.";
+  const about = sections.about.filtered;
 
   return (
     <>
@@ -30,7 +31,7 @@ export function FilteredHeroAbout() {
           {/* Engineering Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)]/80 border border-[var(--accent-gold)]/40 text-xs text-[var(--accent-gold)] mb-8 font-mono shadow-sm backdrop-blur-sm">
             <Terminal className="w-3.5 h-3.5" />
-            <span>Computer Science Engineering • Sona College of Technology (2029)</span>
+            <span>{about.pill}</span>
           </div>
 
           {/* Dynamic Copy */}
@@ -50,7 +51,7 @@ export function FilteredHeroAbout() {
 
           {/* Community Roles Badge */}
           <div className="inline-block font-mono text-xs text-[var(--accent-gold)] tracking-wider uppercase border-y border-[var(--accent-gold)]/30 py-2 px-6 mb-10">
-            GSSoC Campus Ambassador • Google Student Ambassador
+            {about.badge}
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -92,17 +93,11 @@ export function FilteredHeroAbout() {
           </div>
 
           <div className="space-y-6">
-            <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed">
-              Samritha S is a Computer Science Engineering student at Sona College of Technology in Salem, Tamil Nadu, with an expected graduation in 2029.
-            </p>
-
-            <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed">
-              She builds GenAI, web, and data projects—primarily developed during hackathons—working with Antigravity, Next.js/React, FastAPI, and Gemini.
-            </p>
-
-            <p className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed">
-              Her primary entrepreneurial interest centers on solving MSME-scale problems through technology and automation.
-            </p>
+            {about.paragraphs.map((p, idx) => (
+              <p key={idx} className="text-sm sm:text-base text-[var(--text-primary)]/90 leading-relaxed">
+                {p}
+              </p>
+            ))}
 
             <div className="rounded-xl p-6 sm:p-8 font-mono text-xs sm:text-sm text-[var(--accent-gold)] bg-[var(--surface-amethyst)] border border-[var(--border-subtle)] relative overflow-hidden shadow-md">
               <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono block mb-2 font-semibold">
