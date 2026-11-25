@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useView } from "@/context/view-context";
 import { Mail, Send, CheckCircle2 } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from "@/components/shared/icons";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/icons";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import ConstellationField from "@/components/kokonutui/constellation-field";
 
@@ -83,26 +83,33 @@ export function ContactSection() {
             </p>
 
             <div className="space-y-3">
-              {/* Unfiltered Socials: Instagram + X */}
+              {/* Direct Channels: Email, LinkedIn, GitHub (Instagram & X temporarily removed) */}
               {!isFiltered ? (
                 <>
                   <a
-                    href={contact.instagram}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={`mailto:${contact.email}`}
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)]/10 border border-[var(--accent-gold)]/25 hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-on-dark)] group"
                   >
-                    <InstagramIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">Instagram • @samritha.s</span>
+                    <Mail className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">Email • {contact.email}</span>
                   </a>
                   <a
-                    href={contact.twitter}
+                    href={contact.linkedin}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)]/10 border border-[var(--accent-gold)]/25 hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-on-dark)] group"
                   >
-                    <TwitterIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
-                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">X (Twitter) • @samritha_s</span>
+                    <LinkedinIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">LinkedIn • in/samritha-s</span>
+                  </a>
+                  <a
+                    href={contact.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-base)]/10 border border-[var(--accent-gold)]/25 hover:border-[var(--accent-gold)] transition-colors text-xs text-[var(--text-on-dark)] group"
+                  >
+                    <GithubIcon className="w-4 h-4 text-[var(--accent-gold)] group-hover:scale-110 transition-all" />
+                    <span className="text-[var(--text-on-dark)] group-hover:text-[var(--accent-gold)] transition-colors">GitHub • Samritha-S</span>
                   </a>
                 </>
               ) : (
