@@ -166,7 +166,7 @@ export function BlogSection() {
               isFiltered
                 ? index % 2 === 0
                   ? "bg-[var(--surface-dusk)]"
-                  : "bg-[var(--surface-plum)]"
+                  : "bg-[#1F2F32]"
                 : isSandUnfiltered
                   ? "bg-[var(--surface-lavender)] text-[var(--text-primary)]"
                   : index % 3 === 0

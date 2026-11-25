@@ -144,7 +144,7 @@ export function FilteredJourneyTimeline({
                   className={`p-6 sm:p-7 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-gold)]/60 transition-all duration-300 shadow-sm ${
                     index % 2 === 0
                       ? "bg-[var(--surface-dusk)]"
-                      : "bg-[var(--surface-amethyst)]"
+                      : "bg-[#1F2F32]"
                   }`}
                 >
                   <div className="sm:hidden text-xs font-mono font-bold text-[var(--accent-primary)] mb-1.5">

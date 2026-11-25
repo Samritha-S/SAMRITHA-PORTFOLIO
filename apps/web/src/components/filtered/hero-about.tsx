@@ -96,7 +96,7 @@ export function FilteredHeroAbout() {
               </p>
             ))}
 
-            <div className="rounded-xl p-6 sm:p-8 font-mono text-xs sm:text-sm text-[var(--accent-gold)] bg-[var(--surface-amethyst)] border border-[var(--border-subtle)] relative overflow-hidden shadow-md">
+            <div className="rounded-xl p-6 sm:p-8 font-mono text-xs sm:text-sm bg-[#1F2F32] border border-[var(--accent-gold)]/40 relative overflow-hidden shadow-md">
               <span className="text-xs uppercase tracking-widest text-[var(--accent-gold)] font-mono block mb-2 font-semibold">
                 Community Leadership
               </span>
