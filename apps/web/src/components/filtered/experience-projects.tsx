@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Briefcase, Building2, ExternalLink, Trophy, ShieldAlert, Compass } from "lucide-react";
+import { Briefcase, Building2, ExternalLink, Trophy, Compass } from "lucide-react";
 import { GithubIcon } from "@/components/shared/icons";
 import { KokonutCard } from "@/components/kokonutui/card";
 
@@ -79,7 +79,6 @@ const projects: ProjectItem[] = [
     description:
       "Smart Library Book Availability Portal (design stage). Students search books by title/author/subject and see availability; librarians update records. Four access levels (student, librarian, head librarian, super admin); students pre-imported from the college database and log in with registration id. QR-based issue with student photo and details on the librarian screen; edition grouping with total availability; per-copy status; shelf location and reference-only flag; bulk CSV import with ISBN auto-fill. Fines count working days (Mon to Sat) with holidays set by the head librarian; warning notice and appeal before any letter to the HOD. Note: Design and research only; not built or deployed.",
     tags: ["Design & Research Only", "RBAC", "QR Issue", "System Design"],
-    badge: "Design & Research Only",
   },
 ];
 
@@ -259,12 +258,6 @@ export function ExperienceProjects() {
                       <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--accent-gold)] px-2 py-0.5 rounded-full bg-[var(--bg-base)] border border-[var(--accent-gold)]/30">
                         <Trophy className="w-3 h-3" />
                         {project.award}
-                      </span>
-                    )}
-                    {project.badge && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-400 px-2 py-0.5 rounded-full bg-[var(--bg-base)] border border-amber-500/30">
-                        <ShieldAlert className="w-3 h-3" />
-                        {project.badge}
                       </span>
                     )}
                   </div>
