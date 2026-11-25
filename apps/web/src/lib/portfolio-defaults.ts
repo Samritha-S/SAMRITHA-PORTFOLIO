@@ -105,7 +105,7 @@ export const DEFAULT_THEME: ThemeConfig = {
     bgBase: "#F3F1E8",
     bgElevated: "#E1E7DC",
     accentPrimary: "#263B32",
-    accentSecondary: "#C2A783",
+    accentSecondary: "#E5D9C5",
     textPrimary: "#29372F",
     accentGold: "#B49A68",
   },

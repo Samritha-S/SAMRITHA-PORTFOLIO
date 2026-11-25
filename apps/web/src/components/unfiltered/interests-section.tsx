@@ -278,11 +278,11 @@ function WalkingModule() {
       className="rounded-xl p-6 bg-[var(--surface-lavender)] text-[var(--text-primary)] border border-[var(--accent-primary)]/25 hover:border-[var(--accent-gold)]/70 transition-all duration-300 relative overflow-hidden cursor-pointer group shadow-sm"
     >
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 text-[var(--accent-secondary)]">
+        <div className="flex items-center gap-2 text-[var(--surface-forest)]">
           <Footprints className="w-5 h-5" />
           <span className="text-xs uppercase tracking-wider font-semibold">Wandering</span>
         </div>
-        <span className="text-xs text-[var(--accent-gold)] font-mono px-2 py-0.5 rounded bg-[var(--bg-elevated)]">
+        <span className="text-xs text-[var(--surface-forest)] font-mono px-2 py-0.5 rounded bg-[var(--bg-base)]/80">
           {steps.toLocaleString()} steps
         </span>
       </div>
