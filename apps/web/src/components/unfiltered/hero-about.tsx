@@ -19,7 +19,7 @@ export function UnfilteredHero() {
       className="min-h-screen pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-28 lg:pb-12 px-6 sm:px-10 lg:pl-24 lg:pr-8 section-base flex items-center justify-center relative overflow-x-hidden"
     >
       <div className="max-w-[1200px] mx-auto w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] items-center gap-10 sm:gap-12 lg:gap-8 xl:gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,464px)_minmax(0,1fr)] items-center gap-10 sm:gap-12 lg:gap-8 xl:gap-10">
           {/* Left: Existing Hero Introduction */}
           <div className="max-w-[464px] mx-auto lg:mx-0 text-center lg:text-left">
             {/* Gentle Pill */}
@@ -74,7 +74,7 @@ export function UnfilteredHero() {
               width={1024}
               height={768}
               priority
-              className="w-full max-w-md sm:max-w-lg lg:max-w-[600px] h-auto object-contain select-none"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-[642px] h-auto object-contain select-none"
             />
           </div>
         </div>
