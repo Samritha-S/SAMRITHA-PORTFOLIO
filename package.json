@@ -8,5 +8,8 @@
     "build": "pnpm --filter web build && pnpm --filter studio build",
     "build:web": "pnpm --filter web build",
     "build:studio": "pnpm --filter studio build"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }

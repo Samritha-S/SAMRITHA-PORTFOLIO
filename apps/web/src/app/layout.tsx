@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
@@ -35,6 +36,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <ViewProvider>{children}</ViewProvider>
         </SmoothScrollProvider>
+        <Analytics />
       </body>
     </html>
   );
