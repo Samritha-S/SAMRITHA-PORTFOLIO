@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Sparkles, Heart, ArrowDown } from "lucide-react";
 import { ParticleButton } from "@/components/kokonutui/particle-button";
 import { useView } from "@/context/view-context";
@@ -15,50 +16,67 @@ export function UnfilteredHero() {
 
   return (
     <section
-      className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base flex items-center justify-center relative"
+      className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base flex items-center relative overflow-x-hidden"
     >
-      <div className="max-w-3xl mx-auto text-center relative z-10">
-        {/* Gentle Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[var(--text-primary)] mb-8 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-          <span>{pill}</span>
-        </div>
+      <div className="max-w-7xl mx-auto w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-10">
+          {/* Left: Existing Hero Introduction */}
+          <div className="lg:col-span-5 text-center lg:text-left">
+            {/* Gentle Pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[var(--text-primary)] mb-8 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              <span>{pill}</span>
+            </div>
 
-        {/* Dynamic Title */}
-        <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.15] mb-6">
-          {title}
-        </h1>
+            {/* Dynamic Title */}
+            <h1 className="font-serif text-4xl sm:text-5xl xl:text-6xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.15] mb-6">
+              {title}
+            </h1>
 
-        {/* Subtle hairline under headline */}
-        <div className="gold-hairline w-32 mx-auto mb-6" />
+            {/* Subtle hairline under headline */}
+            <div className="gold-hairline w-32 mx-auto lg:mx-0 mb-6" />
 
-        <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-primary)] font-medium mb-6">
-          {subtitle}
-        </p>
+            <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-primary)] font-medium mb-6">
+              {subtitle}
+            </p>
 
-        <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-2xl mx-auto mb-6">
-          Welcome to the part of the internet where I&apos;m not talking about projects, certifications, or deadlines.
-        </p>
+            <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-6">
+              Welcome to the part of the internet where I&apos;m not talking about projects, certifications, or deadlines.
+            </p>
 
-        <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-2xl mx-auto mb-10">
-          {bio}
-        </p>
+            <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-10">
+              {bio}
+            </p>
 
-        {/* Hero CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="#about">
-            <ParticleButton className="bg-[var(--accent-primary)] text-[var(--text-on-dark)] font-semibold border-none hover:brightness-105 shadow-md">
-              Come stay a while
-              <Heart className="w-3.5 h-3.5 fill-current text-[var(--accent-gold)]" />
-            </ParticleButton>
-          </a>
-          <a
-            href="#interests"
-            className="px-6 py-2.5 rounded-full border border-[var(--accent-primary)]/40 bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-primary)] transition-all duration-300 flex items-center gap-2 shadow-sm text-xs sm:text-sm font-medium"
-          >
-            Explore Little Things
-            <ArrowDown className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-          </a>
+            {/* Hero CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <a href="#about">
+                <ParticleButton className="bg-[var(--accent-primary)] text-[var(--text-on-dark)] font-semibold border-none hover:brightness-105 shadow-md">
+                  Come stay a while
+                  <Heart className="w-3.5 h-3.5 fill-current text-[var(--accent-gold)]" />
+                </ParticleButton>
+              </a>
+              <a
+                href="#interests"
+                className="px-6 py-2.5 rounded-full border border-[var(--accent-primary)]/40 bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-primary)] transition-all duration-300 flex items-center gap-2 shadow-sm text-xs sm:text-sm font-medium"
+              >
+                Explore Little Things
+                <ArrowDown className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Complete Canva Scrapbook Collage */}
+          <div className="lg:col-span-7 flex justify-center lg:justify-end">
+            <Image
+              src="/collage/canva-collage.png"
+              alt="Samritha's scrapbook collage"
+              width={1024}
+              height={768}
+              priority
+              className="w-full max-w-lg sm:max-w-xl lg:max-w-none h-auto object-contain select-none"
+            />
+          </div>
         </div>
       </div>
     </section>
