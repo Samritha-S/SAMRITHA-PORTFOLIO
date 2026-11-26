@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import { DEFAULT_SECTIONS, PortfolioSections, PaletteTheme } from "@/lib/portfolio-defaults";
 
@@ -70,6 +70,15 @@ const ViewContext = createContext<ViewContextType | undefined>(undefined);
 
 const STORAGE_KEY = "samritha_site_view";
 
+function getClientPreferredView(): SiteView | null {
+  if (typeof window === "undefined") return null;
+  const urlView = new URLSearchParams(window.location.search).get("view");
+  if (urlView === "filtered" || urlView === "unfiltered") return urlView;
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved === "filtered" || saved === "unfiltered") return saved;
+  return null;
+}
+
 function applyPaletteToRoot(palette: PaletteTheme, mode: SiteView) {
   const root = document.documentElement;
   root.style.setProperty("--bg-base", palette.bgBase);
@@ -96,6 +105,7 @@ function applyPaletteToRoot(palette: PaletteTheme, mode: SiteView) {
 export function ViewProvider({ children }: { children: React.ReactNode }) {
   const [view, setViewState] = useState<SiteView>("unfiltered");
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const userToggledRef = useRef(false);
   const [settings, setSettings] = useState<SiteSettingsData | null>(null);
   const [sections, setSections] = useState<PortfolioSections>(DEFAULT_SECTIONS);
   const [liveContent, setLiveContent] = useState<LiveContentBundle>({
@@ -157,26 +167,11 @@ export function ViewProvider({ children }: { children: React.ReactNode }) {
         resume_url: settingsData.resume_url ?? "/Samritha_S_Resume.pdf",
       });
 
-      if (isInitial) {
-        const urlView = new URLSearchParams(window.location.search).get("view");
-        const paramView = urlView === "filtered" || urlView === "unfiltered" ? urlView : null;
-        const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
-        const targetView: SiteView = !allowToggle
-          ? defaultView
-          : paramView || saved || defaultView;
-
-        setViewState(targetView);
-        document.documentElement.setAttribute("data-view", targetView);
-      } else if (!allowToggle) {
+      if (!allowToggle) {
         setViewState(defaultView);
         document.documentElement.setAttribute("data-view", defaultView);
-      }
-    } else if (isInitial) {
-      const urlView = new URLSearchParams(window.location.search).get("view");
-      const paramView = urlView === "filtered" || urlView === "unfiltered" ? urlView : null;
-      const saved = localStorage.getItem(STORAGE_KEY) as SiteView | null;
-      const targetView = paramView || (saved === "filtered" || saved === "unfiltered" ? saved : null);
-      if (targetView) {
+      } else if (isInitial && !userToggledRef.current) {
+        const targetView: SiteView = getClientPreferredView() ?? defaultView;
         setViewState(targetView);
         document.documentElement.setAttribute("data-view", targetView);
       }
@@ -184,6 +179,12 @@ export function ViewProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const preferred = getClientPreferredView();
+    if (preferred) {
+      setViewState(preferred);
+      document.documentElement.setAttribute("data-view", preferred);
+    }
+
     loadContent(true);
 
     const handleFocus = () => {
@@ -224,6 +225,7 @@ export function ViewProvider({ children }: { children: React.ReactNode }) {
 
   const setView = (newView: SiteView) => {
     if (settings && !settings.allow_toggle) return;
+    userToggledRef.current = true;
     setIsTransitioning(true);
     setViewState(newView);
     localStorage.setItem(STORAGE_KEY, newView);
