@@ -16,35 +16,35 @@ export function UnfilteredHero() {
 
   return (
     <section
-      className="min-h-[92vh] pt-28 pb-20 px-4 sm:px-6 lg:px-8 section-base flex items-center relative overflow-x-hidden"
+      className="min-h-screen pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-28 lg:pb-12 px-6 sm:px-10 lg:pl-24 lg:pr-8 section-base flex items-center justify-center relative overflow-x-hidden"
     >
-      <div className="max-w-7xl mx-auto w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-10">
+      <div className="max-w-[1200px] mx-auto w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] items-center gap-10 sm:gap-12 lg:gap-8 xl:gap-10">
           {/* Left: Existing Hero Introduction */}
-          <div className="lg:col-span-5 text-center lg:text-left">
+          <div className="max-w-[464px] mx-auto lg:mx-0 text-center lg:text-left">
             {/* Gentle Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[var(--text-primary)] mb-8 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--accent-primary)]/40 text-xs text-[var(--text-primary)] mb-6 shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
               <span>{pill}</span>
             </div>
 
             {/* Dynamic Title */}
-            <h1 className="font-serif text-4xl sm:text-5xl xl:text-6xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.15] mb-6">
+            <h1 className="font-serif text-4xl sm:text-5xl xl:text-6xl font-normal text-[var(--text-primary)] tracking-tight leading-[1.12] mb-5">
               {title}
             </h1>
 
             {/* Subtle hairline under headline */}
-            <div className="gold-hairline w-32 mx-auto lg:mx-0 mb-6" />
+            <div className="gold-hairline w-32 mx-auto lg:mx-0 mb-5" />
 
-            <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-primary)] font-medium mb-6">
+            <p className="font-serif italic text-lg sm:text-2xl text-[var(--accent-primary)] font-medium mb-5">
               {subtitle}
             </p>
 
-            <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-6">
+            <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed mb-4">
               Welcome to the part of the internet where I&apos;m not talking about projects, certifications, or deadlines.
             </p>
 
-            <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed max-w-xl mx-auto lg:mx-0 mb-10">
+            <p className="text-sm sm:text-base text-[var(--text-primary)]/85 leading-relaxed mb-8">
               {bio}
             </p>
 
@@ -67,14 +67,14 @@ export function UnfilteredHero() {
           </div>
 
           {/* Right: Complete Canva Scrapbook Collage */}
-          <div className="lg:col-span-7 flex justify-center lg:justify-end">
+          <div className="flex items-center justify-center">
             <Image
               src="/collage/canva-collage.png"
               alt="Samritha's scrapbook collage"
               width={1024}
               height={768}
               priority
-              className="w-full max-w-lg sm:max-w-xl lg:max-w-none h-auto object-contain select-none"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-[600px] h-auto object-contain select-none"
             />
           </div>
         </div>
