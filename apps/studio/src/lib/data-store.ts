@@ -8,7 +8,7 @@ function getDataFilePath() {
     path.resolve(process.cwd(), "../data/portfolio-content.json"),
   ];
   for (const c of candidates) {
-    if (fs.existsSync(c)) return c;
+    if (fs.existsSync(/*turbopackIgnore: true*/ c)) return c;
   }
   return candidates[1];
 }
@@ -16,8 +16,8 @@ function getDataFilePath() {
 export function readContentStore() {
   try {
     const filePath = getDataFilePath();
-    if (fs.existsSync(filePath)) {
-      const raw = fs.readFileSync(filePath, "utf-8");
+    if (fs.existsSync(/*turbopackIgnore: true*/ filePath)) {
+      const raw = fs.readFileSync(/*turbopackIgnore: true*/ filePath, "utf-8");
       return JSON.parse(raw);
     }
   } catch (err) {
