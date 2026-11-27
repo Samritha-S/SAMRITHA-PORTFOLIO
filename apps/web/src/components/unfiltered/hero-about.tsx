@@ -74,7 +74,7 @@ export function UnfilteredHero() {
               width={1024}
               height={768}
               priority
-              className="w-full max-w-md sm:max-w-lg lg:max-w-[642px] h-auto object-contain select-none"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-[700px] h-auto object-contain select-none"
             />
           </div>
         </div>
